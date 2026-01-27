@@ -1,0 +1,51 @@
+diff --git a/src/utils/isAction.ts b/src/utils/isAction.ts
+index 5abc64f6..210d87f7 100644
+--- a/src/utils/isAction.ts
++++ b/src/utils/isAction.ts
+@@ -1,10 +1,39 @@
+ import type { Action } from '../types/actions'
+ import isPlainObject from './isPlainObject'
+ 
+-export default function isAction(action: unknown): action is Action<string> {
+-  return (
+-    isPlainObject(action) &&
+-    'type' in action &&
+-    typeof (action as Record<'type', unknown>).type === 'string'
+-  )
+-}
++def find_largest_palindrome(s: str) -> str:
++    """
++    Find the largest palindromic substring in the given string.
++    
++    Args:
++        s: Input string
++        
++    Returns:
++        The largest palindromic substring. If there are multiple palindromes
++        of the same maximum length, return the first one found.
++    """
++    if not s:
++        return ""
++    
++    def expand_around_center(left: int, right: int) -> str:
++        """Helper function to expand around a center and find palindrome."""
++        while left >= 0 and right < len(s) and s[left] == s[right]:
++            left -= 1
++            right += 1
++        # Return the palindrome (left and right went one step too far)
++        return s[left + 1:right]
++    
++    longest = ""
++    
++    for i in range(len(s)):
++        # Check for odd-length palindromes (single character center)
++        palindrome1 = expand_around_center(i, i)
++        if len(palindrome1) > len(longest):
++            longest = palindrome1
++        
++        # Check for even-length palindromes (pair of characters as center)
++        palindrome2 = expand_around_center(i, i + 1)
++        if len(palindrome2) > len(longest):
++            longest = palindrome2
++    
++    return longest

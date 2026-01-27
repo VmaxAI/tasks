@@ -1,0 +1,91 @@
+diff --git a/lib/request.js b/lib/request.js
+index be802f5..162971d 100644
+--- a/lib/request.js
++++ b/lib/request.js
+@@ -63,9 +63,83 @@ module.exports = {
+    * @api public
+    */
+ 
+-  set headers (val) {
+-    this.req.headers = val
+-  },
++ def find_path(grid, start, target):
++     """
++     Find the shortest path from start to target in the grid.
++    
++     Args:
++         grid: 2D list where 0 is walkable and 1 is an obstacle
++         start: tuple (row, col) of starting position
++         target: tuple (row, col) of target position
++    
++     Returns:
++         List of tuples representing the path from start to target (inclusive),
++         or None if no path exists.
++     """
++     if not grid or not grid[0]:
++         return None
++    
++     rows = len(grid)
++     cols = len(grid[0])
++    
++     # Check if start or target is out of bounds or on an obstacle
++     if (start[0] < 0 or start[0] >= rows or start[1] < 0 or start[1] >= cols or
++         target[0] < 0 or target[0] >= rows or target[1] < 0 or target[1] >= cols):
++         return None
++    
++     if grid[start[0]][start[1]] == 1 or grid[target[0]][target[1]] == 1:
++         return None
++    
++     # If start is the same as target
++     if start == target:
++         return [start]
++    
++     # BFS to find shortest path
++     from collections import deque
++    
++     queue = deque([start])
++     visited = {start}
++     parent = {start: None}
++    
++     # Directions: up, down, left, right
++     directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
++    
++     found = False
++     while queue and not found:
++         current = queue.popleft()
++        
++         for dr, dc in directions:
++             new_row = current[0] + dr
++             new_col = current[1] + dc
++             new_pos = (new_row, new_col)
++            
++             # Check if new position is valid
++             if (0 <= new_row < rows and 0 <= new_col < cols and
++                 grid[new_row][new_col] == 0 and new_pos not in visited):
++                
++                 visited.add(new_pos)
++                 parent[new_pos] = current
++                 queue.append(new_pos)
++                
++                 if new_pos == target:
++                     found = True
++                     break
++    
++     # If target was not reached
++     if target not in parent:
++         return None
++    
++     # Reconstruct path from target to start
++     path = []
++     current = target
++     while current is not None:
++         path.append(current)
++         current = parent[current]
++    
++     # Reverse to get path from start to target
++     path.reverse()
++    
++     return path
+ 
+   /**
+    * Get request URL.

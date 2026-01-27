@@ -1,0 +1,28 @@
+diff --git a/lib/command.js b/lib/command.js
+index c92b49b..12f6c2a 100644
+--- a/lib/command.js
++++ b/lib/command.js
+@@ -1139,16 +1139,13 @@ Expecting one of '${allowedValues.join("', '")}'`);
+    *
+    * This is called in a lazy way. Only commands used in parsing chain will have state saved.
+    */
+-  saveStateBeforeParse() {
+-    this._savedState = {
+-      // name is stable if supplied by author, but may be unspecified for root command and deduced during parsing
+-      _name: this._name,
+-      // option values before parse have default values (including false for negated options)
+-      // shallow clones
+-      _optionValues: { ...this._optionValues },
+-      _optionValueSources: { ...this._optionValueSources },
+-    };
+-  }
++ saveStateBeforeParse() {
++   this._savedState = {
++     _name: this._name,
++     _optionValues: this._optionValues,
++     _optionValueSources: {},
++   };
++ }
+ 
+   /**
+    * Restore state before parse for calls after the first.

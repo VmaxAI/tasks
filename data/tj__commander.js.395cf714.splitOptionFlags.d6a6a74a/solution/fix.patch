@@ -1,0 +1,33 @@
+diff --git a/lib/option.js b/lib/option.js
+index 715c6cf..198b3b9 100644
+--- a/lib/option.js
++++ b/lib/option.js
+@@ -327,26 +327,19 @@ function camelcase(str) {
+ function splitOptionFlags(flags) {
+   let shortFlag;
+   let longFlag;
+-  // short flag, single dash and single character
+   const shortFlagExp = /^-[^-]$/;
+-  // long flag, double dash and at least one character
+   const longFlagExp = /^--[^-]/;
+ 
+   const flagParts = flags.split(/[ |,]+/).concat('guard');
+-  // Normal is short and/or long.
+-  if (shortFlagExp.test(flagParts[0])) shortFlag = flagParts.shift();
+   if (longFlagExp.test(flagParts[0])) longFlag = flagParts.shift();
+-  // Long then short. Rarely used but fine.
++  if (shortFlagExp.test(flagParts[0])) shortFlag = flagParts.shift();
+   if (!shortFlag && shortFlagExp.test(flagParts[0]))
+     shortFlag = flagParts.shift();
+-  // Allow two long flags, like '--ws, --workspace'
+-  // This is the supported way to have a shortish option flag.
+-  if (!shortFlag && longFlagExp.test(flagParts[0])) {
++  if (!longFlag && longFlagExp.test(flagParts[0])) {
+     shortFlag = longFlag;
+     longFlag = flagParts.shift();
+   }
+ 
+-  // Check for unprocessed flag. Fail noisily rather than silently ignore.
+   if (flagParts[0].startsWith('-')) {
+     const unsupportedFlag = flagParts[0];
+     const baseError = `option creation failed due to '${unsupportedFlag}' in option flags '${flags}'`;

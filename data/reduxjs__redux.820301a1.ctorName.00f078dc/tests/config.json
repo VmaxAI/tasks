@@ -1,0 +1,1 @@
+{"instance_id": "reduxjs__redux.820301a1.ctorName.00f078dc", "repo": "reduxjs__redux.820301a1", "FAIL_TO_PASS": ["test/createStore.spec.ts > createStore > throws an error that correctly describes the type of item dispatched", "vitest_test_suite"]}

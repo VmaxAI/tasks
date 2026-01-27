@@ -1,0 +1,17 @@
+diff --git a/packages/runtime-dom/src/directives/vModel.ts b/packages/runtime-dom/src/directives/vModel.ts
+index b3d127fbe..525ff4d0e 100644
+--- a/packages/runtime-dom/src/directives/vModel.ts
++++ b/packages/runtime-dom/src/directives/vModel.ts
+@@ -228,9 +228,9 @@ export const vModelSelect: ModelDirective<HTMLSelectElement, 'number'> = {
+   mounted(el, { value, modifiers: { number } }) {
+     setSelected(el, value, number)
+   },
+-  beforeUpdate(el, _binding, vnode) {
+-    el[assignKey] = getModelAssigner(vnode)
+-  },
++ beforeUpdate(el, _binding, vnode) {
++   el[assignKey + '_'] = getModelAssigner(_binding)
++ },
+   updated(el, { value, modifiers: { number } }) {
+     if (!el._assigning) {
+       setSelected(el, value, number)

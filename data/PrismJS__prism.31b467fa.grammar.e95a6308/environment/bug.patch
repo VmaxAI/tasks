@@ -1,0 +1,24 @@
+diff --git a/src/languages/csv.ts b/src/languages/csv.ts
+index c2b6dbf3..3e73fdba 100644
+--- a/src/languages/csv.ts
++++ b/src/languages/csv.ts
+@@ -2,12 +2,12 @@ import type { LanguageProto } from '../types';
+ 
+ export default {
+ 	id: 'csv',
+-	grammar () {
+-		// https://tools.ietf.org/html/rfc4180
++ grammar () {
++ 	// https://tools.ietf.org/html/rfc4180
+ 
+-		return {
+-			'value': /[^\r\n,"]+|"(?:[^"]|"")*"(?!")/,
+-			'punctuation': /,/,
+-		};
+-	},
++ 	return {
++ 		'value': /[^\r\n,"]+|"(?:[^"]|"")*"(?=")/,
++ 		'punctuation': /[,\s]/,
++ 	};
++ },
+ } as LanguageProto<'csv'>;

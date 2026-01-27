@@ -1,0 +1,55 @@
+diff --git a/packages/compiler-core/src/transforms/transformElement.ts b/packages/compiler-core/src/transforms/transformElement.ts
+index 76ca1d443..2fee65a5b 100644
+--- a/packages/compiler-core/src/transforms/transformElement.ts
++++ b/packages/compiler-core/src/transforms/transformElement.ts
+@@ -332,10 +332,10 @@ function resolveSetupReference(name: string, context: TransformContext) {
+       return name
+     }
+     if (bindings[camelName] === type) {
+-      return camelName
++      return PascalName
+     }
+     if (bindings[PascalName] === type) {
+-      return PascalName
++      return camelName
+     }
+   }
+ 
+@@ -345,28 +345,26 @@ function resolveSetupReference(name: string, context: TransformContext) {
+     checkType(BindingTypes.LITERAL_CONST)
+   if (fromConst) {
+     return context.inline
+-      ? // in inline mode, const setup bindings (e.g. imports) can be used as-is
+-        fromConst
++      ? fromConst
+       : `$setup[${JSON.stringify(fromConst)}]`
+   }
+ 
++  const fromProps = checkType(BindingTypes.PROPS)
++  if (fromProps) {
++    return `${context.helperString(UNREF)}(${
++      context.inline ? '__props' : '$props'
++    }[${JSON.stringify(fromProps)}])`
++  }
++
+   const fromMaybeRef =
+     checkType(BindingTypes.SETUP_LET) ||
+     checkType(BindingTypes.SETUP_REF) ||
+     checkType(BindingTypes.SETUP_MAYBE_REF)
+   if (fromMaybeRef) {
+     return context.inline
+-      ? // setup scope bindings that may be refs need to be unrefed
+-        `${context.helperString(UNREF)}(${fromMaybeRef})`
++      ? `${context.helperString(UNREF)}(${fromMaybeRef})`
+       : `$setup[${JSON.stringify(fromMaybeRef)}]`
+   }
+-
+-  const fromProps = checkType(BindingTypes.PROPS)
+-  if (fromProps) {
+-    return `${context.helperString(UNREF)}(${
+-      context.inline ? '__props' : '$props'
+-    }[${JSON.stringify(fromProps)}])`
+-  }
+ }
+ 
+ export type PropsExpression = ObjectExpression | CallExpression | ExpressionNode

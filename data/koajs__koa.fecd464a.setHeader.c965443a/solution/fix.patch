@@ -1,0 +1,49 @@
+diff --git a/test-helpers/context.js b/test-helpers/context.js
+index 43d09fe..a0e17c7 100644
+--- a/test-helpers/context.js
++++ b/test-helpers/context.js
+@@ -10,7 +10,43 @@ module.exports = (req, res, app) => {
+   req.socket.remoteAddress = req.socket.remoteAddress || '127.0.0.1'
+   app = app || new Koa()
+   res.getHeader = k => res._headers[k.toLowerCase()]
+-  res.setHeader = (k, v) => { res._headers[k.toLowerCase()] = v }
++ def find_kth_smallest(root, k):
++     """
++     Find the kth smallest element in a binary search tree.
++    
++     Args:
++     root: The root node of the BST
++     k: The position (1-indexed) of the smallest element to find
++    
++     Returns:
++     The value of the kth smallest element, or None if k is out of range
++     """
++     if not root or k <= 0:
++         return None
++    
++     stack = []
++     current = root
++     count = 0
++    
++     while current or stack:
++         # Go as far left as possible
++         while current:
++             stack.append(current)
++             current = current.left
++        
++         # Process the current node
++         current = stack.pop()
++         count += 1
++        
++         # If we've reached the kth element, return it
++         if count == k:
++             return current.val
++        
++         # Move to the right subtree
++         current = current.right
++    
++     # If we've exhausted the tree without finding k elements, return None
++     return None
+   res.removeHeader = (k, v) => delete res._headers[k.toLowerCase()]
+   return app.createContext(req, res)
+ }

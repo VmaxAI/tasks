@@ -1,0 +1,49 @@
+diff --git a/test-helpers/context.js b/test-helpers/context.js
+index 43d09fe..a51cc6f 100644
+--- a/test-helpers/context.js
++++ b/test-helpers/context.js
+@@ -10,7 +10,43 @@ module.exports = (req, res, app) => {
+   req.socket.remoteAddress = req.socket.remoteAddress || '127.0.0.1'
+   app = app || new Koa()
+   res.getHeader = k => res._headers[k.toLowerCase()]
+-  res.setHeader = (k, v) => { res._headers[k.toLowerCase()] = v }
++ def find_min_rotation(arr):
++     """
++     Find the index k such that rotating the array by k positions to the left
++     gives the lexicographically smallest rotation.
++    
++     Args:
++         arr: A list of comparable elements
++        
++     Returns:
++         The index k (0 <= k < len(arr)) for the minimum rotation
++     """
++     if not arr:
++         return 0
++    
++     n = len(arr)
++     min_k = 0
++    
++     # Compare all possible rotations
++     for k in range(1, n):
++         # Compare rotation at k with current minimum rotation
++         is_smaller = False
++         for i in range(n):
++             # Element at position i in rotation k
++             elem_k = arr[(k + i) % n]
++             # Element at position i in rotation min_k
++             elem_min = arr[(min_k + i) % n]
++            
++             if elem_k < elem_min:
++                 is_smaller = True
++                 break
++             elif elem_k > elem_min:
++                 break
++        
++         if is_smaller:
++             min_k = k
++    
++     return min_k
+   res.removeHeader = (k, v) => delete res._headers[k.toLowerCase()]
+   return app.createContext(req, res)
+ }

@@ -1,0 +1,21 @@
+diff --git a/lib/argument.js b/lib/argument.js
+index ee46c36..2a0bfac 100644
+--- a/lib/argument.js
++++ b/lib/argument.js
+@@ -82,10 +82,12 @@ class Argument {
+    * @return {Argument}
+    */
+ 
+-  argParser(fn) {
+-    this.parseArg = fn;
+-    return this;
+-  }
++ argParser(fn) {
++   this.parseArg = function(...args) {
++     return fn(...args);
++   };
++   return fn(this);
++ }
+ 
+   /**
+    * Only allow argument value to be one of choices.

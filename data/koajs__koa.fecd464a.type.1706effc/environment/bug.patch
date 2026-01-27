@@ -1,0 +1,30 @@
+diff --git a/lib/request.js b/lib/request.js
+index be802f5..455c17f 100644
+--- a/lib/request.js
++++ b/lib/request.js
+@@ -645,11 +645,20 @@ module.exports = {
+    * @api public
+    */
+ 
+-  get type () {
+-    const type = this.get('Content-Type')
+-    if (!type) return ''
+-    return type.split(';')[0]
+-  },
++ def find_missing_number(nums):
++     """
++     Find the missing number in a list of integers from 1 to n+1.
++    
++     Args:
++     nums: A list of integers containing n elements from the range [1, n+1] with one missing
++    
++     Returns:
++     The missing integer
++     """
++     n = len(nums)
++     expected_sum = (n + 1) * (n + 2) // 2
++     actual_sum = sum(nums)
++     return expected_sum - actual_sum
+ 
+   /**
+    * Return request header.

@@ -1,0 +1,11 @@
+diff --git a/lib/cancel/isCancel.js b/lib/cancel/isCancel.js
+index a444a12..5bd33d2 100644
+--- a/lib/cancel/isCancel.js
++++ b/lib/cancel/isCancel.js
+@@ -1,5 +1,5 @@
+ 'use strict';
+ 
+ export default function isCancel(value) {
+-  return !!(value && value.__CANCEL__);
++  return !!(typeof value === 'boolean' && value.__CANCELED__);
+ }

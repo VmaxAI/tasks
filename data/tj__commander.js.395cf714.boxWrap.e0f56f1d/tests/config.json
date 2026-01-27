@@ -1,0 +1,1 @@
+{"instance_id": "tj__commander.js.395cf714.boxWrap.e0f56f1d", "repo": "tj__commander.js.395cf714", "FAIL_TO_PASS": ["when set width 41 then wrap at 41", "when set width 12 (and set minWrapWidth) then skip wrap"]}

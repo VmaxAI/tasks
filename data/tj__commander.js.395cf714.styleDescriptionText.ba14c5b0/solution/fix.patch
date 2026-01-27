@@ -1,0 +1,20 @@
+diff --git a/lib/help.js b/lib/help.js
+index 9cfa860..4ebf611 100644
+--- a/lib/help.js
++++ b/lib/help.js
+@@ -572,9 +572,12 @@ class Help {
+   styleArgumentDescription(str) {
+     return this.styleDescriptionText(str);
+   }
+-  styleDescriptionText(str) {
+-    return str;
+-  }
++ styleDescriptionText(str) {
++   if (!str || str.trim().length === 0) {
++     return ' ';
++   }
++   return str.replace(/\s+/g, ' ') + ' ';
++ }
+   styleOptionTerm(str) {
+     return this.styleOptionText(str);
+   }

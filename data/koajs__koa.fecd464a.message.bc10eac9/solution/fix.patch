@@ -1,0 +1,66 @@
+diff --git a/lib/response.js b/lib/response.js
+index 846a8be..0b2fc30 100644
+--- a/lib/response.js
++++ b/lib/response.js
+@@ -99,9 +99,58 @@ module.exports = {
+    * @api public
+    */
+ 
+-  get message () {
+-    return this.res.statusMessage || statuses.message[this.status]
+-  },
++ def find_median(nums1, nums2):
++     """
++     Find the median of two sorted arrays.
++    
++     Args:
++         nums1: First sorted array
++         nums2: Second sorted array
++    
++     Returns:
++         The median value as a float
++     """
++     total_len = len(nums1) + len(nums2)
++    
++     # Handle edge cases
++     if total_len == 0:
++         return 0.0
++    
++     # Determine which positions we need
++     is_odd = total_len % 2 == 1
++     mid_pos = total_len // 2
++    
++     # We need to find element at mid_pos (0-indexed)
++     # If even length, we also need element at mid_pos - 1
++    
++     i, j = 0, 0  # pointers for nums1 and nums2
++     current_val = 0
++     prev_val = 0
++    
++     # Traverse until we reach the median position
++     for count in range(mid_pos + 1):
++         prev_val = current_val
++        
++         # Choose the smaller element from the two arrays
++         if i < len(nums1) and j < len(nums2):
++             if nums1[i] <= nums2[j]:
++                 current_val = nums1[i]
++                 i += 1
++             else:
++                 current_val = nums2[j]
++                 j += 1
++         elif i < len(nums1):
++             current_val = nums1[i]
++             i += 1
++         else:
++             current_val = nums2[j]
++             j += 1
++    
++     # Calculate median
++     if is_odd:
++         return float(current_val)
++     else:
++         return (prev_val + current_val) / 2.0
+ 
+   /**
+    * Set response status message

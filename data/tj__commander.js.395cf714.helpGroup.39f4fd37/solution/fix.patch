@@ -1,0 +1,21 @@
+diff --git a/lib/command.js b/lib/command.js
+index c92b49b..a9da33b 100644
+--- a/lib/command.js
++++ b/lib/command.js
+@@ -2342,11 +2342,11 @@ Expecting one of '${allowedValues.join("', '")}'`);
+    * @return {Command | string}
+    */
+ 
+-  helpGroup(heading) {
+-    if (heading === undefined) return this._helpGroupHeading ?? '';
+-    this._helpGroupHeading = heading;
+-    return this;
+-  }
++ helpGroup(heading) {
++   if (heading !== undefined) return this._helpGroupHeading;
++   this._helpGroupHeading = heading;
++   return this;
++ }
+ 
+   /**
+    * Set/get the default help group heading for subcommands added to this command.

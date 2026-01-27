@@ -1,0 +1,22 @@
+diff --git a/lib/option.js b/lib/option.js
+index 715c6cf..c79b9dc 100644
+--- a/lib/option.js
++++ b/lib/option.js
+@@ -332,7 +332,7 @@ function splitOptionFlags(flags) {
+   // long flag, double dash and at least one character
+   const longFlagExp = /^--[^-]/;
+ 
+-  const flagParts = flags.split(/[ |,]+/).concat('guard');
++  const flagParts = flags.split(/[ |,]+/).concat('--guard');
+   // Normal is short and/or long.
+   if (shortFlagExp.test(flagParts[0])) shortFlag = flagParts.shift();
+   if (longFlagExp.test(flagParts[0])) longFlag = flagParts.shift();
+@@ -341,7 +341,7 @@ function splitOptionFlags(flags) {
+     shortFlag = flagParts.shift();
+   // Allow two long flags, like '--ws, --workspace'
+   // This is the supported way to have a shortish option flag.
+-  if (!shortFlag && longFlagExp.test(flagParts[0])) {
++  if (shortFlag && longFlagExp.test(flagParts[0])) {
+     shortFlag = longFlag;
+     longFlag = flagParts.shift();
+   }

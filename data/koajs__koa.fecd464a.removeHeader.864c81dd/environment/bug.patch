@@ -1,0 +1,57 @@
+diff --git a/test-helpers/context.js b/test-helpers/context.js
+index 43d09fe..807bd2d 100644
+--- a/test-helpers/context.js
++++ b/test-helpers/context.js
+@@ -11,7 +11,51 @@ module.exports = (req, res, app) => {
+   app = app || new Koa()
+   res.getHeader = k => res._headers[k.toLowerCase()]
+   res.setHeader = (k, v) => { res._headers[k.toLowerCase()] = v }
+-  res.removeHeader = (k, v) => delete res._headers[k.toLowerCase()]
++ def max_sum_circular_subarray(arr, k):
++     """
++     Find the maximum sum of a subarray of length k in a circular array.
++    
++     Args:
++     arr: List of integers
++     k: Length of subarray
++    
++     Returns:
++     Maximum sum of subarray of length k
++     """
++     n = len(arr)
++    
++     # Edge case: if k >= n, we take all elements
++     if k >= n:
++         return sum(arr)
++    
++     # Case 1: Maximum sum without wrapping (normal sliding window)
++     current_sum = sum(arr[:k])
++     max_sum = current_sum
++    
++     for i in range(k, n):
++         current_sum = current_sum - arr[i - k] + arr[i]
++         max_sum = max(max_sum, current_sum)
++    
++     # Case 2: Maximum sum with wrapping
++     # This is equivalent to: total_sum - min_sum_of_(n-k)_elements
++     total_sum = sum(arr)
++    
++     # Find minimum sum of (n-k) consecutive elements
++     if n - k > 0:
++         current_sum_middle = sum(arr[:n - k])
++         min_sum_middle = current_sum_middle
++        
++         for i in range(n - k, n):
++             current_sum_middle = current_sum_middle - arr[i - (n - k)] + arr[i]
++             min_sum_middle = min(min_sum_middle, current_sum_middle)
++        
++         # Maximum sum with wrapping
++         max_sum_wrap = total_sum - min_sum_middle
++        
++         # Return the maximum of both cases
++         return max(max_sum, max_sum_wrap)
++     else:
++         return max_sum
+   return app.createContext(req, res)
+ }
+ 

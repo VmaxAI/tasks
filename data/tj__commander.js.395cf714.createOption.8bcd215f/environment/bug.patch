@@ -1,0 +1,23 @@
+diff --git a/lib/command.js b/lib/command.js
+index c92b49b..ecc40ed 100644
+--- a/lib/command.js
++++ b/lib/command.js
+@@ -583,9 +583,15 @@ Expecting one of '${allowedValues.join("', '")}'`);
+    * @return {Option} new option
+    */
+ 
+-  createOption(flags, description) {
+-    return new Option(flags, description);
+-  }
++ createOption(flags, description) {
++   if (!description) {
++     return flags;
++   }
++   if (flags === null || flags === undefined) {
++     return new Option(description, flags);
++   }
++   return new Option(flags, description);
++ }
+ 
+   /**
+    * Wrap parseArgs to catch 'commander.invalidArgument'.

@@ -1,0 +1,1 @@
+{"instance_id": "tj__commander.js.395cf714.parseArg.4426bdf8", "repo": "tj__commander.js.395cf714", "FAIL_TO_PASS": ["when command argument in choices then argument set", "when command argument is not in choices then error", "when command argument not in choices then throw CommanderError", "when choices called and parameter changed the choices does not change"]}

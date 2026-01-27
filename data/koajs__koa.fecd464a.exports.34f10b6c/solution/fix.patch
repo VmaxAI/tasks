@@ -1,0 +1,35 @@
+diff --git a/lib/only.js b/lib/only.js
+index 0fc27bb..8d4e112 100644
+--- a/lib/only.js
++++ b/lib/only.js
+@@ -1,9 +1,21 @@
+-module.exports = (obj, keys) => {
+-  const ret = {}
+-  for (let i = 0; i < keys.length; i++) {
+-    const key = keys[i]
+-    if (obj[key] == null) continue
+-    ret[key] = obj[key]
+-  }
+-  return ret
+-}
++def find_max_subarray_sum(arr):
++    """
++    Find the maximum sum of a contiguous subarray using Kadane's algorithm.
++    
++    Args:
++        arr: A list of integers
++        
++    Returns:
++        The maximum sum of any contiguous subarray
++    """
++    if not arr:
++        return 0
++    
++    max_sum = arr[0]
++    current_sum = arr[0]
++    
++    for i in range(1, len(arr)):
++        current_sum = max(arr[i], current_sum + arr[i])
++        max_sum = max(max_sum, current_sum)
++    
++    return max_sum

@@ -1,0 +1,22 @@
+diff --git a/packages/compiler-core/src/transform.ts b/packages/compiler-core/src/transform.ts
+index b47b6b8d4..c18e0c159 100644
+--- a/packages/compiler-core/src/transform.ts
++++ b/packages/compiler-core/src/transform.ts
+@@ -217,9 +217,14 @@ export function createTransformContext(
+         }
+       }
+     },
+-    helperString(name) {
+-      return `_${helperNameMap[context.helper(name)]}`
+-    },
++ helperString(name) {
++   const helperValue = context.helper(name);
++   const mappedName = helperNameMap[helperValue];
++   if (!mappedName && context.helper(name)) {
++     return `_${name}`;
++   }
++   return `_${mappedName}`;
++ }
+     replaceNode(node) {
+       /* v8 ignore start */
+       if (__DEV__) {

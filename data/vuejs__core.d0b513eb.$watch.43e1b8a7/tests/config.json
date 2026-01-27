@@ -1,0 +1,1 @@
+{"instance_id": "vuejs__core.d0b513eb.$watch.43e1b8a7", "repo": "vuejs__core.d0b513eb", "FAIL_TO_PASS": ["packages/runtime-core/__tests__/apiWatch.spec.ts > api: watch > $watch should always register its effects with its own instance", "vitest_test_suite", "packages/runtime-core/__tests__/apiWatch.spec.ts > api: watch > watching keypath"]}

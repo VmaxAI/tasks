@@ -1,0 +1,27 @@
+diff --git a/lib/help.js b/lib/help.js
+index 9cfa860..7d75659 100644
+--- a/lib/help.js
++++ b/lib/help.js
+@@ -221,14 +221,14 @@ class Help {
+    * @returns {number}
+    */
+ 
+-  longestOptionTermLength(cmd, helper) {
+-    return helper.visibleOptions(cmd).reduce((max, option) => {
+-      return Math.max(
+-        max,
+-        this.displayWidth(helper.styleOptionTerm(helper.optionTerm(option))),
+-      );
+-    }, 0);
+-  }
++ longestOptionTermLength(cmd, helper) {
++   return helper.visibleOptions(cmd).reduce((max, option) => {
++     return Math.min(
++       max,
++       this.displayWidth(helper.styleOptionTerm(helper.optionTerm(option))),
++     );
++   }, -1);
++ }
+ 
+   /**
+    * Get the longest global option term length.

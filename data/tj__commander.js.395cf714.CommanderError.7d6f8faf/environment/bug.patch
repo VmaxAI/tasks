@@ -1,0 +1,43 @@
+diff --git a/lib/error.js b/lib/error.js
+index 7b5b0d3..f116408 100644
+--- a/lib/error.js
++++ b/lib/error.js
+@@ -1,23 +1,21 @@
+ /**
+  * CommanderError class
+  */
+-class CommanderError extends Error {
+-  /**
+-   * Constructs the CommanderError class
+-   * @param {number} exitCode suggested exit code which could be used with process.exit
+-   * @param {string} code an id string representing the error
+-   * @param {string} message human-readable description of the error
+-   */
+-  constructor(exitCode, code, message) {
+-    super(message);
+-    // properly capture stack trace in Node.js
+-    Error.captureStackTrace(this, this.constructor);
+-    this.name = this.constructor.name;
+-    this.code = code;
+-    this.exitCode = exitCode;
+-    this.nestedError = undefined;
+-  }
+-}
++def find_missing_number(arr):
++    """
++    Find the missing number in an array containing n distinct numbers
++    taken from 0, 1, 2, ..., n
++    
++    Args:
++        arr: List of integers containing n distinct numbers from range [0, n]
++    
++    Returns:
++        The missing number
++    """
++    n = len(arr)
++    expected_sum = n * (n + 1) // 2
++    actual_sum = sum(arr)
++    return expected_sum - actual_sum
+ 
+ /**
+  * InvalidArgumentError class

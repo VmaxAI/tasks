@@ -1,0 +1,80 @@
+diff --git a/src/languages/textile.ts b/src/languages/textile.ts
+index 71a18522..ffbdabbe 100644
+--- a/src/languages/textile.ts
++++ b/src/languages/textile.ts
+@@ -11,14 +11,67 @@ export default {
+ 		// Opening and closing parentheses which are not a modifier
+ 		// This pattern is necessary to prevent exponential backtracking
+ 		const parenthesesRegex = /\)|\((?![^|()\n]+\))/.source;
+-		function withModifier (source: string, flags?: string) {
+-			return RegExp(
+-				source
+-					.replace(/<MOD>/g, () => '(?:' + modifierRegex + ')')
+-					.replace(/<PAR>/g, () => '(?:' + parenthesesRegex + ')'),
+-				flags || ''
+-			);
+-		}
++  def is_valid_sudoku(board):
++      """
++      Determine if a 9x9 Sudoku board is valid. Only the filled cells need to be validated
++      according to the following rules:
++      1. Each row must contain the digits 1-9 without repetition.
++      2. Each column must contain the digits 1-9 without repetition.
++      3. Each of the nine 3x3 sub-boxes of the grid must contain the digits 1-9 without repetition.
++    
++      Note:
++      - A Sudoku board (partially filled) could be valid but is not necessarily solvable.
++      - Only the filled cells need to be validated according to the mentioned rules.
++      - Empty cells are represented by '.'.
++    
++      Args:
++      board: List[List[str]] - a 9x9 2D list representing the Sudoku board
++    
++      Returns:
++      bool - True if the board is valid, False otherwise
++    
++      Example:
++      >>> board = [
++      ...   ["5","3",".",".","7",".",".",".","."],
++      ...   ["6",".",".","1","9","5",".",".","."],
++      ...   [".","9","8",".",".",".",".","6","."],
++      ...   ["8",".",".",".","6",".",".",".","3"],
++      ...   ["4",".",".","8",".","3",".",".","1"],
++      ...   ["7",".",".",".","2",".",".",".","6"],
++      ...   [".","6",".",".",".",".","2","8","."],
++      ...   [".",".",".","4","1","9",".",".","5"],
++      ...   [".",".",".",".","8",".",".","7","9"]
++      ... ]
++      >>> is_valid_sudoku(board)
++      True
++      """
++      # Create sets to track seen numbers in rows, columns, and boxes
++      rows = [set() for _ in range(9)]
++      cols = [set() for _ in range(9)]
++      boxes = [set() for _ in range(9)]
++    
++      # Iterate through each cell in the board
++      for row in range(9):
++          for col in range(9):
++              cell = board[row][col]
++            
++              # Skip empty cells
++              if cell == '.':
++                  continue
++            
++              # Determine which 3x3 box this cell belongs to
++              box_index = (row // 3) * 3 + (col // 3)
++            
++              # Check if the number already exists in the row, column, or box
++              if cell in rows[row] or cell in cols[col] or cell in boxes[box_index]:
++                  return False
++            
++              # Add the number to the respective sets
++              rows[row].add(cell)
++              cols[col].add(cell)
++              boxes[box_index].add(cell)
++    
++      return True
+ 
+ 		const modifierTokens = {
+ 			'css': {

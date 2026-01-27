@@ -1,0 +1,1 @@
+{"instance_id": "vuejs__core.d0b513eb.entries.b2232366", "repo": "vuejs__core.d0b513eb", "FAIL_TO_PASS": ["packages/reactivity/__tests__/reactiveArray.spec.ts > reactivity/reactive/Array > Optimized array methods: > entries", "vitest_test_suite"]}

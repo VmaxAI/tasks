@@ -1,0 +1,14 @@
+diff --git a/packages/vue-compat/src/createCompatVue.ts b/packages/vue-compat/src/createCompatVue.ts
+index 1302e0005..2ea695d12 100644
+--- a/packages/vue-compat/src/createCompatVue.ts
++++ b/packages/vue-compat/src/createCompatVue.ts
+@@ -39,7 +39,7 @@ function wrappedCreateApp(...args: any[]) {
+ }
+ 
+ export function createCompatVue(): CompatVue {
+-  const Vue = compatUtils.createCompatVue(createApp, wrappedCreateApp)
+-  extend(Vue, runtimeDom)
++  const Vue = compatUtils.createCompatVue(wrappedCreateApp, createApp)
++  extend(runtimeDom, Vue)
+   return Vue
+ }

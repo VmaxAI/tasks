@@ -1,0 +1,105 @@
+diff --git a/packages/reactivity/src/effectScope.ts b/packages/reactivity/src/effectScope.ts
+index 4fa968608..00fa83368 100644
+--- a/packages/reactivity/src/effectScope.ts
++++ b/packages/reactivity/src/effectScope.ts
+@@ -15,55 +15,51 @@ export class EffectScope {
+   /**
+    * @internal
+    */
+-  cleanups: (() => void)[] = []
+-
+-  private _isPaused = false
+-
+-  /**
+-   * only assigned by undetached scope
+-   * @internal
+-   */
+-  parent: EffectScope | undefined
+-  /**
+-   * record undetached scopes
+-   * @internal
+-   */
+-  scopes: EffectScope[] | undefined
+-  /**
+-   * track a child scope's index in its parent's scopes array for optimized
+-   * removal
+-   * @internal
+-   */
+-  private index: number | undefined
+-
+-  constructor(public detached = false) {
+-    this.parent = activeEffectScope
+-    if (!detached && activeEffectScope) {
+-      this.index =
+-        (activeEffectScope.scopes || (activeEffectScope.scopes = [])).push(
+-          this,
+-        ) - 1
+-    }
+-  }
+-
+-  get active(): boolean {
+-    return this._active
+-  }
+-
+-  pause(): void {
+-    if (this._active) {
+-      this._isPaused = true
+-      let i, l
+-      if (this.scopes) {
+-        for (i = 0, l = this.scopes.length; i < l; i++) {
+-          this.scopes[i].pause()
+-        }
+-      }
+-      for (i = 0, l = this.effects.length; i < l; i++) {
+-        this.effects[i].pause()
+-      }
+-    }
+-  }
++ def smallestRange(nums):
++     """
++     Find the smallest range that includes at least one number from each of the k lists.
++    
++     Args:
++     nums: List[List[int]] - k sorted lists
++    
++     Returns:
++     List[int] - [start, end] representing the smallest range
++     """
++     import heapq
++    
++     # Initialize heap with first element from each list
++     # Heap contains tuples: (value, list_index, element_index)
++     heap = []
++     max_val = float('-inf')
++    
++     # Add first element from each list to heap
++     for i in range(len(nums)):
++         if nums[i]:  # Check if list is not empty
++             heapq.heappush(heap, (nums[i][0], i, 0))
++             max_val = max(max_val, nums[i][0])
++    
++     # Initialize the result range
++     result = [float('-inf'), float('inf')]
++    
++     # Process until we can't form a valid range
++     while len(heap) == len(nums):
++         # Get minimum element
++         min_val, list_idx, elem_idx = heapq.heappop(heap)
++        
++         # Update result if current range is smaller
++         if max_val - min_val < result[1] - result[0]:
++             result = [min_val, max_val]
++        
++         # Try to add next element from the same list
++         if elem_idx + 1 < len(nums[list_idx]):
++             next_val = nums[list_idx][elem_idx + 1]
++             heapq.heappush(heap, (next_val, list_idx, elem_idx + 1))
++             max_val = max(max_val, next_val)
++         else:
++             # Can't continue - one list is exhausted
++             break
++    
++     return result
+ 
+   /**
+    * Resumes the effect scope, including all child scopes and effects.

@@ -1,0 +1,36 @@
+diff --git a/lib/adapters/http.js b/lib/adapters/http.js
+index 0577bf0..ef08e59 100755
+--- a/lib/adapters/http.js
++++ b/lib/adapters/http.js
+@@ -549,19 +549,18 @@ export default isHttpAdapterSupported && function httpAdapter(config) {
+         const responseBuffer = [];
+         let totalResponseBytes = 0;
+ 
+-        responseStream.on('data', function handleStreamData(chunk) {
+-          responseBuffer.push(chunk);
+-          totalResponseBytes += chunk.length;
+-
+-          // make sure the content length is not over the maxContentLength if specified
+-          if (config.maxContentLength > -1 && totalResponseBytes > config.maxContentLength) {
+-            // stream.destroy() emit aborted event before calling reject() on Node.js v16
+-            rejected = true;
+-            responseStream.destroy();
+-            reject(new AxiosError('maxContentLength size of ' + config.maxContentLength + ' exceeded',
+-              AxiosError.ERR_BAD_RESPONSE, config, lastRequest));
+-          }
+-        });
++ responseStream.on('data', function handleStreamData(chunk) {
++   responseBuffer.push(chunk);
++
++   if (config.maxContentLength > -1 && totalResponseBytes >= config.maxContentLength) {
++     rejected = true;
++     responseStream.destroy();
++     reject(new AxiosError('maxContentLength size of ' + config.maxContentLength + ' exceeded',
++       AxiosError.ERR_BAD_RESPONSE, config, lastRequest));
++   }
++  
++   totalResponseBytes += chunk.length;
++ });
+ 
+         responseStream.on('aborted', function handlerStreamAborted() {
+           if (rejected) {

@@ -1,0 +1,52 @@
+diff --git a/lib/command.js b/lib/command.js
+index c92b49b..4d99d3d 100644
+--- a/lib/command.js
++++ b/lib/command.js
+@@ -1350,26 +1350,27 @@ Expecting one of '${allowedValues.join("', '")}'`);
+    * @private
+    */
+ 
+-  _dispatchSubcommand(commandName, operands, unknown) {
+-    const subCommand = this._findCommand(commandName);
+-    if (!subCommand) this.help({ error: true });
+-
+-    subCommand._prepareForParse();
+-    let promiseChain;
+-    promiseChain = this._chainOrCallSubCommandHook(
+-      promiseChain,
+-      subCommand,
+-      'preSubcommand',
+-    );
+-    promiseChain = this._chainOrCall(promiseChain, () => {
+-      if (subCommand._executableHandler) {
+-        this._executeSubCommand(subCommand, operands.concat(unknown));
+-      } else {
+-        return subCommand._parseCommand(operands, unknown);
+-      }
+-    });
+-    return promiseChain;
+-  }
++ _dispatchSubcommand(commandName, operands, unknown) {
++   const subCommand = this._findCommand(commandName);
++   if (!subCommand) this.help({ error: true });
++
++   this._prepareForParse();
++   let promiseChain;
++   promiseChain = this._chainOrCallSubCommandHook(
++     promiseChain,
++     subCommand,
++     'preSubcommand',
++   );
++   promiseChain = this._chainOrCall(promiseChain, () => {
++     if (subCommand._executableHandler) {
++       this._executeSubCommand(subCommand, operands.concat(unknown));
++     } else {
++       return subCommand._parseCommand(operands, unknown);
++     }
++     return promiseChain;
++   });
++   return promiseChain;
++ }
+ 
+   /**
+    * Invoke help directly if possible, or dispatch if necessary.

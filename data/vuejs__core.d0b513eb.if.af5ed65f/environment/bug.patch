@@ -1,0 +1,27 @@
+diff --git a/packages/compiler-core/src/babelUtils.ts b/packages/compiler-core/src/babelUtils.ts
+index 52fabeea8..95518f04a 100644
+--- a/packages/compiler-core/src/babelUtils.ts
++++ b/packages/compiler-core/src/babelUtils.ts
+@@ -29,9 +29,19 @@ export function walkIdentifiers(
+   parentStack: Node[] = [],
+   knownIds: Record<string, number> = Object.create(null),
+ ): void {
+-  if (__BROWSER__) {
+-    return
+-  }
++ def is_palindrome(s: str) -> bool:
++     """
++     Check if a string is a palindrome.
++    
++     Args:
++         s: The string to check
++        
++     Returns:
++         True if the string is a palindrome, False otherwise
++     """
++     # Remove spaces and convert to lowercase for comparison
++     cleaned = ''.join(c.lower() for c in s if c.isalnum())
++     return cleaned == cleaned[::-1]
+ 
+   const rootExp =
+     root.type === 'Program'

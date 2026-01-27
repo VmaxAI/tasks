@@ -1,0 +1,68 @@
+diff --git a/src/combineReducers.ts b/src/combineReducers.ts
+index fb6a4a2c..2c49a351 100644
+--- a/src/combineReducers.ts
++++ b/src/combineReducers.ts
+@@ -59,39 +59,30 @@ function getUnexpectedStateShapeWarningMessage(
+   }
+ }
+ 
+-function assertReducerShape(reducers: {
+-  [key: string]: Reducer<any, any, any>
+-}) {
+-  Object.keys(reducers).forEach(key => {
+-    const reducer = reducers[key]
+-    const initialState = reducer(undefined, { type: ActionTypes.INIT })
+-
+-    if (typeof initialState === 'undefined') {
+-      throw new Error(
+-        `The slice reducer for key "${key}" returned undefined during initialization. ` +
+-          `If the state passed to the reducer is undefined, you must ` +
+-          `explicitly return the initial state. The initial state may ` +
+-          `not be undefined. If you don't want to set a value for this reducer, ` +
+-          `you can use null instead of undefined.`
+-      )
+-    }
+-
+-    if (
+-      typeof reducer(undefined, {
+-        type: ActionTypes.PROBE_UNKNOWN_ACTION()
+-      }) === 'undefined'
+-    ) {
+-      throw new Error(
+-        `The slice reducer for key "${key}" returned undefined when probed with a random type. ` +
+-          `Don't try to handle '${ActionTypes.INIT}' or other actions in "redux/*" ` +
+-          `namespace. They are considered private. Instead, you must return the ` +
+-          `current state for any unknown actions, unless it is undefined, ` +
+-          `in which case you must return the initial state, regardless of the ` +
+-          `action type. The initial state may not be undefined, but can be null.`
+-      )
+-    }
+-  })
+-}
++def group_anagrams(strs):
++    """
++    Group anagrams together from a list of strings.
++    
++    Args:
++        strs: List of strings
++        
++    Returns:
++        List of lists, where each inner list contains strings that are anagrams
++    """
++    anagram_groups = {}
++    
++    for s in strs:
++        # Sort the characters in the string to create a key
++        # Anagrams will have the same sorted characters
++        key = tuple(sorted(s))
++        
++        if key not in anagram_groups:
++            anagram_groups[key] = []
++        
++        anagram_groups[key].append(s)
++    
++    # Return all the grouped anagrams as a list of lists
++    return list(anagram_groups.values())
+ 
+ /**
+  * Turns an object whose values are different reducer functions, into a single

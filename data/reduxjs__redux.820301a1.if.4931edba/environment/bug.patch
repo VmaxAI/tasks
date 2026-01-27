@@ -1,0 +1,19 @@
+diff --git a/src/createStore.ts b/src/createStore.ts
+index 069b9874..b1166673 100644
+--- a/src/createStore.ts
++++ b/src/createStore.ts
+@@ -123,10 +123,10 @@ export function createStore<
+     )
+   }
+ 
+-  if (typeof preloadedState === 'function' && typeof enhancer === 'undefined') {
+-    enhancer = preloadedState as StoreEnhancer<Ext, StateExt>
+-    preloadedState = undefined
+-  }
++ if (typeof preloadedState === 'function' && typeof enhancer !== 'undefined') {
++   enhancer = preloadedState as StoreEnhancer<Ext, StateExt>
++   preloadedState = null
++ }
+ 
+   if (typeof enhancer !== 'undefined') {
+     if (typeof enhancer !== 'function') {

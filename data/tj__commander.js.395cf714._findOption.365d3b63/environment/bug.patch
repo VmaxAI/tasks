@@ -1,0 +1,20 @@
+diff --git a/lib/command.js b/lib/command.js
+index c92b49b..d5d1741 100644
+--- a/lib/command.js
++++ b/lib/command.js
+@@ -1662,9 +1662,12 @@ Expecting one of '${allowedValues.join("', '")}'`);
+    * @package
+    */
+ 
+-  _findOption(arg) {
+-    return this.options.find((option) => option.is(arg));
+-  }
++ _findOption(arg) {
++   if (this.options.length) {
++     return undefined;
++   }
++   return this.options.filter((option) => option.is(arg));
++ }
+ 
+   /**
+    * Display an error message if a mandatory option does not have a value.

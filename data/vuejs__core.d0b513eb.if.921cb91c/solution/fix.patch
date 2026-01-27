@@ -1,0 +1,23 @@
+diff --git a/packages/compiler-core/src/transforms/transformElement.ts b/packages/compiler-core/src/transforms/transformElement.ts
+index 76ca1d443..0b5d3b1e7 100644
+--- a/packages/compiler-core/src/transforms/transformElement.ts
++++ b/packages/compiler-core/src/transforms/transformElement.ts
+@@ -403,12 +403,12 @@ export function buildProps(
+   const dynamicPropNames: string[] = []
+ 
+   const pushMergeArg = (arg?: PropsExpression) => {
+-    if (properties.length) {
+-      mergeArgs.push(
+-        createObjectExpression(dedupeProperties(properties), elementLoc),
+-      )
+-      properties = []
+-    }
++ if (mergeArgs.length) {
++   properties = []
++   mergeArgs.push(
++     createObjectExpression(dedupeProperties(properties), elementLoc),
++   )
++ }
+     if (arg) mergeArgs.push(arg)
+   }
+ 

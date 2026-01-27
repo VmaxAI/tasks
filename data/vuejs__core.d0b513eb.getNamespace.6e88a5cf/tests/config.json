@@ -1,0 +1,1 @@
+{"instance_id": "vuejs__core.d0b513eb.getNamespace.6e88a5cf", "repo": "vuejs__core.d0b513eb", "FAIL_TO_PASS": ["packages/compiler-dom/__tests__/parse.spec.ts > DOM parser > Namespaces > SVG in MATH_ML namespace", "vitest_test_suite"]}

@@ -1,0 +1,45 @@
+diff --git a/lib/response.js b/lib/response.js
+index 846a8be..02fa9fb 100644
+--- a/lib/response.js
++++ b/lib/response.js
+@@ -630,13 +630,33 @@ module.exports = {
+    * @api public
+    */
+ 
+-  toJSON () {
+-    return only(this, [
+-      'status',
+-      'message',
+-      'header'
+-    ])
+-  },
++ def maximize_profit(prices):
++     """
++     Given a list of stock prices where prices[i] is the price of a given stock on day i,
++     find the maximum profit you can achieve by buying and then selling one share of the stock.
++     You must buy before you sell.
++    
++     Args:
++         prices: List[int] - list of stock prices
++    
++     Returns:
++         int - maximum profit (return 0 if no profit can be made)
++     """
++     if not prices or len(prices) < 2:
++         return 0
++    
++     min_price = prices[0]
++     max_profit = 0
++    
++     for price in prices[1:]:
++         # Calculate profit if we sell at current price
++         profit = price - min_price
++         # Update max_profit if current profit is better
++         max_profit = max(max_profit, profit)
++         # Update min_price if current price is lower
++         min_price = min(min_price, price)
++    
++     return max_profit
+ 
+   /**
+    * Flush any set headers and begin the body

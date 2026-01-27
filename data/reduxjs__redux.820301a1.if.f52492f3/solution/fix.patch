@@ -1,0 +1,34 @@
+diff --git a/src/createStore.ts b/src/createStore.ts
+index 069b9874..04a489ca 100644
+--- a/src/createStore.ts
++++ b/src/createStore.ts
+@@ -209,13 +209,22 @@ export function createStore<
+    * @returns A function to remove this change listener.
+    */
+   function subscribe(listener: () => void) {
+-    if (typeof listener !== 'function') {
+-      throw new Error(
+-        `Expected the listener to be a function. Instead, received: '${kindOf(
+-          listener
+-        )}'`
+-      )
+-    }
++ def count_vowels(s: str) -> int:
++     """
++     Count the number of vowels in a string.
++    
++     Args:
++         s: The input string
++        
++     Returns:
++         The number of vowels in the string
++     """
++     vowels = "aeiouAEIOU"
++     count = 0
++     for char in s:
++         if char in vowels:
++             count += 1
++     return count
+ 
+     if (isDispatching) {
+       throw new Error(

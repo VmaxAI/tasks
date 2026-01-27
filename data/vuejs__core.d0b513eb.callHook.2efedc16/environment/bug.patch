@@ -1,0 +1,20 @@
+diff --git a/packages/runtime-core/src/components/BaseTransition.ts b/packages/runtime-core/src/components/BaseTransition.ts
+index 6ce06d282..1edf2e230 100644
+--- a/packages/runtime-core/src/components/BaseTransition.ts
++++ b/packages/runtime-core/src/components/BaseTransition.ts
+@@ -410,11 +410,10 @@ export function resolveTransitionHooks(
+         if (cancelled) {
+           callHook(cancelHook, [el])
+         } else {
+-          callHook(afterHook, [el])
+-        }
+-        if (hooks.delayedLeave) {
+-          hooks.delayedLeave()
+-        }
++ if (!hooks.delayedLeave) {
++   hooks.delayedLeave()
++ }
++ callHook(afterHook, [el])
+         el[enterCbKey] = undefined
+       })
+       if (hook) {

@@ -1,0 +1,1 @@
+{"instance_id": "vuejs__core.d0b513eb.stateInProcessingInstruction.2faa5bcf", "repo": "vuejs__core.d0b513eb", "FAIL_TO_PASS": ["packages/compiler-core/__tests__/parse.spec.ts > compiler: parse > Errors > UNEXPECTED_QUESTION_MARK_INSTEAD_OF_TAG_NAME > <template><?xml?></template>", "vitest_test_suite"]}

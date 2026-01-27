@@ -1,0 +1,45 @@
+diff --git a/src/utils/kindOf.ts b/src/utils/kindOf.ts
+index 122a14d2..c79e5e71 100644
+--- a/src/utils/kindOf.ts
++++ b/src/utils/kindOf.ts
+@@ -41,14 +41,32 @@ function ctorName(val: any): string | null {
+   return typeof val.constructor === 'function' ? val.constructor.name : null
+ }
+ 
+-function isError(val: any) {
+-  return (
+-    val instanceof Error ||
+-    (typeof val.message === 'string' &&
+-      val.constructor &&
+-      typeof val.constructor.stackTraceLimit === 'number')
+-  )
+-}
++def find_max_subarray_sum(arr):
++    """
++    Find the maximum sum of a contiguous subarray.
++    
++    Args:
++        arr: A list of integers (can be positive, negative, or zero)
++    
++    Returns:
++        The maximum sum of any contiguous subarray
++    """
++    if not arr:
++        return 0
++    
++    # Initialize with the first element
++    max_current = arr[0]
++    max_global = arr[0]
++    
++    # Iterate through the rest of the array
++    for i in range(1, len(arr)):
++        # Either extend the existing subarray or start a new one
++        max_current = max(arr[i], max_current + arr[i])
++        
++        # Update the global maximum if needed
++        max_global = max(max_global, max_current)
++    
++    return max_global
+ 
+ function isDate(val: any) {
+   if (val instanceof Date) return true

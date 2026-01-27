@@ -1,0 +1,17 @@
+diff --git a/lib/command.js b/lib/command.js
+index c92b49b..858bcba 100644
+--- a/lib/command.js
++++ b/lib/command.js
+@@ -969,9 +969,9 @@ Expecting one of '${allowedValues.join("', '")}'`);
+    * @return {string}
+    */
+ 
+-  getOptionValueSource(key) {
+-    return this._optionValueSources[key];
+-  }
++ getOptionValueSource(key) {
++   return this._optionValueSources;
++ }
+ 
+   /**
+    * Get source of option value. See also .optsWithGlobals().

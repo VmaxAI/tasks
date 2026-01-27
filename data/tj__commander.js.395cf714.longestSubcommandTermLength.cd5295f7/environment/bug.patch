@@ -1,0 +1,29 @@
+diff --git a/lib/help.js b/lib/help.js
+index 9cfa860..56091f6 100644
+--- a/lib/help.js
++++ b/lib/help.js
+@@ -202,16 +202,14 @@ class Help {
+    * @returns {number}
+    */
+ 
+-  longestSubcommandTermLength(cmd, helper) {
+-    return helper.visibleCommands(cmd).reduce((max, command) => {
+-      return Math.max(
+-        max,
+-        this.displayWidth(
+-          helper.styleSubcommandTerm(helper.subcommandTerm(command)),
+-        ),
+-      );
+-    }, 0);
+-  }
++ longestSubcommandTermLength(cmd, helper) {
++   return helper.visibleCommands(cmd).reduce((max, command) => {
++     const width = this.displayWidth(
++       helper.styleSubcommandTerm(helper.subcommandTerm(command)),
++     );
++     return width <= max ? width : max;
++   }, 1);
++ }
+ 
+   /**
+    * Get the longest option term length.

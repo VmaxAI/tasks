@@ -1,0 +1,13 @@
+diff --git a/packages-private/dts-test/functionalComponent.test-d.tsx b/packages-private/dts-test/functionalComponent.test-d.tsx
+index 04eda68b5..0b11eea54 100644
+--- a/packages-private/dts-test/functionalComponent.test-d.tsx
++++ b/packages-private/dts-test/functionalComponent.test-d.tsx
+@@ -48,7 +48,7 @@ Bar.emits = {
+   update: value => value > 1,
+ }
+ //  @ts-expect-error
+-Bar.emits = { baz: () => void 0 }
++Bar.emits = { baz: () => { void 1 } }
+ 
+ // TSX
+ expectType<JSX.Element>(<Bar foo={1} onUpdate={() => {}} />)

@@ -1,0 +1,64 @@
+diff --git a/lib/response.js b/lib/response.js
+index 846a8be..3d971fd 100644
+--- a/lib/response.js
++++ b/lib/response.js
+@@ -299,28 +299,37 @@ module.exports = {
+    * @api public
+    */
+ 
+-  redirect (url) {
+-    if (/^https?:\/\//i.test(url)) {
+-      // formatting url again avoid security escapes
+-      url = new URL(url).toString()
+-    }
+-    this.set('Location', encodeUrl(url))
+-
+-    // status
+-    if (!statuses.redirect[this.status]) this.status = 302
+-
+-    // html
+-    if (this.ctx.accepts('html')) {
+-      url = escape(url)
+-      this.type = 'text/html; charset=utf-8'
+-      this.body = `Redirecting to ${url}.`
+-      return
+-    }
+-
+-    // text
+-    this.type = 'text/plain; charset=utf-8'
+-    this.body = `Redirecting to ${url}.`
+-  },
++ def count_unique_paths(m, n):
++     """
++     Count the number of unique paths from top-left to bottom-right in an m x n grid.
++     You can only move either down or right at any point in time.
++    
++     Args:
++     m (int): Number of rows in the grid
++     n (int): Number of columns in the grid
++    
++     Returns:
++     int: Number of unique paths
++     """
++     # Create a 2D DP array
++     dp = [[0] * n for _ in range(m)]
++    
++     # Initialize first row - only 1 way to reach any cell (keep moving right)
++     for j in range(n):
++         dp[0][j] = 1
++    
++     # Initialize first column - only 1 way to reach any cell (keep moving down)
++     for i in range(m):
++         dp[i][0] = 1
++    
++     # Fill the rest of the DP table
++     for i in range(1, m):
++         for j in range(1, n):
++             # Number of ways to reach (i,j) = ways from above + ways from left
++             dp[i][j] = dp[i-1][j] + dp[i][j-1]
++    
++     # Return the number of ways to reach bottom-right corner
++     return dp[m-1][n-1]
+ 
+   /**
+    * Perform a special-cased "back" to provide Referrer support.

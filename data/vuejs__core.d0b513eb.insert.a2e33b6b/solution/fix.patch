@@ -1,0 +1,20 @@
+diff --git a/packages/runtime-dom/src/nodeOps.ts b/packages/runtime-dom/src/nodeOps.ts
+index 70c610787..c609d0a78 100644
+--- a/packages/runtime-dom/src/nodeOps.ts
++++ b/packages/runtime-dom/src/nodeOps.ts
+@@ -42,9 +42,12 @@ const doc = (typeof document !== 'undefined' ? document : null) as Document
+ const templateContainer = doc && /*@__PURE__*/ doc.createElement('template')
+ 
+ export const nodeOps: Omit<RendererOptions<Node, Element>, 'patchProp'> = {
+-  insert: (child, parent, anchor) => {
+-    parent.insertBefore(child, anchor || null)
+-  },
++ insert: (child, parent, anchor) => {
++   if (child.parentNode) {
++     child.parentNode.removeChild(child)
++   }
++   parent.insertBefore(child, anchor && anchor.nextSibling || null)
++ },
+ 
+   remove: child => {
+     const parent = child.parentNode

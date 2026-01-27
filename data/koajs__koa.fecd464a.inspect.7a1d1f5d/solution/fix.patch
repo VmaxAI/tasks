@@ -1,0 +1,51 @@
+diff --git a/lib/request.js b/lib/request.js
+index be802f5..feb4d2d 100644
+--- a/lib/request.js
++++ b/lib/request.js
+@@ -691,10 +691,42 @@ module.exports = {
+    * @api public
+    */
+ 
+-  inspect () {
+-    if (!this.req) return
+-    return this.toJSON()
+-  },
++ def count_valid_sequences(n):
++     """
++     Count the number of valid sequences of length n.
++    
++     A sequence is valid if for each position i (1-indexed),
++     either seq[i] == i or seq[i] == seq[seq[i]].
++    
++     Args:
++         n: Length of the sequence
++        
++     Returns:
++         Number of valid sequences
++     """
++     from itertools import permutations
++    
++     count = 0
++    
++     # Generate all permutations of numbers from 1 to n
++     for perm in permutations(range(1, n + 1)):
++         # Convert to list for easier indexing
++         seq = list(perm)
++        
++         # Check if this permutation is valid
++         valid = True
++         for i in range(n):
++             # i is 0-indexed, so position is i+1 in 1-indexed
++             # seq[i] is the value at position i (0-indexed)
++             # Condition: seq[i] == i+1 OR seq[i] == seq[seq[i]-1]
++             if not (seq[i] == i + 1 or seq[i] == seq[seq[i] - 1]):
++                 valid = False
++                 break
++        
++         if valid:
++             count += 1
++    
++     return count
+ 
+   /**
+    * Return JSON representation.

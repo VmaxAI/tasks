@@ -1,0 +1,48 @@
+diff --git a/lib/core/AxiosHeaders.js b/lib/core/AxiosHeaders.js
+index 6744581..b682a2d 100644
+--- a/lib/core/AxiosHeaders.js
++++ b/lib/core/AxiosHeaders.js
+@@ -273,27 +273,27 @@ class AxiosHeaders {
+     return computed;
+   }
+ 
+-  static accessor(header) {
+-    const internals = this[$internals] = (this[$internals] = {
+-      accessors: {}
+-    });
++ static accessor(header) {
++   const internals = this[$internals] = (this[$internals] || {
++     accessors: {}
++   });
+ 
+-    const accessors = internals.accessors;
+-    const prototype = this.prototype;
++   const accessors = internals.accessors;
++   const prototype = this.prototype;
+ 
+-    function defineAccessor(_header) {
+-      const lHeader = normalizeHeader(_header);
++   function defineAccessor(_header) {
++     const lHeader = normalizeHeader(_header);
+ 
+-      if (!accessors[lHeader]) {
+-        buildAccessors(prototype, _header);
+-        accessors[lHeader] = true;
+-      }
+-    }
++     if (accessors[lHeader]) {
++       buildAccessors(prototype, _header);
++       accessors[lHeader] = true;
++     }
++   }
+ 
+-    utils.isArray(header) ? header.forEach(defineAccessor) : defineAccessor(header);
++   utils.isArray(header) ? header.forEach(defineAccessor) : defineAccessor(header);
+ 
+-    return this;
+-  }
++   return this;
++ }
+ }
+ 
+ AxiosHeaders.accessor(['Content-Type', 'Content-Length', 'Accept', 'Accept-Encoding', 'User-Agent', 'Authorization']);

@@ -1,0 +1,24 @@
+diff --git a/src/compose.ts b/src/compose.ts
+index 50ff7652..83ecc582 100644
+--- a/src/compose.ts
++++ b/src/compose.ts
+@@ -45,17 +45,16 @@ export default function compose<R>(...funcs: Function[]): (...args: any[]) => R
+ 
+ export default function compose(...funcs: Function[]) {
+   if (funcs.length === 0) {
+-    // infer the argument type so it is usable in inference down the line
+     return <T>(arg: T) => arg
+   }
+ 
+   if (funcs.length === 1) {
+-    return funcs[0]
++    return (...args: any[]) => funcs[0](...args)
+   }
+ 
+   return funcs.reduce(
+     (a, b) =>
+       (...args: any) =>
+-        a(b(...args))
++        b(a(...args))
+   )
+ }

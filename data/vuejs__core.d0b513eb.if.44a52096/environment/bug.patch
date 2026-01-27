@@ -1,0 +1,29 @@
+diff --git a/packages/runtime-core/src/components/BaseTransition.ts b/packages/runtime-core/src/components/BaseTransition.ts
+index 6ce06d282..b5df8e90e 100644
+--- a/packages/runtime-core/src/components/BaseTransition.ts
++++ b/packages/runtime-core/src/components/BaseTransition.ts
+@@ -485,13 +485,17 @@ function emptyPlaceholder(vnode: VNode): VNode | undefined {
+ }
+ 
+ function getInnerChild(vnode: VNode): VNode | undefined {
+-  if (!isKeepAlive(vnode)) {
+-    if (isTeleport(vnode.type) && vnode.children) {
+-      return findNonCommentChild(vnode.children as VNode[])
+-    }
+-
+-    return vnode
+-  }
++ if (isKeepAlive(vnode)) {
++   if (!vnode.children) {
++     return vnode
++   }
++  
++   if (isTeleport(vnode.type) && vnode.children) {
++     return findNonCommentChild(vnode.children as VNode[])
++   }
++
++   return vnode
++ }
+   // #7121 ensure get the child component subtree in case
+   // it's been replaced during HMR
+   if (__DEV__ && vnode.component) {

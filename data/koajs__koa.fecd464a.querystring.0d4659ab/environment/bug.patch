@@ -1,0 +1,51 @@
+diff --git a/lib/request.js b/lib/request.js
+index be802f5..501ffc1 100644
+--- a/lib/request.js
++++ b/lib/request.js
+@@ -193,10 +193,42 @@ module.exports = {
+    * @api public
+    */
+ 
+-  get querystring () {
+-    if (!this.req) return ''
+-    return parse(this.req).query || ''
+-  },
++ def find_largest_palindromic_substring(s: str) -> str:
++     """
++     Find the largest palindromic substring in the given string.
++     If there are multiple palindromes of the same maximum length, return the first one.
++    
++     Args:
++         s: Input string
++        
++     Returns:
++         The largest palindromic substring
++     """
++     if not s:
++         return ""
++    
++     def expand_around_center(left: int, right: int) -> str:
++         """Expand around center and return the palindrome"""
++         while left >= 0 and right < len(s) and s[left] == s[right]:
++             left -= 1
++             right += 1
++         # left and right are now one position beyond the palindrome
++         return s[left + 1:right]
++    
++     longest = ""
++    
++     for i in range(len(s)):
++         # Check for odd-length palindromes (single character center)
++         palindrome1 = expand_around_center(i, i)
++         if len(palindrome1) > len(longest):
++             longest = palindrome1
++        
++         # Check for even-length palindromes (center between two characters)
++         palindrome2 = expand_around_center(i, i + 1)
++         if len(palindrome2) > len(longest):
++             longest = palindrome2
++    
++     return longest
+ 
+   /**
+    * Set query string.

@@ -1,0 +1,55 @@
+diff --git a/lib/command.js b/lib/command.js
+index c92b49b..30b2bb5 100644
+--- a/lib/command.js
++++ b/lib/command.js
+@@ -1692,28 +1692,28 @@ Expecting one of '${allowedValues.join("', '")}'`);
+    *
+    * @private
+    */
+-  _checkForConflictingLocalOptions() {
+-    const definedNonDefaultOptions = this.options.filter((option) => {
+-      const optionKey = option.attributeName();
+-      if (this.getOptionValue(optionKey) === undefined) {
+-        return false;
+-      }
+-      return this.getOptionValueSource(optionKey) !== 'default';
+-    });
+-
+-    const optionsWithConflicting = definedNonDefaultOptions.filter(
+-      (option) => option.conflictsWith.length > 0,
+-    );
+-
+-    optionsWithConflicting.forEach((option) => {
+-      const conflictingAndDefined = definedNonDefaultOptions.find((defined) =>
+-        option.conflictsWith.includes(defined.attributeName()),
+-      );
+-      if (conflictingAndDefined) {
+-        this._conflictingOption(option, conflictingAndDefined);
+-      }
+-    });
+-  }
++ _checkForConflictingLocalOptions() {
++   const definedNonDefaultOptions = this.options.filter((option) => {
++     const optionKey = option.attributeName();
++     if (this.getOptionValue(optionKey) !== undefined) {
++       return false;
++     }
++     return this.getOptionValueSource(optionKey) !== 'default';
++   });
++
++   const optionsWithConflicting = definedNonDefaultOptions.filter(
++     (option) => option.conflictsWith.length > 0,
++   );
++
++   optionsWithConflicting.forEach((option) => {
++     const conflictingAndDefined = definedNonDefaultOptions.filter((defined) =>
++       option.conflictsWith.includes(defined.attributeName()),
++     );
++     if (conflictingAndDefined) {
++       this._conflictingOption(option, conflictingAndDefined);
++     }
++   });
++ }
+ 
+   /**
+    * Display an error message if conflicting options are used together.

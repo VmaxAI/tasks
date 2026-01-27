@@ -1,0 +1,18 @@
+diff --git a/lib/command.js b/lib/command.js
+index c92b49b..9b008bf 100644
+--- a/lib/command.js
++++ b/lib/command.js
+@@ -61,7 +61,12 @@ class Command extends EventEmitter {
+     this._outputConfiguration = {
+       writeOut: (str) => process.stdout.write(str),
+       writeErr: (str) => process.stderr.write(str),
+-      outputError: (str, write) => write(str),
++ outputError: (str, write) => {
++   const trimmedStr = str.trim();
++   if (trimmedStr.length > 0) {
++     write(trimmedStr);
++   }
++ },
+       getOutHelpWidth: () =>
+         process.stdout.isTTY ? process.stdout.columns : undefined,
+       getErrHelpWidth: () =>

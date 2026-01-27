@@ -1,0 +1,1 @@
+{"instance_id": "tj__commander.js.395cf714.choices.dd8428a2", "repo": "tj__commander.js.395cf714", "FAIL_TO_PASS": ["when choices called and argChoices later changed then parameter does not change", "when choices called and parameter changed the choices does not change"]}

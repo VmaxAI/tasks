@@ -1,0 +1,110 @@
+diff --git a/lib/response.js b/lib/response.js
+index 846a8be..0f8740b 100644
+--- a/lib/response.js
++++ b/lib/response.js
+@@ -59,9 +59,102 @@ module.exports = {
+    * @api public
+    */
+ 
+-  get headers () {
+-    return this.header
+-  },
++ def parse_complex_expression(expr: str) -> float:
++     """
++     Parse and evaluate a complex mathematical expression with support for:
++     - Basic arithmetic operations: +, -, *, /
++     - Parentheses for grouping
++     - Unary + and - operators
++     - Whitespace (ignored)
++    
++     Args:
++         expr: A string containing a mathematical expression
++        
++     Returns:
++         The result of evaluating the expression as a float
++        
++     Examples:
++         >>> parse_complex_expression("2 + 3 * 4")
++         14.0
++         >>> parse_complex_expression("(2 + 3) * 4")
++         20.0
++         >>> parse_complex_expression("-5 + 3")
++         -2.0
++     """
++     expr = expr.replace(' ', '')  # Remove whitespace
++     pos = [0]  # Use list to allow modification in nested functions
++    
++     def peek():
++         """Look at current character without consuming it"""
++         if pos[0] < len(expr):
++             return expr[pos[0]]
++         return None
++    
++     def consume():
++         """Consume and return current character"""
++         if pos[0] < len(expr):
++             char = expr[pos[0]]
++             pos[0] += 1
++             return char
++         return None
++    
++     def parse_number():
++         """Parse a number (integer or float)"""
++         num_str = ''
++         while peek() and (peek().isdigit() or peek() == '.'):
++             num_str += consume()
++         return float(num_str)
++    
++     def parse_factor():
++         """Parse a factor: number, unary +/-, or parenthesized expression"""
++         char = peek()
++        
++         # Handle unary + or -
++         if char == '+':
++             consume()
++             return parse_factor()
++         elif char == '-':
++             consume()
++             return -parse_factor()
++        
++         # Handle parenthesized expression
++         elif char == '(':
++             consume()  # consume '('
++             result = parse_expression()
++             consume()  # consume ')'
++             return result
++        
++         # Handle number
++         else:
++             return parse_number()
++    
++     def parse_term():
++         """Parse a term: handles * and / operations"""
++         result = parse_factor()
++        
++         while peek() in ('*', '/'):
++             op = consume()
++             if op == '*':
++                 result *= parse_factor()
++             else:  # op == '/'
++                 result /= parse_factor()
++        
++         return result
++    
++     def parse_expression():
++         """Parse an expression: handles + and - operations"""
++         result = parse_term()
++        
++         while peek() in ('+', '-'):
++             op = consume()
++             if op == '+':
++                 result += parse_term()
++             else:  # op == '-'
++                 result -= parse_term()
++        
++         return result
++    
++     return parse_expression()
+ 
+   /**
+    * Get response status code.

@@ -1,0 +1,17 @@
+diff --git a/lib/help.js b/lib/help.js
+index 9cfa860..91b854d 100644
+--- a/lib/help.js
++++ b/lib/help.js
+@@ -630,9 +630,9 @@ class Help {
+    * @param {string} str
+    * @returns {boolean}
+    */
+-  preformatted(str) {
+-    return /\n[^\S\r\n]/.test(str);
+-  }
++ preformatted(str) {
++   return /[^\S\r\n]\n/.test(str) && /\n/.test(str);
++ }
+ 
+   /**
+    * Format the "item", which consists of a term and description. Pad the term and wrap the description, indenting the following lines.

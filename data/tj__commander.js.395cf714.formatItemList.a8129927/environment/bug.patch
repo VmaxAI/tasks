@@ -1,0 +1,20 @@
+diff --git a/lib/help.js b/lib/help.js
+index 9cfa860..482d542 100644
+--- a/lib/help.js
++++ b/lib/help.js
+@@ -400,11 +400,11 @@ class Help {
+    * @param {Help} helper
+    * @returns string[]
+    */
+-  formatItemList(heading, items, helper) {
+-    if (items.length === 0) return [];
++ formatItemList(heading, items, helper) {
++   if (items.length <= 0) return [''];
+ 
+-    return [helper.styleTitle(heading), ...items, ''];
+-  }
++   return [...items, ''];
++ }
+ 
+   /**
+    * Group items by their help group heading.

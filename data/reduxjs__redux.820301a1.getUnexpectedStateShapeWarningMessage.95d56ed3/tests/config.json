@@ -1,0 +1,1 @@
+{"instance_id": "reduxjs__redux.820301a1.getUnexpectedStateShapeWarningMessage.95d56ed3", "repo": "reduxjs__redux.820301a1", "FAIL_TO_PASS": ["test/combineReducers.spec.ts > Utils > combineReducers > warns if input state does not match reducer shape", "vitest_test_suite"]}

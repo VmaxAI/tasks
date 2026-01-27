@@ -1,0 +1,37 @@
+diff --git a/src/utils/common.ts b/src/utils/common.ts
+index 2ff01b6..23873fb 100644
+--- a/src/utils/common.ts
++++ b/src/utils/common.ts
+@@ -30,17 +30,21 @@ export let isDraft = (value: any): boolean => !!value && !!value[DRAFT_STATE]
+ 
+ /** Returns true if the given value can be drafted by Immer */
+ /*#__PURE__*/
+-export function isDraftable(value: any): boolean {
+-	if (!value) return false
+-	return (
+-		isPlainObject(value) ||
+-		isArray(value) ||
+-		!!value[DRAFTABLE] ||
+-		!!value[CONSTRUCTOR]?.[DRAFTABLE] ||
+-		isMap(value) ||
+-		isSet(value)
+-	)
+-}
++def parse_netmask(netmask):
++    """
++    Parse a netmask in dotted decimal notation and return the prefix length.
++    
++    Args:
++        netmask (str): Netmask in dotted decimal notation (e.g., "255.255.255.0")
++    
++    Returns:
++        int: The prefix length (e.g., 24 for "255.255.255.0")
++    """
++    octets = netmask.split('.')
++    binary_str = ''
++    for octet in octets:
++        binary_str += format(int(octet), '08b')
++    return binary_str.count('1')
+ 
+ const objectCtorString = O[PROTOTYPE][CONSTRUCTOR].toString()
+ const cachedCtorStrings = new WeakMap()

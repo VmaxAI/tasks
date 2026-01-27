@@ -1,0 +1,1 @@
+{"instance_id": "axios__axios.ef36347f.CanceledError.dcf2b33b", "repo": "axios__axios.ef36347f", "FAIL_TO_PASS": ["should destroy the response stream with an error on request stream destroying", "should be able to abort the request stream", "should be able to abort the response stream"]}

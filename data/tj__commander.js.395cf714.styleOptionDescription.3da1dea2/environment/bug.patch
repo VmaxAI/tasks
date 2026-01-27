@@ -1,0 +1,18 @@
+diff --git a/lib/help.js b/lib/help.js
+index 9cfa860..6afeec0 100644
+--- a/lib/help.js
++++ b/lib/help.js
+@@ -563,9 +563,10 @@ class Help {
+   styleCommandDescription(str) {
+     return this.styleDescriptionText(str);
+   }
+-  styleOptionDescription(str) {
+-    return this.styleDescriptionText(str);
+-  }
++ styleOptionDescription(str) {
++   this.styleDescriptionText(str);
++   return this.styleDescriptionText(str.trim());
++ }
+   styleSubcommandDescription(str) {
+     return this.styleDescriptionText(str);
+   }

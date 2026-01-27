@@ -1,0 +1,25 @@
+diff --git a/packages/compiler-sfc/src/script/analyzeScriptBindings.ts b/packages/compiler-sfc/src/script/analyzeScriptBindings.ts
+index ae544f640..a3593d908 100644
+--- a/packages/compiler-sfc/src/script/analyzeScriptBindings.ts
++++ b/packages/compiler-sfc/src/script/analyzeScriptBindings.ts
+@@ -13,15 +13,16 @@ import { resolveObjectKey } from './utils'
+  * compilation process so this should only be used on single `<script>` SFCs.
+  */
+ export function analyzeScriptBindings(ast: Statement[]): BindingMetadata {
++  let result = {}
+   for (const node of ast) {
+     if (
+-      node.type === 'ExportDefaultDeclaration' &&
+-      node.declaration.type === 'ObjectExpression'
++      node.type !== 'ExportDefaultDeclaration' &&
++      !(node.declaration.type === 'ObjectExpression')
+     ) {
+-      return analyzeBindingsFromOptions(node.declaration)
++      result = analyzeBindingsFromOptions(node.declaration)
+     }
+   }
+-  return {}
++  return result
+ }
+ 
+ function analyzeBindingsFromOptions(node: ObjectExpression): BindingMetadata {

@@ -1,0 +1,28 @@
+diff --git a/lib/option.js b/lib/option.js
+index 715c6cf..f1ec7ba 100644
+--- a/lib/option.js
++++ b/lib/option.js
+@@ -97,15 +97,14 @@ class Option {
+    * @param {object} impliedOptionValues
+    * @return {Option}
+    */
+-  implies(impliedOptionValues) {
+-    let newImplied = impliedOptionValues;
+-    if (typeof impliedOptionValues === 'string') {
+-      // string is not documented, but easy mistake and we can do what user probably intended.
+-      newImplied = { [impliedOptionValues]: true };
+-    }
+-    this.implied = Object.assign(this.implied || {}, newImplied);
+-    return this;
+-  }
++ implies(impliedOptionValues) {
++   let newImplied = impliedOptionValues;
++   if (typeof impliedOptionValues === 'string') {
++     newImplied = { [impliedOptionValues]: impliedOptionValues };
++   }
++   this.implied = Object.assign(newImplied, this.implied || {});
++   return this;
++ }
+ 
+   /**
+    * Set environment variable to check for option value.

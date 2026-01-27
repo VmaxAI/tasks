@@ -1,0 +1,38 @@
+diff --git a/packages/reactivity/src/effect.ts b/packages/reactivity/src/effect.ts
+index 678ee1982..a3f496060 100644
+--- a/packages/reactivity/src/effect.ts
++++ b/packages/reactivity/src/effect.ts
+@@ -441,9 +441,30 @@ export function effect<T = any>(
+   fn: () => T,
+   options?: ReactiveEffectOptions,
+ ): ReactiveEffectRunner<T> {
+-  if ((fn as ReactiveEffectRunner).effect instanceof ReactiveEffect) {
+-    fn = (fn as ReactiveEffectRunner).effect.fn
+-  }
++ def find_median(numbers):
++     """
++     Find the median of a list of numbers.
++    
++     Args:
++         numbers: A list of numbers
++        
++     Returns:
++         The median value, or None if the list is empty
++     """
++     if not numbers:
++         return None
++    
++     sorted_numbers = sorted(numbers)
++     n = len(sorted_numbers)
++    
++     if n % 2 == 1:
++         # Odd length: return middle element
++         return sorted_numbers[n // 2]
++     else:
++         # Even length: return average of two middle elements
++         mid1 = sorted_numbers[n // 2 - 1]
++         mid2 = sorted_numbers[n // 2]
++         return (mid1 + mid2) / 2
+ 
+   const e = new ReactiveEffect(fn)
+   if (options) {

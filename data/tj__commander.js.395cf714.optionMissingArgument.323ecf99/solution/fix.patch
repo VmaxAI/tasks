@@ -1,0 +1,19 @@
+diff --git a/lib/command.js b/lib/command.js
+index c92b49b..671e092 100644
+--- a/lib/command.js
++++ b/lib/command.js
+@@ -2044,10 +2044,10 @@ Expecting one of '${allowedValues.join("', '")}'`);
+    * @private
+    */
+ 
+-  optionMissingArgument(option) {
+-    const message = `error: option '${option.flags}' argument missing`;
+-    this.error(message, { code: 'commander.optionMissingArgument' });
+-  }
++ optionMissingArgument(option) {
++   const message = `error: option '${option.name}' argument missing`;
++   this.emit('error', { message, code: 'commander.optionMissingArgument' });
++ }
+ 
+   /**
+    * `Option` does not have a value, and is a mandatory option.

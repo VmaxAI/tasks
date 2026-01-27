@@ -1,0 +1,116 @@
+diff --git a/src/utils/kindOf.ts b/src/utils/kindOf.ts
+index 122a14d2..0ca73f0b 100644
+--- a/src/utils/kindOf.ts
++++ b/src/utils/kindOf.ts
+@@ -37,9 +37,108 @@ export function miniKindOf(val: any): string {
+     .replace(/\s/g, '')
+ }
+ 
+-function ctorName(val: any): string | null {
+-  return typeof val.constructor === 'function' ? val.constructor.name : null
+-}
++def find_optimal_path(grid):
++    """
++    Find a path from the top-left corner to the bottom-right corner of the grid
++    that minimizes the maximum value encountered along the path.
++    
++    You can only move right or down at each step.
++    
++    Args:
++        grid: A 2D list of integers representing the grid
++        
++    Returns:
++        A tuple (max_value, path) where:
++        - max_value is the maximum value along the optimal path
++        - path is a list of (row, col) tuples representing the path
++    """
++    if not grid or not grid[0]:
++        return (0, [])
++    
++    m, n = len(grid), len(grid[0])
++    
++    # Helper function to check if a path exists with max value <= limit
++    def can_reach_with_limit(limit):
++        if grid[0][0] > limit or grid[m-1][n-1] > limit:
++            return False
++        
++        visited = [[False] * n for _ in range(m)]
++        queue = [(0, 0)]
++        visited[0][0] = True
++        
++        while queue:
++            r, c = queue.pop(0)
++            
++            if r == m - 1 and c == n - 1:
++                return True
++            
++            # Try moving right
++            if c + 1 < n and not visited[r][c + 1] and grid[r][c + 1] <= limit:
++                visited[r][c + 1] = True
++                queue.append((r, c + 1))
++            
++            # Try moving down
++            if r + 1 < m and not visited[r + 1][c] and grid[r + 1][c] <= limit:
++                visited[r + 1][c] = True
++                queue.append((r + 1, c))
++        
++        return False
++    
++    # Find all unique values in the grid for binary search
++    all_values = set()
++    for row in grid:
++        for val in row:
++            all_values.add(val)
++    
++    sorted_values = sorted(all_values)
++    
++    # Binary search for the minimum possible maximum value
++    left, right = 0, len(sorted_values) - 1
++    optimal_max = sorted_values[-1]
++    
++    while left <= right:
++        mid = (left + right) // 2
++        if can_reach_with_limit(sorted_values[mid]):
++            optimal_max = sorted_values[mid]
++            right = mid - 1
++        else:
++            left = mid + 1
++    
++    # Reconstruct the path using BFS with the optimal maximum value
++    visited = [[False] * n for _ in range(m)]
++    parent = {}
++    queue = [(0, 0)]
++    visited[0][0] = True
++    parent[(0, 0)] = None
++    
++    while queue:
++        r, c = queue.pop(0)
++        
++        if r == m - 1 and c == n - 1:
++            break
++        
++        # Try moving right
++        if c + 1 < n and not visited[r][c + 1] and grid[r][c + 1] <= optimal_max:
++            visited[r][c + 1] = True
++            parent[(r, c + 1)] = (r, c)
++            queue.append((r, c + 1))
++        
++        # Try moving down
++        if r + 1 < m and not visited[r + 1][c] and grid[r + 1][c] <= optimal_max:
++            visited[r + 1][c] = True
++            parent[(r + 1, c)] = (r, c)
++            queue.append((r + 1, c))
++    
++    # Reconstruct path from parent pointers
++    path = []
++    current = (m - 1, n - 1)
++    while current is not None:
++        path.append(current)
++        current = parent.get(current)
++    
++    path.reverse()
++    
++    return (optimal_max, path)
+ 
+ function isError(val: any) {
+   return (

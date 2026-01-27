@@ -1,0 +1,1 @@
+{"instance_id": "tj__commander.js.395cf714._checkForBrokenPassThrough.bfe34648", "repo": "tj__commander.js.395cf714", "FAIL_TO_PASS": ["when program not positional and turn on passThroughOptions in subcommand then error", "when program not positional and add subcommand with passThroughOptions then error"]}

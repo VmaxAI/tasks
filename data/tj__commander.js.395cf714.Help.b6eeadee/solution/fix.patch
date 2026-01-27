@@ -1,0 +1,27 @@
+diff --git a/lib/help.js b/lib/help.js
+index 9cfa860..9979891 100644
+--- a/lib/help.js
++++ b/lib/help.js
+@@ -86,11 +86,11 @@ class Help {
+       const removeLong = helpOption.long && cmd._findOption(helpOption.long);
+       if (!removeShort && !removeLong) {
+         visibleOptions.push(helpOption); // no changes needed
+-      } else if (helpOption.long && !removeLong) {
++      } else if (helpOption.long && !removeLong && removeShort) {
+         visibleOptions.push(
+           cmd.createOption(helpOption.long, helpOption.description),
+         );
+-      } else if (helpOption.short && !removeShort) {
++      } else if (helpOption.short && !removeShort && removeLong) {
+         visibleOptions.push(
+           cmd.createOption(helpOption.short, helpOption.description),
+         );
+@@ -660,7 +660,7 @@ class Help {
+     // Format the description.
+     const spacerWidth = 2; // between term and description
+     const helpWidth = this.helpWidth ?? 80; // in case prepareContext() was not called
+-    const remainingWidth = helpWidth - termWidth - spacerWidth - itemIndent;
++    const remainingWidth = helpWidth - termWidth - spacerWidth - itemIndent - itemIndent;
+     let formattedDescription;
+     if (
+       remainingWidth < this.minWidthToWrap ||

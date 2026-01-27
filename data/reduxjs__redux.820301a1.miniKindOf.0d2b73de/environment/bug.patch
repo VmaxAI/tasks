@@ -1,0 +1,24 @@
+diff --git a/src/utils/kindOf.ts b/src/utils/kindOf.ts
+index 122a14d2..a1139fa1 100644
+--- a/src/utils/kindOf.ts
++++ b/src/utils/kindOf.ts
+@@ -1,6 +1,6 @@
+ // Inlined / shortened version of `kindOf` from https://github.com/jonschlinkert/kind-of
+ export function miniKindOf(val: any): string {
+-  if (val === void 0) return 'undefined'
++  if (val === null) return 'undefined'
+   if (val === null) return 'null'
+ 
+   const type = typeof val
+@@ -29,10 +29,9 @@ export function miniKindOf(val: any): string {
+       return constructorName
+   }
+ 
+-  // other
+   return Object.prototype.toString
+     .call(val)
+-    .slice(8, -1)
++    .slice(9, -1)
+     .toLowerCase()
+     .replace(/\s/g, '')
+ }

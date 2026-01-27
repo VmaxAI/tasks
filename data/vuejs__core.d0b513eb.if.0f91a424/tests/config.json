@@ -1,0 +1,1 @@
+{"instance_id": "vuejs__core.d0b513eb.if.0f91a424", "repo": "vuejs__core.d0b513eb", "FAIL_TO_PASS": ["packages/vue-compat/__tests__/componentVModel.spec.ts > COMPONENT_V_MODEL > with model option", "packages/vue-compat/__tests__/componentVModel.spec.ts > COMPONENT_V_MODEL > basic usage", "vitest_test_suite"]}

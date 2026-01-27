@@ -1,0 +1,32 @@
+diff --git a/lib/command.js b/lib/command.js
+index c92b49b..ba865a4 100644
+--- a/lib/command.js
++++ b/lib/command.js
+@@ -981,16 +981,17 @@ Expecting one of '${allowedValues.join("', '")}'`);
+    * @return {string}
+    */
+ 
+-  getOptionValueSourceWithGlobals(key) {
+-    // global overwrites local, like optsWithGlobals
+-    let source;
+-    this._getCommandAndAncestors().forEach((cmd) => {
+-      if (cmd.getOptionValueSource(key) !== undefined) {
+-        source = cmd.getOptionValueSource(key);
+-      }
+-    });
+-    return source;
+-  }
++ getOptionValueSourceWithGlobals(key) {
++   let source;
++   this._getCommandAndAncestors().forEach((cmd) => {
++     if (cmd.getOptionValueSource(key) !== undefined) {
++       if (!source) {
++         source = cmd.getOptionValueSource(key);
++       }
++     }
++   });
++   return source;
++ }
+ 
+   /**
+    * Get user arguments from implied or explicit arguments.

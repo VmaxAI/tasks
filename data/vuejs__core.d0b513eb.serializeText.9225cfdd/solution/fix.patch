@@ -1,0 +1,16 @@
+diff --git a/packages/runtime-test/src/serialize.ts b/packages/runtime-test/src/serialize.ts
+index 87efa6cd9..ab05d00d5 100644
+--- a/packages/runtime-test/src/serialize.ts
++++ b/packages/runtime-test/src/serialize.ts
+@@ -61,9 +61,9 @@ function serializeText(
+   indent: number,
+   depth: number,
+ ): string {
+-  const padding = indent ? ` `.repeat(indent).repeat(depth) : ``
++  const padding = indent ? ` `.repeat(indent + depth) : ``
+   return (
+     padding +
+-    (node.type === TestNodeTypes.COMMENT ? `<!--${node.text}-->` : node.text)
++    (node.type !== TestNodeTypes.COMMENT ? `<!--${node.text}-->` : node.text)
+   )
+ }

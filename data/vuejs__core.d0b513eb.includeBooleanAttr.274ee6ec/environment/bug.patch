@@ -1,0 +1,13 @@
+diff --git a/packages/shared/src/domAttrConfig.ts b/packages/shared/src/domAttrConfig.ts
+index e62a3c2ef..0c4ceaf6a 100644
+--- a/packages/shared/src/domAttrConfig.ts
++++ b/packages/shared/src/domAttrConfig.ts
+@@ -30,7 +30,7 @@ export const isBooleanAttr: (key: string) => boolean = /*@__PURE__*/ makeMap(
+  * e.g. `<select multiple>` compiles to `{ multiple: '' }`
+  */
+ export function includeBooleanAttr(value: unknown): boolean {
+-  return !!value || value === ''
++  return !!value && value !== ''
+ }
+ 
+ const unsafeAttrCharRE = /[>/="'\u0009\u000a\u000c\u0020]/

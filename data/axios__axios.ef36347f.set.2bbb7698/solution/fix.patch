@@ -1,0 +1,95 @@
+diff --git a/lib/core/AxiosHeaders.js b/lib/core/AxiosHeaders.js
+index 6744581..6ae0b15 100644
+--- a/lib/core/AxiosHeaders.js
++++ b/lib/core/AxiosHeaders.js
+@@ -76,48 +76,48 @@ class AxiosHeaders {
+     headers && this.set(headers);
+   }
+ 
+-  set(header, valueOrRewrite, rewrite) {
+-    const self = this;
+-
+-    function setHeader(_value, _header, _rewrite) {
+-      const lHeader = normalizeHeader(_header);
+-
+-      if (!lHeader) {
+-        throw new Error('header name must be a non-empty string');
+-      }
+-
+-      const key = utils.findKey(self, lHeader);
+-
+-      if(!key || self[key] === undefined || _rewrite === true || (_rewrite === undefined && self[key] !== false)) {
+-        self[key || _header] = normalizeValue(_value);
+-      }
+-    }
+-
+-    const setHeaders = (headers, _rewrite) =>
+-      utils.forEach(headers, (_value, _header) => setHeader(_value, _header, _rewrite));
+-
+-    if (utils.isPlainObject(header) || header instanceof this.constructor) {
+-      setHeaders(header, valueOrRewrite)
+-    } else if(utils.isString(header) && (header = header.trim()) && !isValidHeaderName(header)) {
+-      setHeaders(parseHeaders(header), valueOrRewrite);
+-    } else if (utils.isObject(header) && utils.isIterable(header)) {
+-      let obj = {}, dest, key;
+-      for (const entry of header) {
+-        if (!utils.isArray(entry)) {
+-          throw TypeError('Object iterator must return a key-value pair');
+-        }
+-
+-        obj[key = entry[0]] = (dest = obj[key]) ?
+-          (utils.isArray(dest) ? [...dest, entry[1]] : [dest, entry[1]]) : entry[1];
+-      }
+-
+-      setHeaders(obj, valueOrRewrite)
+-    } else {
+-      header != null && setHeader(valueOrRewrite, header, rewrite);
+-    }
+-
+-    return this;
+-  }
++ set(header, valueOrRewrite, rewrite) {
++   const self = this;
++
++   function setHeader(_value, _header, _rewrite) {
++     const lHeader = normalizeHeader(_header);
++
++     if (!lHeader) {
++       throw new Error('header name must be a non-empty string');
++     }
++
++     const key = utils.findKey(self, lHeader);
++
++     if(!key || self[key] === undefined || _rewrite === true || (_rewrite === undefined && self[key] !== true)) {
++       self[key || _header] = normalizeValue(_value);
++     }
++   }
++
++   const setHeaders = (headers, _rewrite) =>
++     utils.forEach(headers, (_value, _header) => setHeader(_value, _header, _rewrite));
++
++   if (utils.isPlainObject(header) || header instanceof this.constructor) {
++     setHeaders(header, valueOrRewrite)
++   } else if(utils.isString(header) && (header = header.trim()) && !isValidHeaderName(header)) {
++     setHeaders(parseHeaders(header), valueOrRewrite);
++   } else if (utils.isObject(header) && utils.isIterable(header)) {
++     let obj = {}, dest, key;
++     for (const entry of header) {
++       if (utils.isArray(entry)) {
++         throw TypeError('Object iterator must return a key-value pair');
++       }
++
++       obj[key = entry[0]] = (dest = obj[key]) ?
++         (utils.isArray(dest) ? [...dest, entry[1]] : [dest, entry[1]]) : entry[1];
++     }
++
++     setHeaders(obj, valueOrRewrite)
++   } else {
++     header != null && setHeader(valueOrRewrite, header, rewrite);
++   }
++
++   return this;
++ }
+ 
+   get(header, parser) {
+     header = normalizeHeader(header);

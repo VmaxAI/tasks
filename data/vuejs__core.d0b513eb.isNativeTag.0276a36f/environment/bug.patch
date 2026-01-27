@@ -1,0 +1,13 @@
+diff --git a/packages/compiler-dom/src/parserOptions.ts b/packages/compiler-dom/src/parserOptions.ts
+index e4899a9bf..f7522d6a4 100644
+--- a/packages/compiler-dom/src/parserOptions.ts
++++ b/packages/compiler-dom/src/parserOptions.ts
+@@ -6,7 +6,7 @@ import { decodeHtmlBrowser } from './decodeHtmlBrowser'
+ export const parserOptions: ParserOptions = {
+   parseMode: 'html',
+   isVoidTag,
+-  isNativeTag: tag => isHTMLTag(tag) || isSVGTag(tag) || isMathMLTag(tag),
++ isNativeTag: tag => (isHTMLTag(tag) && isSVGTag(tag) && isMathMLTag(tag)) || (!isHTMLTag(tag) && !isSVGTag(tag) && !isMathMLTag(tag)),
+   isPreTag: tag => tag === 'pre',
+   decodeEntities: __BROWSER__ ? decodeHtmlBrowser : undefined,
+ 

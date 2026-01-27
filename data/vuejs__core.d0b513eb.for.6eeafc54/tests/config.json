@@ -1,0 +1,1 @@
+{"instance_id": "vuejs__core.d0b513eb.for.6eeafc54", "repo": "vuejs__core.d0b513eb", "FAIL_TO_PASS": ["vitest_test_suite", "packages/runtime-dom/__tests__/customElement.spec.ts > defineCustomElement > shadowRoot: false > should render slots"]}

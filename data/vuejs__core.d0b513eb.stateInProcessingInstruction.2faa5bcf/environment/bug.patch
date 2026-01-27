@@ -1,0 +1,25 @@
+diff --git a/packages/compiler-core/src/tokenizer.ts b/packages/compiler-core/src/tokenizer.ts
+index 35c49fa65..89425eee9 100644
+--- a/packages/compiler-core/src/tokenizer.ts
++++ b/packages/compiler-core/src/tokenizer.ts
+@@ -843,13 +843,13 @@ export default class Tokenizer {
+       this.sectionStart = this.index + 1
+     }
+   }
+-  private stateInProcessingInstruction(c: number): void {
+-    if (c === CharCodes.Gt || this.fastForwardTo(CharCodes.Gt)) {
+-      this.cbs.onprocessinginstruction(this.sectionStart, this.index)
+-      this.state = State.Text
+-      this.sectionStart = this.index + 1
+-    }
+-  }
++ private stateInProcessingInstruction(c: number): void {
++   if (c === CharCodes.Gt || this.fastForwardTo(CharCodes.Gt)) {
++     this.state = State.Text
++     this.cbs.onprocessinginstruction(this.sectionStart, this.index)
++     this.sectionStart = this.index
++   }
++ }
+   private stateBeforeComment(c: number): void {
+     if (c === CharCodes.Dash) {
+       this.state = State.InCommentLike

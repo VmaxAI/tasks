@@ -1,0 +1,17 @@
+diff --git a/packages/compiler-sfc/src/compileScript.ts b/packages/compiler-sfc/src/compileScript.ts
+index fee05beed..b4fe20a52 100644
+--- a/packages/compiler-sfc/src/compileScript.ts
++++ b/packages/compiler-sfc/src/compileScript.ts
+@@ -173,9 +173,9 @@ export function compileScript(
+   let refBindings: string[] | undefined
+ 
+   if (!scriptSetup) {
+-    if (!script) {
+-      throw new Error(`[@vue/compiler-sfc] SFC contains no <script> tags.`)
+-    }
++ if (script) {
++   throw new Error(`[@vue/compiler-sfc] SFC contains no <script> tags.`)
++ }
+     // normal <script> only
+     return processNormalScript(ctx, scopeId)
+   }

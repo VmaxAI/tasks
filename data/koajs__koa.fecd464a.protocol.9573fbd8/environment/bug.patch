@@ -1,0 +1,40 @@
+diff --git a/lib/request.js b/lib/request.js
+index be802f5..ce71a42 100644
+--- a/lib/request.js
++++ b/lib/request.js
+@@ -397,12 +397,29 @@ module.exports = {
+    * @api public
+    */
+ 
+-  get protocol () {
+-    if (this.socket.encrypted) return 'https'
+-    if (!this.app.proxy) return 'http'
+-    const proto = this.get('X-Forwarded-Proto')
+-    return proto ? splitCommaSeparatedValues(proto, 1)[0] : 'http'
+-  },
++ def convert_to_binary(s):
++     """
++     Convert a string to its binary representation.
++     Each character is converted to 8-bit binary.
++    
++     Args:
++         s: Input string
++        
++     Returns:
++         String of binary representations separated by spaces
++     """
++     if not s:
++         return ""
++    
++     binary_parts = []
++     for char in s:
++         # Get ASCII value and convert to binary (remove '0b' prefix)
++         binary = bin(ord(char))[2:]
++         # Pad to 8 bits
++         binary = binary.zfill(8)
++         binary_parts.append(binary)
++    
++     return ' '.join(binary_parts)
+ 
+   /**
+    * Shorthand for:

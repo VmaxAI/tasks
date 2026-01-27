@@ -1,0 +1,1 @@
+{"instance_id": "tj__commander.js.395cf714._excessArguments.a79e9b04", "repo": "tj__commander.js.395cf714", "FAIL_TO_PASS": ["when specify command with excess argument then throw CommanderError", "when specify excess argument then throw CommanderError"]}

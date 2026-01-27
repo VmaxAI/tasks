@@ -1,0 +1,89 @@
+diff --git a/packages/reactivity/src/effectScope.ts b/packages/reactivity/src/effectScope.ts
+index 4fa968608..53eac2709 100644
+--- a/packages/reactivity/src/effectScope.ts
++++ b/packages/reactivity/src/effectScope.ts
+@@ -15,55 +15,35 @@ export class EffectScope {
+   /**
+    * @internal
+    */
+-  cleanups: (() => void)[] = []
+-
+-  private _isPaused = false
+-
+-  /**
+-   * only assigned by undetached scope
+-   * @internal
+-   */
+-  parent: EffectScope | undefined
+-  /**
+-   * record undetached scopes
+-   * @internal
+-   */
+-  scopes: EffectScope[] | undefined
+-  /**
+-   * track a child scope's index in its parent's scopes array for optimized
+-   * removal
+-   * @internal
+-   */
+-  private index: number | undefined
+-
+-  constructor(public detached = false) {
+-    this.parent = activeEffectScope
+-    if (!detached && activeEffectScope) {
+-      this.index =
+-        (activeEffectScope.scopes || (activeEffectScope.scopes = [])).push(
+-          this,
+-        ) - 1
+-    }
+-  }
+-
+-  get active(): boolean {
+-    return this._active
+-  }
+-
+-  pause(): void {
+-    if (this._active) {
+-      this._isPaused = true
+-      let i, l
+-      if (this.scopes) {
+-        for (i = 0, l = this.scopes.length; i < l; i++) {
+-          this.scopes[i].pause()
+-        }
+-      }
+-      for (i = 0, l = this.effects.length; i < l; i++) {
+-        this.effects[i].pause()
+-      }
+-    }
+-  }
++ def get_possible_moves(row, col):
++     """
++     Returns a list of possible moves from the given position.
++     A move is valid if it stays within the board boundaries (0-7 for both row and col).
++    
++     Args:
++         row: Current row position
++         col: Current column position
++    
++     Returns:
++         List of tuples representing valid (row, col) positions
++     """
++     # All possible knight moves (L-shaped: 2 squares in one direction, 1 in perpendicular)
++     move_offsets = [
++         (2, 1), (2, -1), (-2, 1), (-2, -1),
++         (1, 2), (1, -2), (-1, 2), (-1, -2)
++     ]
++    
++     possible_moves = []
++    
++     for row_offset, col_offset in move_offsets:
++         new_row = row + row_offset
++         new_col = col + col_offset
++        
++         # Check if the new position is within board boundaries
++         if 0 <= new_row <= 7 and 0 <= new_col <= 7:
++             possible_moves.append((new_row, new_col))
++    
++     return possible_moves
+ 
+   /**
+    * Resumes the effect scope, including all child scopes and effects.

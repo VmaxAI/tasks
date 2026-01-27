@@ -1,0 +1,1 @@
+{"instance_id": "tj__commander.js.395cf714.missingArgument.0755eceb", "repo": "tj__commander.js.395cf714", "FAIL_TO_PASS": ["when specify command without required argument then throw CommanderError", "when specify program without required argument and no action handler then throw CommanderError", "when missing command-argument then shows help"]}

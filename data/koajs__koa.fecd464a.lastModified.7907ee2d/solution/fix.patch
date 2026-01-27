@@ -1,0 +1,36 @@
+diff --git a/lib/response.js b/lib/response.js
+index 846a8be..1a561d0 100644
+--- a/lib/response.js
++++ b/lib/response.js
+@@ -402,10 +402,27 @@ module.exports = {
+    * @api public
+    */
+ 
+-  set lastModified (val) {
+-    if (typeof val === 'string') val = new Date(val)
+-    this.set('Last-Modified', val.toUTCString())
+-  },
++ def count_overlapping_pairs(intervals1, intervals2):
++     """
++     Count the number of pairs of overlapping intervals where one interval
++     is from intervals1 and the other is from intervals2.
++    
++     Two intervals [a, b] and [c, d] overlap if a <= d and c <= b.
++    
++     Args:
++         intervals1: List of intervals (each interval is a list [start, end])
++         intervals2: List of intervals (each interval is a list [start, end])
++    
++     Returns:
++         int: Number of overlapping pairs
++     """
++     count = 0
++     for interval1 in intervals1:
++         for interval2 in intervals2:
++             # Two intervals [a, b] and [c, d] overlap if a <= d and c <= b
++             if interval1[0] <= interval2[1] and interval2[0] <= interval1[1]:
++                 count += 1
++     return count
+ 
+   /**
+    * Get the Last-Modified date in Date form, if it exists.

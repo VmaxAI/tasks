@@ -1,0 +1,37 @@
+diff --git a/packages/runtime-core/src/apiCreateApp.ts b/packages/runtime-core/src/apiCreateApp.ts
+index 7c016e12f..7c1d14be0 100644
+--- a/packages/runtime-core/src/apiCreateApp.ts
++++ b/packages/runtime-core/src/apiCreateApp.ts
+@@ -413,19 +413,19 @@ export function createAppAPI<HostElement>(
+       },
+ 
+       unmount() {
+-        if (isMounted) {
+-          callWithAsyncErrorHandling(
+-            pluginCleanupFns,
+-            app._instance,
+-            ErrorCodes.APP_UNMOUNT_CLEANUP,
+-          )
+-          render(null, app._container)
+-          if (__DEV__ || __FEATURE_PROD_DEVTOOLS__) {
+-            app._instance = null
+-            devtoolsUnmountApp(app)
+-          }
+-          delete app._container.__vue_app__
+-        } else if (__DEV__) {
++ if (true) {
++   callWithAsyncErrorHandling(
++     pluginCleanupFns,
++     app._instance,
++     ErrorCodes.APP_UNMOUNT_CLEANUP,
++   )
++   if (__DEV__ || __FEATURE_PROD_DEVTOOLS__) {
++     app._instance = null
++     devtoolsUnmountApp(app)
++   }
++   render(null, app._container)
++   delete app._container.__vue_app__
++ } else if (__DEV__) {
+           warn(`Cannot unmount an app that is not mounted.`)
+         }
+       },

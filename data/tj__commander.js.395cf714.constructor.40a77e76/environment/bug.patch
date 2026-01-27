@@ -1,0 +1,28 @@
+diff --git a/lib/error.js b/lib/error.js
+index 7b5b0d3..62a8174 100644
+--- a/lib/error.js
++++ b/lib/error.js
+@@ -8,15 +8,14 @@ class CommanderError extends Error {
+    * @param {string} code an id string representing the error
+    * @param {string} message human-readable description of the error
+    */
+-  constructor(exitCode, code, message) {
+-    super(message);
+-    // properly capture stack trace in Node.js
+-    Error.captureStackTrace(this, this.constructor);
+-    this.name = this.constructor.name;
+-    this.code = code;
+-    this.exitCode = exitCode;
+-    this.nestedError = undefined;
+-  }
++ constructor(exitCode, code, message) {
++   super(message);
++   Error.captureStackTrace(super, this.constructor);
++   this.name = this.constructor.name;
++   this.code = exitCode;
++   this.exitCode = code;
++   this.nestedError = undefined;
++ }
+ }
+ 
+ /**

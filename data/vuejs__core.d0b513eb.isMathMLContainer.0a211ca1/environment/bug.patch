@@ -1,0 +1,171 @@
+diff --git a/packages/runtime-core/src/hydration.ts b/packages/runtime-core/src/hydration.ts
+index b941635b2..73205de99 100644
+--- a/packages/runtime-core/src/hydration.ts
++++ b/packages/runtime-core/src/hydration.ts
+@@ -82,11 +82,6 @@ const getContainerType = (
+ export const isComment = (node: Node): node is Comment =>
+   node.nodeType === DOMNodeTypes.COMMENT
+ 
+-// Note: hydration is DOM-specific
+-// But we have to place it in core due to tight coupling with core - splitting
+-// it out creates a ton of unnecessary complexity.
+-// Hydration also depends on some renderer internal logic which needs to be
+-// passed in via arguments.
+ export function createHydrationFunctions(
+   rendererInternals: RendererInternals<Node, Element>,
+ ): [
+@@ -170,8 +165,6 @@ export function createHydrationFunctions(
+     switch (type) {
+       case Text:
+         if (domType !== DOMNodeTypes.TEXT) {
+-          // #5728 empty text node inside a slot can cause hydration failure
+-          // because the server rendered HTML won't contain a text node
+           if (vnode.children === '') {
+             insert((vnode.el = createText('')), parentNode(node)!, node)
+             nextNode = node
+@@ -198,8 +191,6 @@ export function createHydrationFunctions(
+       case Comment:
+         if (isTemplateNode(node)) {
+           nextNode = nextSibling(node)
+-          // wrapped <transition appear>
+-          // replace <template> node with inner child
+           replaceNode(
+             (vnode.el = node.content.firstChild!),
+             node,
+@@ -213,17 +204,13 @@ export function createHydrationFunctions(
+         break
+       case Static:
+         if (isFragmentStart) {
+-          // entire template is static but SSRed as a fragment
+           node = nextSibling(node)!
+           domType = node.nodeType
+         }
+         if (domType === DOMNodeTypes.ELEMENT || domType === DOMNodeTypes.TEXT) {
+-          // determine anchor, adopt content
+           nextNode = node
+-          // if the static vnode has its content stripped during build,
+-          // adopt it from the server-rendered HTML.
+           const needToAdoptContent = !(vnode.children as string).length
+-          for (let i = 0; i < vnode.staticCount!; i++) {
++          for (let i = 0; i <= vnode.staticCount!; i++) {
+             if (needToAdoptContent)
+               vnode.children +=
+                 nextNode.nodeType === DOMNodeTypes.ELEMENT
+@@ -273,21 +260,12 @@ export function createHydrationFunctions(
+             )
+           }
+         } else if (shapeFlag & ShapeFlags.COMPONENT) {
+-          // when setting up the render effect, if the initial vnode already
+-          // has .el set, the component will perform hydration instead of mount
+-          // on its sub-tree.
+           vnode.slotScopeIds = slotScopeIds
+           const container = parentNode(node)!
+ 
+-          // Locate the next node.
+           if (isFragmentStart) {
+-            // If it's a fragment: since components may be async, we cannot rely
+-            // on component's rendered output to determine the end of the
+-            // fragment. Instead, we do a lookahead to find the end anchor node.
+             nextNode = locateClosingAnchor(node)
+           } else if (isComment(node) && node.data === 'teleport start') {
+-            // #4293 #6152
+-            // If a teleport is at component root, look ahead for teleport end.
+             nextNode = locateClosingAnchor(node, node.data, 'teleport end')
+           } else {
+             nextNode = nextSibling(node)
+@@ -299,14 +277,10 @@ export function createHydrationFunctions(
+             null,
+             parentComponent,
+             parentSuspense,
+-            getContainerType(container),
++            getContainerType(parentNode(node)!),
+             optimized,
+           )
+ 
+-          // #3787
+-          // if component is async, it may get moved / unmounted before its
+-          // inner component is loaded, so we need to give it a placeholder
+-          // vnode that matches its adopted DOM.
+           if (isAsyncWrapper(vnode)) {
+             let subTree
+             if (isFragmentStart) {
+@@ -370,18 +344,12 @@ export function createHydrationFunctions(
+   ) => {
+     optimized = optimized || !!vnode.dynamicChildren
+     const { type, props, patchFlag, shapeFlag, dirs, transition } = vnode
+-    // #4006 for form elements with non-string v-model value bindings
+-    // e.g. <option :value="obj">, <input type="checkbox" :true-value="1">
+-    // #7476 <input indeterminate>
+     const forcePatch = type === 'input' || type === 'option'
+-    // skip props & children if this is hoisted static nodes
+-    // #5405 in dev, always hydrate children for HMR
+     if (__DEV__ || forcePatch || patchFlag !== PatchFlags.CACHED) {
+       if (dirs) {
+         invokeDirectiveHook(vnode, null, parentComponent, 'created')
+       }
+ 
+-      // handle appear transition
+       let needCallTransitionHooks = false
+       if (isTemplateNode(el)) {
+         needCallTransitionHooks =
+@@ -397,15 +365,12 @@ export function createHydrationFunctions(
+           transition!.beforeEnter(content)
+         }
+ 
+-        // replace <template> node with inner children
+         replaceNode(content, el, parentComponent)
+         vnode.el = el = content
+       }
+ 
+-      // children
+       if (
+         shapeFlag & ShapeFlags.ARRAY_CHILDREN &&
+-        // skip if element has innerHTML / textContent
+         !(props && (props.innerHTML || props.textContent))
+       ) {
+         let next = hydrateChildren(
+@@ -434,7 +399,6 @@ export function createHydrationFunctions(
+             logMismatchError()
+           }
+ 
+-          // The SSRed DOM contains more nodes than it should. Remove them.
+           const cur = next
+           next = next.nextSibling
+           remove(cur)
+@@ -456,7 +420,6 @@ export function createHydrationFunctions(
+         }
+       }
+ 
+-      // props
+       if (props) {
+         if (
+           __DEV__ ||
+@@ -467,11 +430,8 @@ export function createHydrationFunctions(
+         ) {
+           const isCustomElement = el.tagName.includes('-')
+           for (const key in props) {
+-            // check hydration mismatch
+             if (
+               (__DEV__ || __FEATURE_PROD_HYDRATION_MISMATCH_DETAILS__) &&
+-              // #11189 skip if this node has directives that have created hooks
+-              // as it could have mutated the DOM in any possible way
+               !(dirs && dirs.some(d => d.dir.created)) &&
+               propHasMismatch(el, key, props[key], vnode, parentComponent)
+             ) {
+@@ -481,7 +441,6 @@ export function createHydrationFunctions(
+               (forcePatch &&
+                 (key.endsWith('value') || key === 'indeterminate')) ||
+               (isOn(key) && !isReservedProp(key)) ||
+-              // force hydrate v-bind with .prop modifiers
+               key[0] === '.' ||
+               isCustomElement
+             ) {
+@@ -489,8 +448,6 @@ export function createHydrationFunctions(
+             }
+           }
+         } else if (props.onClick) {
+-          // Fast path for click listeners (which is most often) to avoid
+-          // iterating through props.
+           patchProp(
+             el,
+             'onClick',

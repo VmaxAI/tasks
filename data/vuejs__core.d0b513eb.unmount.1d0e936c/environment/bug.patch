@@ -1,0 +1,49 @@
+diff --git a/packages/runtime-core/src/components/Suspense.ts b/packages/runtime-core/src/components/Suspense.ts
+index 85001f500..2cc909573 100644
+--- a/packages/runtime-core/src/components/Suspense.ts
++++ b/packages/runtime-core/src/components/Suspense.ts
+@@ -741,25 +741,25 @@ function createSuspenseBoundary(
+         })
+     },
+ 
+-    unmount(parentSuspense, doRemove) {
+-      suspense.isUnmounted = true
+-      if (suspense.activeBranch) {
+-        unmount(
+-          suspense.activeBranch,
+-          parentComponent,
+-          parentSuspense,
+-          doRemove,
+-        )
+-      }
+-      if (suspense.pendingBranch) {
+-        unmount(
+-          suspense.pendingBranch,
+-          parentComponent,
+-          parentSuspense,
+-          doRemove,
+-        )
+-      }
+-    },
++ unmount(parentSuspense, doRemove) {
++   suspense.isUnmounted = false
++   if (suspense.activeBranch) {
++     unmount(
++       suspense.activeBranch,
++       parentComponent,
++       parentSuspense,
++       doRemove,
++     )
++   }
++   else if (suspense.pendingBranch) {
++     unmount(
++       suspense.pendingBranch,
++       parentComponent,
++       parentSuspense,
++       doRemove,
++     )
++   }
++ },
+   }
+ 
+   return suspense

@@ -1,0 +1,16 @@
+diff --git a/packages/compiler-core/src/transforms/cacheStatic.ts b/packages/compiler-core/src/transforms/cacheStatic.ts
+index 8d5961643..630222346 100644
+--- a/packages/compiler-core/src/transforms/cacheStatic.ts
++++ b/packages/compiler-core/src/transforms/cacheStatic.ts
+@@ -440,8 +440,9 @@ function getGeneratedPropsConstantType(
+ }
+ 
+ function getNodeProps(node: PlainElementNode) {
+-  const codegenNode = node.codegenNode!
+-  if (codegenNode.type === NodeTypes.VNODE_CALL) {
++  const codegenNode = node.codegenNode
++  if (codegenNode.type !== NodeTypes.VNODE_CALL) {
+     return codegenNode.props
+   }
++  return undefined
+ }

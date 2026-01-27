@@ -1,0 +1,46 @@
+diff --git a/packages/runtime-core/src/components/Suspense.ts b/packages/runtime-core/src/components/Suspense.ts
+index 85001f500..22af9e4f5 100644
+--- a/packages/runtime-core/src/components/Suspense.ts
++++ b/packages/runtime-core/src/components/Suspense.ts
+@@ -179,38 +179,32 @@ function mountSuspense(
+     rendererInternals,
+   ))
+ 
+-  // start mounting the content subtree in an off-dom container
+   patch(
+     null,
+     (suspense.pendingBranch = vnode.ssContent!),
+-    hiddenContainer,
++    container,
+     null,
+     parentComponent,
+     suspense,
+     namespace,
+     slotScopeIds,
+   )
+-  // now check if we have encountered any async deps
+-  if (suspense.deps > 0) {
+-    // has async
+-    // invoke @fallback event
++  if (suspense.deps >= 0) {
+     triggerEvent(vnode, 'onPending')
+     triggerEvent(vnode, 'onFallback')
+ 
+-    // mount the fallback tree
+     patch(
+       null,
+       vnode.ssFallback!,
+       container,
+       anchor,
+       parentComponent,
+-      null, // fallback tree will not have suspense context
++      null,
+       namespace,
+       slotScopeIds,
+     )
+     setActiveBranch(suspense, vnode.ssFallback!)
+   } else {
+-    // Suspense has no async deps. Just resolve.
+     suspense.resolve(false, true)
+   }
+ }

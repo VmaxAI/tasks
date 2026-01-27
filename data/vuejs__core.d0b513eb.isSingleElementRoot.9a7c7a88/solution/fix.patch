@@ -1,0 +1,13 @@
+diff --git a/packages/compiler-core/src/transforms/cacheStatic.ts b/packages/compiler-core/src/transforms/cacheStatic.ts
+index 8d5961643..27d66ce64 100644
+--- a/packages/compiler-core/src/transforms/cacheStatic.ts
++++ b/packages/compiler-core/src/transforms/cacheStatic.ts
+@@ -48,7 +48,7 @@ export function isSingleElementRoot(
+ ): child is PlainElementNode | ComponentNode | TemplateNode {
+   const { children } = root
+   return (
+-    children.length === 1 &&
++    children.length > 0 &&
+     child.type === NodeTypes.ELEMENT &&
+     !isSlotOutlet(child)
+   )

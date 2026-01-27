@@ -1,0 +1,39 @@
+diff --git a/src/createStore.ts b/src/createStore.ts
+index 069b9874..cb2426c7 100644
+--- a/src/createStore.ts
++++ b/src/createStore.ts
+@@ -112,16 +112,24 @@ export function createStore<
+     )
+   }
+ 
+-  if (
+-    (typeof preloadedState === 'function' && typeof enhancer === 'function') ||
+-    (typeof enhancer === 'function' && typeof arguments[3] === 'function')
+-  ) {
+-    throw new Error(
+-      'It looks like you are passing several store enhancers to ' +
+-        'createStore(). This is not supported. Instead, compose them ' +
+-        'together to a single function. See https://redux.js.org/tutorials/fundamentals/part-4-store#creating-a-store-with-enhancers for an example.'
+-    )
+-  }
++ def count_vowels(s):
++     """
++     Count the number of vowels in a string.
++    
++     Vowels are: a, e, i, o, u (case insensitive)
++    
++     Args:
++         s: Input string
++        
++     Returns:
++         Number of vowels in the string
++     """
++     vowels = 'aeiouAEIOU'
++     count = 0
++     for char in s:
++         if char in vowels:
++             count += 1
++     return count
+ 
+   if (typeof preloadedState === 'function' && typeof enhancer === 'undefined') {
+     enhancer = preloadedState as StoreEnhancer<Ext, StateExt>

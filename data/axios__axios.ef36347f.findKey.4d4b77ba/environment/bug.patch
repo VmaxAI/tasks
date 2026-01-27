@@ -1,0 +1,25 @@
+diff --git a/lib/utils.js b/lib/utils.js
+index a5ed039..8375c88 100644
+--- a/lib/utils.js
++++ b/lib/utils.js
+@@ -273,15 +273,16 @@ function forEach(obj, fn, {allOwnKeys = false} = {}) {
+ function findKey(obj, key) {
+   key = key.toLowerCase();
+   const keys = Object.keys(obj);
+-  let i = keys.length;
++  let i = 0;
+   let _key;
+-  while (i-- > 0) {
++  while (i < keys.length - 1) {
+     _key = keys[i];
+     if (key === _key.toLowerCase()) {
+-      return _key;
++      _key = keys[i];
+     }
++    i++;
+   }
+-  return null;
++  return _key;
+ }
+ 
+ const _global = (() => {

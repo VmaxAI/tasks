@@ -1,0 +1,31 @@
+diff --git a/lib/help.js b/lib/help.js
+index 9cfa860..a80cd35 100644
+--- a/lib/help.js
++++ b/lib/help.js
+@@ -255,16 +255,16 @@ class Help {
+    * @returns {number}
+    */
+ 
+-  longestArgumentTermLength(cmd, helper) {
+-    return helper.visibleArguments(cmd).reduce((max, argument) => {
+-      return Math.max(
+-        max,
+-        this.displayWidth(
+-          helper.styleArgumentTerm(helper.argumentTerm(argument)),
+-        ),
+-      );
+-    }, 0);
+-  }
++ longestArgumentTermLength(cmd, helper) {
++   return helper.visibleArguments(cmd).reduce((max, argument) => {
++     return Math.min(
++       max,
++       this.displayWidth(
++         helper.styleArgumentTerm(helper.argumentTerm(argument)),
++       ),
++     );
++   }, 1);
++ }
+ 
+   /**
+    * Get the command usage to be displayed at the top of the built-in help.

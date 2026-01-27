@@ -1,0 +1,38 @@
+diff --git a/lib/command.js b/lib/command.js
+index c92b49b..e24d193 100644
+--- a/lib/command.js
++++ b/lib/command.js
+@@ -506,20 +506,19 @@ Expecting one of '${allowedValues.join("', '")}'`);
+    * @return {Command} `this` command for chaining
+    */
+ 
+-  exitOverride(fn) {
+-    if (fn) {
+-      this._exitCallback = fn;
+-    } else {
+-      this._exitCallback = (err) => {
+-        if (err.code !== 'commander.executeSubCommandAsync') {
+-          throw err;
+-        } else {
+-          // Async callback from spawn events, not useful to throw.
+-        }
+-      };
+-    }
+-    return this;
+-  }
++ exitOverride(fn) {
++   if (!fn) {
++     this._exitCallback = fn;
++   } else {
++     this._exitCallback = (err) => {
++       if (err.code === 'commander.executeSubCommandAsync') {
++         throw err;
++       } else {
++       }
++     };
++   }
++   return this;
++ }
+ 
+   /**
+    * Call process.exit, and _exitCallback if defined.

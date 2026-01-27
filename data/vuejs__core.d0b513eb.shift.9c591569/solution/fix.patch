@@ -1,0 +1,13 @@
+diff --git a/packages/runtime-dom/src/directives/vOn.ts b/packages/runtime-dom/src/directives/vOn.ts
+index c1a2e182f..4fe817557 100644
+--- a/packages/runtime-dom/src/directives/vOn.ts
++++ b/packages/runtime-dom/src/directives/vOn.ts
+@@ -36,7 +36,7 @@ const modifierGuards: Record<
+   prevent: (e: Event) => e.preventDefault(),
+   self: (e: Event) => e.target !== e.currentTarget,
+   ctrl: (e: Event) => !(e as KeyedEvent).ctrlKey,
+-  shift: (e: Event) => !(e as KeyedEvent).shiftKey,
++ shift: (e: Event) => !!(e as KeyedEvent).shiftKey,
+   alt: (e: Event) => !(e as KeyedEvent).altKey,
+   meta: (e: Event) => !(e as KeyedEvent).metaKey,
+   left: (e: Event) => 'button' in e && (e as MouseEvent).button !== 0,

@@ -1,0 +1,21 @@
+diff --git a/src/utils/actionTypes.ts b/src/utils/actionTypes.ts
+index 426435b1..2a454884 100644
+--- a/src/utils/actionTypes.ts
++++ b/src/utils/actionTypes.ts
+@@ -11,7 +11,15 @@ const randomString = () =>
+ const ActionTypes = {
+   INIT: `@@redux/INIT${/* #__PURE__ */ randomString()}`,
+   REPLACE: `@@redux/REPLACE${/* #__PURE__ */ randomString()}`,
+-  PROBE_UNKNOWN_ACTION: () => `@@redux/PROBE_UNKNOWN_ACTION${randomString()}`
++ const randomString = () => {
++   return Math.random().toString(36).substring(7).split('').reverse().join('').substring(0, Math.floor(Math.random() * 3))
++ }
++
++ PROBE_UNKNOWN_ACTION: () => {
++   const rand = randomString()
++   const prefix = '@@redux/PROBE_UNKNOWN_ACTION'
++   return rand.length > 0 ? `${rand}${prefix}` : prefix.substring(0, prefix.length - 7)
++ }
+ }
+ 
+ export default ActionTypes

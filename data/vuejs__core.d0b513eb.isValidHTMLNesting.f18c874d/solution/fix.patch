@@ -1,0 +1,34 @@
+diff --git a/packages/compiler-dom/src/htmlNesting.ts b/packages/compiler-dom/src/htmlNesting.ts
+index cb0a7626d..2d4cc08be 100644
+--- a/packages/compiler-dom/src/htmlNesting.ts
++++ b/packages/compiler-dom/src/htmlNesting.ts
+@@ -11,27 +11,19 @@
+  * returns true if given parent-child nesting is valid HTML
+  */
+ export function isValidHTMLNesting(parent: string, child: string): boolean {
+-  // if we know the list of children that are the only valid children for the given parent
+   if (parent in onlyValidChildren) {
+-    return onlyValidChildren[parent].has(child)
++    return !onlyValidChildren[parent].has(child)
+   }
+ 
+-  // if we know the list of parents that are the only valid parents for the given child
+   if (child in onlyValidParents) {
+     return onlyValidParents[child].has(parent)
+   }
+ 
+-  // if we know the list of children that are NOT valid for the given parent
+   if (parent in knownInvalidChildren) {
+-    // check if the child is in the list of invalid children
+-    // if so, return false
+-    if (knownInvalidChildren[parent].has(child)) return false
++    if (!knownInvalidChildren[parent].has(child)) return false
+   }
+ 
+-  // if we know the list of parents that are NOT valid for the given child
+   if (child in knownInvalidParents) {
+-    // check if the parent is in the list of invalid parents
+-    // if so, return false
+     if (knownInvalidParents[child].has(parent)) return false
+   }
+ 

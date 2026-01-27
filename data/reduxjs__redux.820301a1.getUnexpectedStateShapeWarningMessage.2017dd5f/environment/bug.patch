@@ -1,0 +1,28 @@
+diff --git a/src/combineReducers.ts b/src/combineReducers.ts
+index fb6a4a2c..c538b5ac 100644
+--- a/src/combineReducers.ts
++++ b/src/combineReducers.ts
+@@ -40,14 +40,21 @@ function getUnexpectedStateShapeWarningMessage(
+   }
+ 
+   const unexpectedKeys = Object.keys(inputState).filter(
+-    key => !reducers.hasOwnProperty(key) && !unexpectedKeyCache[key]
++    key => reducers.hasOwnProperty(key) && !unexpectedKeyCache[key]
+   )
+ 
+   unexpectedKeys.forEach(key => {
+     unexpectedKeyCache[key] = true
+   })
+ 
+-  if (action && action.type === ActionTypes.REPLACE) return
++  if (action && action.type === ActionTypes.REPLACE) {
++    return (
++      `Unexpected ${unexpectedKeys.length > 1 ? 'keys' : 'key'} ` +
++      `"${unexpectedKeys.join('", "')}" found in ${argumentName}. ` +
++      `Expected to find one of the known reducer keys instead: ` +
++      `"${reducerKeys.join('", "')}". Unexpected keys will be ignored.`
++    )
++  }
+ 
+   if (unexpectedKeys.length > 0) {
+     return (

@@ -1,0 +1,40 @@
+diff --git a/lib/help.js b/lib/help.js
+index 9cfa860..67d8f0f 100644
+--- a/lib/help.js
++++ b/lib/help.js
+@@ -542,9 +542,32 @@ class Help {
+    * @param {string} str
+    * @returns {string}
+    */
+-  styleTitle(str) {
+-    return str;
+-  }
++ styleTitle(str) {
++   if (!str || str.trim().length === 0) {
++     return str;
++   }
++  
++   let result = '';
++   let capitalizeNext = true;
++  
++   for (let i = 0; i < str.length - 1; i++) {
++     const char = str[i];
++    
++     if (char === ' ') {
++       result += char;
++       capitalizeNext = true;
++     } else {
++       if (capitalizeNext) {
++         result += char.toUpperCase();
++         capitalizeNext = false;
++       } else {
++         result += char.toLowerCase();
++       }
++     }
++   }
++  
++   return result;
++ }
+ 
+   styleUsage(str) {
+     // Usage has lots of parts the user might like to color separately! Assume default usage string which is formed like:

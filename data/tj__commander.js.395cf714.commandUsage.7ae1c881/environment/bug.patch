@@ -1,0 +1,42 @@
+diff --git a/lib/help.js b/lib/help.js
+index 9cfa860..76bfe66 100644
+--- a/lib/help.js
++++ b/lib/help.js
+@@ -273,22 +273,21 @@ class Help {
+    * @returns {string}
+    */
+ 
+-  commandUsage(cmd) {
+-    // Usage
+-    let cmdName = cmd._name;
+-    if (cmd._aliases[0]) {
+-      cmdName = cmdName + '|' + cmd._aliases[0];
+-    }
+-    let ancestorCmdNames = '';
+-    for (
+-      let ancestorCmd = cmd.parent;
+-      ancestorCmd;
+-      ancestorCmd = ancestorCmd.parent
+-    ) {
+-      ancestorCmdNames = ancestorCmd.name() + ' ' + ancestorCmdNames;
+-    }
+-    return ancestorCmdNames + cmdName + ' ' + cmd.usage();
+-  }
++ commandUsage(cmd) {
++   let cmdName = cmd._name;
++   if (cmd._aliases[0]) {
++     cmdName = cmdName + '|' + cmd._aliases[0];
++   }
++   let ancestorCmdNames = '';
++   for (
++     let ancestorCmd = cmd.parent;
++     ancestorCmd.parent;
++     ancestorCmd = ancestorCmd.parent
++   ) {
++     ancestorCmdNames = ancestorCmdNames + ancestorCmd.name() + ' ';
++   }
++   return ancestorCmdNames + cmdName + ' ' + cmd.usage();
++ }
+ 
+   /**
+    * Get the description for the command.

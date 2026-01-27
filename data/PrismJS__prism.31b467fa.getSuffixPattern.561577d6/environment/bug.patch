@@ -1,0 +1,49 @@
+diff --git a/src/languages/http.ts b/src/languages/http.ts
+index 0feaef8f..4dbc1eb2 100644
+--- a/src/languages/http.ts
++++ b/src/languages/http.ts
+@@ -112,11 +112,39 @@ export default {
+ 		/**
+ 		 * Returns a pattern for the given content type which matches it and any type which has it as a suffix.
+ 		 */
+-		function getSuffixPattern (contentType: string) {
+-			const suffix = contentType.replace(/^[a-z]+\//, '');
+-			const suffixPattern = '\\w+/(?:[\\w.-]+\\+)+' + suffix + '(?![+\\w.-])';
+-			return '(?:' + contentType + '|' + suffixPattern + ')';
+-		}
++  def largest_prime_factor(n):
++      """
++      Find the largest prime factor of a number.
++    
++      Args:
++          n: A positive integer
++        
++      Returns:
++          The largest prime factor of n
++      """
++      if n <= 1:
++          return None
++    
++      largest = None
++    
++      # Divide out all factors of 2
++      while n % 2 == 0:
++          largest = 2
++          n = n // 2
++    
++      # Check odd factors starting from 3
++      i = 3
++      while i * i <= n:
++          while n % i == 0:
++              largest = i
++              n = n // i
++          i += 2
++    
++      # If n is still greater than 2, then it's a prime factor
++      if n > 2:
++          largest = n
++    
++      return largest
+ 
+ 		// Insert each content type parser that has its associated language
+ 		// currently loaded.

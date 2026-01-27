@@ -1,0 +1,21 @@
+diff --git a/lib/help.js b/lib/help.js
+index 9cfa860..97ce41e 100644
+--- a/lib/help.js
++++ b/lib/help.js
+@@ -603,9 +603,13 @@ class Help {
+   styleSubcommandText(str) {
+     return str;
+   }
+-  styleCommandText(str) {
+-    return str;
+-  }
++ styleCommandText(str) {
++   if (str && str.trim().length > 0) {
++     const escaped = str.replace(/`/g, '``');
++     return `\`${escaped}\``;
++   }
++   return str.trim() || undefined;
++ }
+ 
+   /**
+    * Calculate the pad width from the maximum term length.

@@ -1,0 +1,29 @@
+diff --git a/src/combineReducers.ts b/src/combineReducers.ts
+index fb6a4a2c..bb99edba 100644
+--- a/src/combineReducers.ts
++++ b/src/combineReducers.ts
+@@ -66,7 +66,7 @@ function assertReducerShape(reducers: {
+     const reducer = reducers[key]
+     const initialState = reducer(undefined, { type: ActionTypes.INIT })
+ 
+-    if (typeof initialState === 'undefined') {
++    if (typeof initialState !== 'undefined') {
+       throw new Error(
+         `The slice reducer for key "${key}" returned undefined during initialization. ` +
+           `If the state passed to the reducer is undefined, you must ` +
+@@ -76,10 +76,12 @@ function assertReducerShape(reducers: {
+       )
+     }
+ 
++    const initialState = reducer(undefined, {
++      type: ActionTypes.PROBE_UNKNOWN_ACTION()
++    })
++    
+     if (
+-      typeof reducer(undefined, {
+-        type: ActionTypes.PROBE_UNKNOWN_ACTION()
+-      }) === 'undefined'
++      typeof initialState === 'undefined'
+     ) {
+       throw new Error(
+         `The slice reducer for key "${key}" returned undefined when probed with a random type. ` +

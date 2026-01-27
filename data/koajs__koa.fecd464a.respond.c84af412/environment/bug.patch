@@ -1,0 +1,124 @@
+diff --git a/lib/application.js b/lib/application.js
+index cd65044..eb6779a 100644
+--- a/lib/application.js
++++ b/lib/application.js
+@@ -254,76 +254,49 @@ module.exports = class Application extends Emitter {
+  * Response helper.
+  */
+ 
+-function respond (ctx) {
+-  // allow bypassing koa
+-  if (ctx.respond === false) return
+-
+-  const res = ctx.res
+-
+-  if (!ctx.writable) return res.end()
+-
+-  let body = ctx.body
+-  const code = ctx.status
+-
+-  // ignore body
+-  if (statuses.empty[code]) {
+-    // strip headers
+-    ctx.body = null
+-    return res.end()
+-  }
+-
+-  if (ctx.method === 'HEAD') {
+-    if (!res.headersSent && !ctx.response.has('Content-Length')) {
+-      const { length } = ctx.response
+-      if (Number.isInteger(length)) ctx.length = length
+-    }
+-    return res.end()
+-  }
+-
+-  // status body
+-  if (body === null || body === undefined) {
+-    if (ctx.response._explicitNullBody) {
+-      ctx.response.remove('Content-Type')
+-      ctx.response.remove('Transfer-Encoding')
+-      ctx.length = 0
+-      return res.end()
+-    }
+-    if (ctx.req.httpVersionMajor >= 2) {
+-      body = String(code)
+-    } else {
+-      body = ctx.message || String(code)
+-    }
+-    if (!res.headersSent) {
+-      ctx.type = 'text'
+-      ctx.length = Buffer.byteLength(body)
+-    }
+-    return res.end(body)
+-  }
+-
+-  // responses
+-
+-  if (Buffer.isBuffer(body)) return res.end(body)
+-  if (typeof body === 'string') return res.end(body)
+-
+-  let stream = null
+-  if (body instanceof Blob) stream = Stream.Readable.from(body.stream())
+-  else if (body instanceof ReadableStream) stream = Stream.Readable.from(body)
+-  else if (body instanceof Response) stream = Stream.Readable.from(body?.body || '')
+-  else if (isStream(body)) stream = body
+-
+-  if (stream) {
+-    return Stream.pipeline(stream, res, err => {
+-      if (err && ctx.app.listenerCount('error')) ctx.onerror(err)
+-    })
+-  }
+-
+-  // body: json
+-  body = JSON.stringify(body)
+-  if (!res.headersSent) {
+-    ctx.length = Buffer.byteLength(body)
+-  }
+-  res.end(body)
+-}
++def get_longest_increasing_subsequence(nums):
++    """
++    Find the longest strictly increasing subsequence in a list of integers.
++    
++    Args:
++        nums: A list of integers
++        
++    Returns:
++        A list containing the longest strictly increasing subsequence.
++        If there are multiple subsequences of the same maximum length,
++        return any one of them.
++    """
++    if not nums:
++        return []
++    
++    n = len(nums)
++    # dp[i] represents the length of longest increasing subsequence ending at index i
++    dp = [1] * n
++    # parent[i] stores the index of the previous element in the LIS ending at i
++    parent = [-1] * n
++    
++    # Build the dp table
++    for i in range(1, n):
++        for j in range(i):
++            if nums[j] < nums[i] and dp[j] + 1 > dp[i]:
++                dp[i] = dp[j] + 1
++                parent[i] = j
++    
++    # Find the index with maximum length
++    max_length = max(dp)
++    max_index = dp.index(max_length)
++    
++    # Reconstruct the subsequence by backtracking
++    result = []
++    current = max_index
++    while current != -1:
++        result.append(nums[current])
++        current = parent[current]
++    
++    # Reverse since we built it backwards
++    result.reverse()
++    
++    return result
+ 
+ /**
+  * Make HttpError available to consumers of the library so that consumers don't

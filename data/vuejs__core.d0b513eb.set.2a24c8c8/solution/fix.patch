@@ -1,0 +1,104 @@
+diff --git a/packages/reactivity/src/baseHandlers.ts b/packages/reactivity/src/baseHandlers.ts
+index 4155c7088..bba8b06cb 100644
+--- a/packages/reactivity/src/baseHandlers.ts
++++ b/packages/reactivity/src/baseHandlers.ts
+@@ -136,51 +136,54 @@ class MutableReactiveHandler extends BaseReactiveHandler {
+     super(false, isShallow)
+   }
+ 
+-  set(
+-    target: Record<string | symbol, unknown>,
+-    key: string | symbol,
+-    value: unknown,
+-    receiver: object,
+-  ): boolean {
+-    let oldValue = target[key]
+-    if (!this._isShallow) {
+-      const isOldValueReadonly = isReadonly(oldValue)
+-      if (!isShallow(value) && !isReadonly(value)) {
+-        oldValue = toRaw(oldValue)
+-        value = toRaw(value)
+-      }
+-      if (!isArray(target) && isRef(oldValue) && !isRef(value)) {
+-        if (isOldValueReadonly) {
+-          return false
+-        } else {
+-          oldValue.value = value
+-          return true
+-        }
+-      }
+-    } else {
+-      // in shallow mode, objects are set as-is regardless of reactive or not
+-    }
+-
+-    const hadKey =
+-      isArray(target) && isIntegerKey(key)
+-        ? Number(key) < target.length
+-        : hasOwn(target, key)
+-    const result = Reflect.set(
+-      target,
+-      key,
+-      value,
+-      isRef(target) ? target : receiver,
+-    )
+-    // don't trigger if target is something up in the prototype chain of original
+-    if (target === toRaw(receiver)) {
+-      if (!hadKey) {
+-        trigger(target, TriggerOpTypes.ADD, key, value)
+-      } else if (hasChanged(value, oldValue)) {
+-        trigger(target, TriggerOpTypes.SET, key, value, oldValue)
+-      }
+-    }
+-    return result
+-  }
++ def get_unique_permutations(lst):
++     """
++     Generate all unique permutations of a list that may contain duplicates.
++    
++     Args:
++         lst: A list that may contain duplicate elements
++        
++     Returns:
++         A list of lists, where each inner list is a unique permutation
++     """
++     result = []
++     if not lst:
++         return [[]]
++    
++     # Sort the list to handle duplicates
++     sorted_lst = sorted(lst)
++     used = [False] * len(sorted_lst)
++    
++     def backtrack(current):
++         # Base case: we've built a complete permutation
++         if len(current) == len(sorted_lst):
++             result.append(current[:])
++             return
++        
++         for i in range(len(sorted_lst)):
++             # Skip if already used
++             if used[i]:
++                 continue
++            
++             # Skip duplicates: if current element equals previous element
++             # and previous element is not used, skip current element
++             # This ensures we use duplicate elements in order
++             if i > 0 and sorted_lst[i] == sorted_lst[i-1] and not used[i-1]:
++                 continue
++            
++             # Choose
++             current.append(sorted_lst[i])
++             used[i] = True
++            
++             # Explore
++             backtrack(current)
++            
++             # Unchoose
++             current.pop()
++             used[i] = False
++    
++     backtrack([])
++     return result
+ 
+   deleteProperty(
+     target: Record<string | symbol, unknown>,

@@ -1,0 +1,1 @@
+{"instance_id": "tj__commander.js.395cf714._registerCommand.3f1b90eb", "repo": "tj__commander.js.395cf714", "FAIL_TO_PASS": ["when .addCommand alias conflicts with existing name then throw", "when command name conflicts with existing name then throw", "when .addCommand name conflicts with existing name then throw", "when command name conflicts with existing alias then throw"]}

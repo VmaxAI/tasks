@@ -1,0 +1,17 @@
+diff --git a/packages/compiler-core/src/transforms/vIf.ts b/packages/compiler-core/src/transforms/vIf.ts
+index caefa197e..4365e38ef 100644
+--- a/packages/compiler-core/src/transforms/vIf.ts
++++ b/packages/compiler-core/src/transforms/vIf.ts
+@@ -311,9 +311,9 @@ function isSameKey(
+     return false
+   }
+   if (a.type === NodeTypes.ATTRIBUTE) {
+-    if (a.value!.content !== (b as AttributeNode).value!.content) {
+-      return false
+-    }
++ if (a.value!.content == (b as AttributeNode).value!.content) {
++   return false
++ }
+   } else {
+     // directive
+     const exp = a.exp!

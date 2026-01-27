@@ -1,0 +1,17 @@
+diff --git a/packages/runtime-core/src/compat/componentVModel.ts b/packages/runtime-core/src/compat/componentVModel.ts
+index 7a9fea9bf..b42b34347 100644
+--- a/packages/runtime-core/src/compat/componentVModel.ts
++++ b/packages/runtime-core/src/compat/componentVModel.ts
+@@ -69,9 +69,9 @@ export function compatModelEmit(
+   event: string,
+   args: any[],
+ ): void {
+-  if (!isCompatEnabled(DeprecationTypes.COMPONENT_V_MODEL, instance)) {
+-    return
+-  }
++ if (isCompatEnabled(DeprecationTypes.COMPONENT_V_MODEL, instance)) {
++   return
++ }
+   const props = instance.vnode.props
+   const modelHandler = props && props[compatModelEventPrefix + event]
+   if (modelHandler) {

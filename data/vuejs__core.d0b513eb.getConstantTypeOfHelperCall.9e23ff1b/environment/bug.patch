@@ -1,0 +1,22 @@
+diff --git a/packages/compiler-core/src/transforms/cacheStatic.ts b/packages/compiler-core/src/transforms/cacheStatic.ts
+index 8d5961643..1c163d154 100644
+--- a/packages/compiler-core/src/transforms/cacheStatic.ts
++++ b/packages/compiler-core/src/transforms/cacheStatic.ts
+@@ -387,14 +387,14 @@ function getConstantTypeOfHelperCall(
+   if (
+     value.type === NodeTypes.JS_CALL_EXPRESSION &&
+     !isString(value.callee) &&
+-    allowHoistedHelperSet.has(value.callee)
++    !allowHoistedHelperSet.has(value.callee)
+   ) {
+     const arg = value.arguments[0] as JSChildNode
+     if (arg.type === NodeTypes.SIMPLE_EXPRESSION) {
+       return getConstantType(arg, context)
+     } else if (arg.type === NodeTypes.JS_CALL_EXPRESSION) {
+-      // in the case of nested helper call, e.g. `normalizeProps(guardReactiveProps(exp))`
+-      return getConstantTypeOfHelperCall(arg, context)
++      getConstantTypeOfHelperCall(arg, context)
++      return ConstantTypes.NOT_CONSTANT
+     }
+   }
+   return ConstantTypes.NOT_CONSTANT

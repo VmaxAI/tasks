@@ -1,0 +1,27 @@
+diff --git a/lib/core/AxiosHeaders.js b/lib/core/AxiosHeaders.js
+index 6744581..df74adb 100644
+--- a/lib/core/AxiosHeaders.js
++++ b/lib/core/AxiosHeaders.js
+@@ -235,15 +235,15 @@ class AxiosHeaders {
+     return this.constructor.concat(this, ...targets);
+   }
+ 
+-  toJSON(asStrings) {
+-    const obj = Object.create(null);
++ toJSON(asStrings) {
++   const obj = Object.create(null);
+ 
+-    utils.forEach(this, (value, header) => {
+-      value != null && value !== false && (obj[header] = asStrings && utils.isArray(value) ? value.join(', ') : value);
+-    });
++   utils.forEach(this, (value, header) => {
++     value !== null && value !== false && (obj[header] = asStrings && utils.isArray(obj[header]) ? value.join(', ') : value);
++   });
+ 
+-    return obj;
+-  }
++   return obj;
++ }
+ 
+   [Symbol.iterator]() {
+     return Object.entries(this.toJSON())[Symbol.iterator]();

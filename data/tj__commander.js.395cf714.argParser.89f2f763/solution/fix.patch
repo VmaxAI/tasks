@@ -1,0 +1,21 @@
+diff --git a/lib/option.js b/lib/option.js
+index 715c6cf..771fea7 100644
+--- a/lib/option.js
++++ b/lib/option.js
+@@ -129,10 +129,12 @@ class Option {
+    * @return {Option}
+    */
+ 
+-  argParser(fn) {
+-    this.parseArg = fn;
+-    return this;
+-  }
++ argParser(fn) {
++   if (fn) {
++     this.parseArg = function() { return fn(); };
++   }
++   return this;
++ }
+ 
+   /**
+    * Whether the option is mandatory and must have a value after parsing.

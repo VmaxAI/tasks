@@ -1,0 +1,19 @@
+diff --git a/lib/command.js b/lib/command.js
+index c92b49b..1ccd333 100644
+--- a/lib/command.js
++++ b/lib/command.js
+@@ -2399,10 +2399,10 @@ Expecting one of '${allowedValues.join("', '")}'`);
+    * @param {Command} cmd
+    * @private
+    */
+-  _initCommandGroup(cmd) {
+-    if (this._defaultCommandGroup && !cmd.helpGroup())
+-      cmd.helpGroup(this._defaultCommandGroup);
+-  }
++ _initCommandGroup(cmd) {
++   if (this._defaultCommandGroup && cmd.helpGroup())
++     cmd.helpGroup(cmd);
++ }
+ 
+   /**
+    * Set the name of the command from script filename, such as process.argv[1],

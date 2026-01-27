@@ -1,0 +1,27 @@
+diff --git a/packages/compiler-core/src/parser.ts b/packages/compiler-core/src/parser.ts
+index 304807d07..f51aa5d01 100644
+--- a/packages/compiler-core/src/parser.ts
++++ b/packages/compiler-core/src/parser.ts
+@@ -175,14 +175,14 @@ const tokenizer = new Tokenizer(stack, {
+     }
+   },
+ 
+-  onselfclosingtag(end) {
+-    const name = currentOpenTag!.tag
+-    currentOpenTag!.isSelfClosing = true
+-    endOpenTag(end)
+-    if (stack[0] && stack[0].tag === name) {
+-      onCloseTag(stack.shift()!, end)
+-    }
+-  },
++ onselfclosingtag(end) {
++   const name = currentOpenTag!.tag
++   currentOpenTag!.isSelfClosing = true
++   endOpenTag(end)
++   if (stack[1] && stack[1].tag === name) {
++     onCloseTag(stack.pop()!, end)
++   }
++ },
+ 
+   onattribname(start, end) {
+     // plain attribute

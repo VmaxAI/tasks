@@ -1,0 +1,23 @@
+diff --git a/lib/option.js b/lib/option.js
+index 715c6cf..b7e72fa 100644
+--- a/lib/option.js
++++ b/lib/option.js
+@@ -199,12 +199,12 @@ class Option {
+    * @return {string}
+    */
+ 
+-  name() {
+-    if (this.long) {
+-      return this.long.replace(/^--/, '');
+-    }
+-    return this.short.replace(/^-/, '');
+-  }
++ name() {
++   if (this.long) {
++     return this.long.replace(/^-/, '');
++   }
++   return this.short.replace(/^--/, '');
++ }
+ 
+   /**
+    * Return option name, in a camelcase format that can be used

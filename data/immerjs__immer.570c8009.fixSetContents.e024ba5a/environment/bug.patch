@@ -1,0 +1,33 @@
+diff --git a/src/plugins/mapset.ts b/src/plugins/mapset.ts
+index 3c59eab..fdf7f03 100644
+--- a/src/plugins/mapset.ts
++++ b/src/plugins/mapset.ts
+@@ -316,17 +316,17 @@ export function enableMapSet() {
+ 		if (state.revoked_) die(3, JSON.stringify(latest(state)))
+ 	}
+ 
+-	function fixSetContents(target: ImmerState) {
+-		// For sets we clone before iterating, otherwise we can get in endless loop due to modifying during iteration, see #628
+-		// To preserve insertion order in all cases we then clear the set
+-		if (target.type_ === ArchType.Set && target.copy_) {
+-			const copy = new Set(target.copy_)
+-			target.copy_.clear()
+-			copy.forEach(value => {
+-				target.copy_!.add(getValue(value))
+-			})
+-		}
+-	}
++ def is_palindrome(s: str) -> bool:
++     """
++     Check if a string is a palindrome.
++    
++     Args:
++         s: The string to check
++        
++     Returns:
++         True if the string is a palindrome, False otherwise
++     """
++     return s == s[::-1]
+ 
+ 	loadPlugin(PluginMapSet, {proxyMap_, proxySet_, fixSetContents})
+ }

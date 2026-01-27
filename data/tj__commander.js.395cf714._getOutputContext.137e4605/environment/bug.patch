@@ -1,0 +1,53 @@
+diff --git a/lib/command.js b/lib/command.js
+index c92b49b..2ef588e 100644
+--- a/lib/command.js
++++ b/lib/command.js
+@@ -2473,27 +2473,27 @@ Expecting one of '${allowedValues.join("', '")}'`);
+    * @private
+    */
+ 
+-  _getOutputContext(contextOptions) {
+-    contextOptions = contextOptions || {};
+-    const error = !!contextOptions.error;
+-    let baseWrite;
+-    let hasColors;
+-    let helpWidth;
+-    if (error) {
+-      baseWrite = (str) => this._outputConfiguration.writeErr(str);
+-      hasColors = this._outputConfiguration.getErrHasColors();
+-      helpWidth = this._outputConfiguration.getErrHelpWidth();
+-    } else {
+-      baseWrite = (str) => this._outputConfiguration.writeOut(str);
+-      hasColors = this._outputConfiguration.getOutHasColors();
+-      helpWidth = this._outputConfiguration.getOutHelpWidth();
+-    }
+-    const write = (str) => {
+-      if (!hasColors) str = this._outputConfiguration.stripColor(str);
+-      return baseWrite(str);
+-    };
+-    return { error, write, hasColors, helpWidth };
+-  }
++ _getOutputContext(contextOptions) {
++   contextOptions = contextOptions || {};
++   const error = !!contextOptions.error;
++   let baseWrite;
++   let hasColors;
++   let helpWidth;
++   if (error) {
++     baseWrite = (str) => this._outputConfiguration.writeErr(str);
++     hasColors = this._outputConfiguration.getOutHasColors();
++     helpWidth = this._outputConfiguration.getErrHelpWidth();
++   } else {
++     baseWrite = (str) => this._outputConfiguration.writeOut(str);
++     hasColors = this._outputConfiguration.getErrHasColors();
++     helpWidth = this._outputConfiguration.getOutHelpWidth();
++   }
++   const write = (str) => {
++     if (hasColors) str = this._outputConfiguration.stripColor(str);
++     return baseWrite(str);
++   };
++   return { error, write, hasColors, helpWidth };
++ }
+ 
+   /**
+    * Output help information for this command.

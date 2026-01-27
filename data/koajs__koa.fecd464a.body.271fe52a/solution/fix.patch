@@ -1,0 +1,143 @@
+diff --git a/lib/response.js b/lib/response.js
+index 846a8be..624d6b4 100644
+--- a/lib/response.js
++++ b/lib/response.js
+@@ -132,104 +132,40 @@ module.exports = {
+    * @api public
+    */
+ 
+-  set body (val) {
+-    const original = this._body
+-    this._body = val
+-
+-    const cleanupPreviousStream = () => {
+-      if (original && isStream(original)) {
+-        original.once('error', () => {})
+-        // Only destroy if the new value is not a stream
+-        if (!isStream(val)) {
+-          destroy(original)
+-        }
+-      }
+-    }
+-
+-    // no content
+-
+-    if (val == null) {
+-      if (!statuses.empty[this.status]) {
+-        if (this.type === 'application/json') {
+-          this._body = 'null'
+-          return
+-        }
+-        this.status = 204
+-      }
+-      if (val === null) this._explicitNullBody = true
+-      this.remove('Content-Type')
+-      this.remove('Content-Length')
+-      this.remove('Transfer-Encoding')
+-      cleanupPreviousStream()
+-      return
+-    }
+-
+-    // set the status
+-    if (!this._explicitStatus) this.status = 200
+-
+-    // set the content-type only if not yet set
+-    const setType = !this.has('Content-Type')
+-
+-    // string
+-    if (typeof val === 'string') {
+-      if (setType) this.type = /^\s*</.test(val) ? 'html' : 'text'
+-      this.length = Buffer.byteLength(val)
+-      cleanupPreviousStream()
+-      return
+-    }
+-
+-    // buffer
+-    if (Buffer.isBuffer(val)) {
+-      if (setType) this.type = 'bin'
+-      this.length = val.length
+-      cleanupPreviousStream()
+-      return
+-    }
+-
+-    // stream
+-    if (isStream(val)) {
+-      onFinish(this.res, destroy.bind(null, val))
+-      if (original !== val) {
+-        if (original != null) this.remove('Content-Length')
+-        cleanupPreviousStream()
+-      }
+-
+-      if (setType) this.type = 'bin'
+-      return
+-    }
+-
+-    // ReadableStream
+-    if (val instanceof ReadableStream) {
+-      if (setType) this.type = 'bin'
+-      cleanupPreviousStream()
+-      return
+-    }
+-
+-    // blob
+-    if (val instanceof Blob) {
+-      if (setType) this.type = 'bin'
+-      this.length = val.size
+-      cleanupPreviousStream()
+-      return
+-    }
+-
+-    // Response
+-    if (val instanceof Response) {
+-      this.status = val.status
+-      if (setType) this.type = 'bin'
+-      const headers = val.headers
+-      for (const key of headers.keys()) {
+-        this.set(key, headers.get(key))
+-      }
+-      cleanupPreviousStream()
+-      return
+-    }
+-
+-    // json
+-    this.remove('Content-Length')
+-    if (!this.type || !/\bjson\b/i.test(this.type)) this.type = 'json'
+-    cleanupPreviousStream()
+-  },
++ def get_prime_factors(n):
++     """
++     Returns a list of prime factors of n in ascending order.
++     If n < 2, returns an empty list.
++    
++     Args:
++         n: An integer
++        
++     Returns:
++         A list of prime factors in ascending order
++     """
++     if n < 2:
++         return []
++    
++     factors = []
++    
++     # Check for factor 2
++     while n % 2 == 0:
++         factors.append(2)
++         n = n // 2
++    
++     # Check for odd factors from 3 onwards
++     i = 3
++     while i * i <= n:
++         while n % i == 0:
++             factors.append(i)
++             n = n // i
++         i += 2
++    
++     # If n is still greater than 1, then it's a prime factor
++     if n > 1:
++         factors.append(n)
++    
++     return factors
+ 
+   /**
+    * Set Content-Length field to `n`.

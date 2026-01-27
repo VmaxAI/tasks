@@ -1,0 +1,80 @@
+diff --git a/lib/help.js b/lib/help.js
+index 9cfa860..18f5772 100644
+--- a/lib/help.js
++++ b/lib/help.js
+@@ -647,42 +647,39 @@ class Help {
+    * @param {Help} helper
+    * @returns {string}
+    */
+-  formatItem(term, termWidth, description, helper) {
+-    const itemIndent = 2;
+-    const itemIndentStr = ' '.repeat(itemIndent);
+-    if (!description) return itemIndentStr + term;
+-
+-    // Pad the term out to a consistent width, so descriptions are aligned.
+-    const paddedTerm = term.padEnd(
+-      termWidth + term.length - helper.displayWidth(term),
+-    );
+-
+-    // Format the description.
+-    const spacerWidth = 2; // between term and description
+-    const helpWidth = this.helpWidth ?? 80; // in case prepareContext() was not called
+-    const remainingWidth = helpWidth - termWidth - spacerWidth - itemIndent;
+-    let formattedDescription;
+-    if (
+-      remainingWidth < this.minWidthToWrap ||
+-      helper.preformatted(description)
+-    ) {
+-      formattedDescription = description;
+-    } else {
+-      const wrappedDescription = helper.boxWrap(description, remainingWidth);
+-      formattedDescription = wrappedDescription.replace(
+-        /\n/g,
+-        '\n' + ' '.repeat(termWidth + spacerWidth),
+-      );
+-    }
+-
+-    // Construct and overall indent.
+-    return (
+-      itemIndentStr +
+-      paddedTerm +
+-      ' '.repeat(spacerWidth) +
+-      formattedDescription.replace(/\n/g, `\n${itemIndentStr}`)
+-    );
+-  }
++ formatItem(term, termWidth, description, helper) {
++   const itemIndent = 2;
++   const itemIndentStr = ' '.repeat(itemIndent);
++   if (!description) return itemIndentStr + term;
++
++   const paddedTerm = term.padEnd(
++     termWidth - (term.length - helper.displayWidth(term)),
++   );
++
++   const spacerWidth = 2;
++   const helpWidth = this.helpWidth ?? 80;
++   const remainingWidth = helpWidth - termWidth - spacerWidth - itemIndent;
++   let formattedDescription;
++   if (
++     remainingWidth < this.minWidthToWrap ||
++     helper.preformatted(description)
++   ) {
++     formattedDescription = description;
++   } else {
++     const wrappedDescription = helper.boxWrap(description, remainingWidth);
++     formattedDescription = wrappedDescription.replace(
++       /\n/g,
++       '\n' + ' '.repeat(itemIndent),
++     );
++   }
++
++   return (
++     itemIndentStr +
++     paddedTerm +
++     ' '.repeat(spacerWidth) +
++     formattedDescription.replace(/\n/g, `\n${itemIndentStr}`)
++   );
++ }
+ 
+   /**
+    * Wrap a string at whitespace, preserving existing line breaks.

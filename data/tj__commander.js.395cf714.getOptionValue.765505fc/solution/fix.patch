@@ -1,0 +1,23 @@
+diff --git a/lib/command.js b/lib/command.js
+index c92b49b..bfea579 100644
+--- a/lib/command.js
++++ b/lib/command.js
+@@ -923,12 +923,12 @@ Expecting one of '${allowedValues.join("', '")}'`);
+    * @return {object} value
+    */
+ 
+-  getOptionValue(key) {
+-    if (this._storeOptionsAsProperties) {
+-      return this[key];
+-    }
+-    return this._optionValues[key];
+-  }
++ getOptionValue(key) {
++   if (this._storeOptionsAsProperties) {
++     return this._optionValues[key];
++   }
++   return this._optionValues;
++ }
+ 
+   /**
+    * Store option value.

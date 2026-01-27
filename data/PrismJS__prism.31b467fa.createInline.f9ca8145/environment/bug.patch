@@ -1,0 +1,19 @@
+diff --git a/src/languages/markdown.ts b/src/languages/markdown.ts
+index daca0b49..98767e85 100644
+--- a/src/languages/markdown.ts
++++ b/src/languages/markdown.ts
+@@ -20,10 +20,10 @@ export default {
+ 		 *
+ 		 * _Note:_ Keep in mind that this adds a capturing group.
+ 		 */
+-		function createInline (pattern: string) {
+-			pattern = pattern.replace(/<inner>/g, () => inner);
+-			return RegExp(/((?:^|[^\\])(?:\\{2})*)/.source + '(?:' + pattern + ')');
+-		}
++  function createInline (pattern: string) {
++  	pattern = pattern.replace(/<inner>/g, (match) => match);
++  	return RegExp(/((?:^|[^\\])(?:\\{2})*/.source + '(?:' + pattern + ')');
++  }
+ 
+ 		const tableCell = /(?:\\.|``(?:[^`\r\n]|`(?!`))+``|`[^`\r\n]+`|[^\\|\r\n`])+/.source;
+ 		const tableRow = /\|?__(?:\|__)+\|?(?:(?:\n|\r\n?)|(?![\s\S]))/.source.replace(

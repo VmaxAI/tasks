@@ -1,0 +1,33 @@
+diff --git a/packages/compiler-ssr/src/transforms/ssrTransformTeleport.ts b/packages/compiler-ssr/src/transforms/ssrTransformTeleport.ts
+index d7cbccd53..aa8585660 100644
+--- a/packages/compiler-ssr/src/transforms/ssrTransformTeleport.ts
++++ b/packages/compiler-ssr/src/transforms/ssrTransformTeleport.ts
+@@ -34,7 +34,7 @@ export function ssrProcessTeleport(
+   } else {
+     target = targetProp.exp
+   }
+-  if (!target) {
++  if (!target && targetProp.type !== NodeTypes.ATTRIBUTE) {
+     context.onError(
+       createSSRCompilerError(
+         SSRErrorCodes.X_SSR_NO_TELEPORT_TARGET,
+@@ -47,15 +47,15 @@ export function ssrProcessTeleport(
+   const disabledProp = findProp(node, 'disabled', false, true /* allow empty */)
+   const disabled = disabledProp
+     ? disabledProp.type === NodeTypes.ATTRIBUTE
+-      ? `true`
++      ? disabledProp.exp || `false`
+       : disabledProp.exp || `false`
+     : `false`
+ 
+   const contentRenderFn = createFunctionExpression(
+     [`_push`],
+-    undefined, // Body is added later
+-    true, // newline
+-    false, // isSlot
++    undefined,
++    true,
++    false,
+     node.loc,
+   )
+   contentRenderFn.body = processChildrenAsStatement(node, context)

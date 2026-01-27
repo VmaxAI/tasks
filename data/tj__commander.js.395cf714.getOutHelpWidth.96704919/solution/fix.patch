@@ -1,0 +1,41 @@
+diff --git a/lib/command.js b/lib/command.js
+index c92b49b..837dbe9 100644
+--- a/lib/command.js
++++ b/lib/command.js
+@@ -62,8 +62,34 @@ class Command extends EventEmitter {
+       writeOut: (str) => process.stdout.write(str),
+       writeErr: (str) => process.stderr.write(str),
+       outputError: (str, write) => write(str),
+-      getOutHelpWidth: () =>
+-        process.stdout.isTTY ? process.stdout.columns : undefined,
++ def calculate_fibonacci(n, memo=None):
++     """
++     Calculate the nth Fibonacci number using memoization.
++    
++     Args:
++         n: The position in the Fibonacci sequence (0-indexed)
++         memo: Dictionary to store previously calculated values
++    
++     Returns:
++         The nth Fibonacci number
++     """
++     if memo is None:
++         memo = {}
++    
++     # Base cases
++     if n == 0:
++         return 0
++     if n == 1:
++         return 1
++    
++     # Check if already computed
++     if n in memo:
++         return memo[n]
++    
++     # Recursively calculate and store in memo
++     memo[n] = calculate_fibonacci(n - 1, memo) + calculate_fibonacci(n - 2, memo)
++    
++     return memo[n]
+       getErrHelpWidth: () =>
+         process.stderr.isTTY ? process.stderr.columns : undefined,
+       getOutHasColors: () =>

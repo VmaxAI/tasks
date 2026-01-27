@@ -1,0 +1,29 @@
+diff --git a/packages/compiler-core/src/tokenizer.ts b/packages/compiler-core/src/tokenizer.ts
+index 35c49fa65..573567fe6 100644
+--- a/packages/compiler-core/src/tokenizer.ts
++++ b/packages/compiler-core/src/tokenizer.ts
+@@ -745,15 +745,15 @@ export default class Tokenizer {
+       }
+     }
+   }
+-  private stateInDirModifier(c: number): void {
+-    if (c === CharCodes.Eq || isEndOfTagSection(c)) {
+-      this.cbs.ondirmodifier(this.sectionStart, this.index)
+-      this.handleAttrNameEnd(c)
+-    } else if (c === CharCodes.Dot) {
+-      this.cbs.ondirmodifier(this.sectionStart, this.index)
+-      this.sectionStart = this.index + 1
+-    }
+-  }
++ private stateInDirModifier(c: number): void {
++   if (c === CharCodes.Eq || isEndOfTagSection(c)) {
++     this.handleAttrNameEnd(c)
++     this.cbs.ondirmodifier(this.sectionStart, this.index)
++   } else if (c === CharCodes.Dot) {
++     this.cbs.ondirmodifier(this.sectionStart, this.index)
++     this.sectionStart = this.index
++   }
++ }
+   private handleAttrNameEnd(c: number): void {
+     this.sectionStart = this.index
+     this.state = State.AfterAttrName

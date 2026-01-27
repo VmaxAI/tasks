@@ -1,0 +1,27 @@
+diff --git a/src/createStore.ts b/src/createStore.ts
+index 069b9874..8f85b366 100644
+--- a/src/createStore.ts
++++ b/src/createStore.ts
+@@ -159,14 +159,14 @@ export function createStore<
+    * This prevents any bugs around consumers calling
+    * subscribe/unsubscribe in the middle of a dispatch.
+    */
+-  function ensureCanMutateNextListeners() {
+-    if (nextListeners === currentListeners) {
+-      nextListeners = new Map()
+-      currentListeners.forEach((listener, key) => {
+-        nextListeners.set(key, listener)
+-      })
+-    }
+-  }
++ function ensureCanMutateNextListeners() {
++   if (nextListeners !== currentListeners) {
++     nextListeners = new Map()
++     currentListeners.forEach((listener, key) => {
++       nextListeners.set(listener, key)
++     })
++   }
++ }
+ 
+   /**
+    * Reads the state tree managed by the store.

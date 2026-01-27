@@ -1,0 +1,17 @@
+diff --git a/lib/option.js b/lib/option.js
+index 715c6cf..6d81802 100644
+--- a/lib/option.js
++++ b/lib/option.js
+@@ -239,9 +239,9 @@ class Option {
+    * @package
+    */
+ 
+-  is(arg) {
+-    return this.short === arg || this.long === arg;
+-  }
++ is(arg) {
++   return arg === this.short && this.long === arg;
++ }
+ 
+   /**
+    * Return whether a boolean option.

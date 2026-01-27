@@ -1,0 +1,1 @@
+{"instance_id": "tj__commander.js.395cf714.argumentDescription.6af537ae", "repo": "tj__commander.js.395cf714", "FAIL_TO_PASS": ["when an argument has default value and no description then still return default value", "when argument has choices and default then both included in helpInformation"]}

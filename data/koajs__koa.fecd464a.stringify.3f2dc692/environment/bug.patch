@@ -1,0 +1,54 @@
+diff --git a/lib/search-params.js b/lib/search-params.js
+index cf824d7..7a1d787 100644
+--- a/lib/search-params.js
++++ b/lib/search-params.js
+@@ -1,25 +1,30 @@
+ const URLSearchParams = require('url').URLSearchParams
+ 
+ module.exports = {
+-  stringify: (obj) => {
+-    const searchParams = new URLSearchParams()
+-    const addKey = (k, v, params) => {
+-      const val = typeof v === 'string' || typeof v === 'number' ? v : ''
+-      params.append(k, val)
+-    }
+-
+-    for (const [key, value] of Object.entries(obj)) {
+-      if (Array.isArray(value)) {
+-        const lgth = value.length
+-        for (let i = 0; i < lgth; i++) {
+-          addKey(key, value[i], searchParams)
+-        }
+-      } else {
+-        addKey(key, value, searchParams)
+-      }
+-    }
+-    return searchParams.toString()
+-  },
++ def find_median(numbers):
++     """
++     Find the median of a list of numbers.
++    
++     Args:
++         numbers: A list of numbers
++        
++     Returns:
++         The median value (float for even-length lists, can be int or float for odd-length)
++     """
++     if not numbers:
++         return None
++    
++     sorted_numbers = sorted(numbers)
++     n = len(sorted_numbers)
++    
++     if n % 2 == 1:
++         # Odd length: return middle element
++         return sorted_numbers[n // 2]
++     else:
++         # Even length: return average of two middle elements
++         mid1 = sorted_numbers[n // 2 - 1]
++         mid2 = sorted_numbers[n // 2]
++         return (mid1 + mid2) / 2
+ 
+   parse: (str) => {
+     const searchParams = new URLSearchParams(str)

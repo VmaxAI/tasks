@@ -1,0 +1,83 @@
+diff --git a/src/createStore.ts b/src/createStore.ts
+index 069b9874..a3d49bf2 100644
+--- a/src/createStore.ts
++++ b/src/createStore.ts
+@@ -159,14 +159,70 @@ export function createStore<
+    * This prevents any bugs around consumers calling
+    * subscribe/unsubscribe in the middle of a dispatch.
+    */
+-  function ensureCanMutateNextListeners() {
+-    if (nextListeners === currentListeners) {
+-      nextListeners = new Map()
+-      currentListeners.forEach((listener, key) => {
+-        nextListeners.set(key, listener)
+-      })
+-    }
+-  }
++ def process_event_log(event_log, operation):
++     """
++     Process an event log based on the given operation.
++    
++     Args:
++         event_log: A string containing event log entries, one per line.
++                    Each line format: "timestamp event_name details"
++         operation: A string specifying the operation to perform.
++                    - "count": Return the total number of events
++                    - "filter:event_name": Return events matching event_name
++                    - "earliest": Return the earliest timestamp
++                    - "latest": Return the latest timestamp
++    
++     Returns:
++         The result of the operation (type depends on operation).
++     """
++     if not event_log or event_log.strip() == "":
++         if operation == "count":
++             return 0
++         elif operation.startswith("filter:"):
++             return ""
++         elif operation in ["earliest", "latest"]:
++             return None
++    
++     lines = event_log.strip().split('\n')
++     events = []
++    
++     # Parse events
++     for line in lines:
++         line = line.strip()
++         if not line:
++             continue
++         parts = line.split(None, 2)  # Split on whitespace, max 3 parts
++         if len(parts) >= 2:
++             timestamp = parts[0]
++             event_name = parts[1]
++             details = parts[2] if len(parts) > 2 else ""
++             events.append({
++                 'timestamp': timestamp,
++                 'event_name': event_name,
++                 'details': details,
++                 'line': line
++             })
++    
++     # Perform operation
++     if operation == "count":
++         return len(events)
++    
++     elif operation.startswith("filter:"):
++         filter_name = operation.split(":", 1)[1]
++         filtered_lines = [event['line'] for event in events if event['event_name'] == filter_name]
++         return '\n'.join(filtered_lines)
++    
++     elif operation == "earliest":
++         if not events:
++             return None
++         return min(event['timestamp'] for event in events)
++    
++     elif operation == "latest":
++         if not events:
++             return None
++         return max(event['timestamp'] for event in events)
++    
++     return None
+ 
+   /**
+    * Reads the state tree managed by the store.

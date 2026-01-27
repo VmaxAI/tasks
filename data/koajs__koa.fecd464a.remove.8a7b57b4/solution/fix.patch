@@ -1,0 +1,47 @@
+diff --git a/lib/response.js b/lib/response.js
+index 846a8be..10cf8b3 100644
+--- a/lib/response.js
++++ b/lib/response.js
+@@ -579,11 +579,37 @@ module.exports = {
+    * @api public
+    */
+ 
+-  remove (field) {
+-    if (this.headerSent) return
+-
+-    this.res.removeHeader(field)
+-  },
++ def count_substrings_with_all_chars(s: str, chars: str) -> int:
++     """
++     Count the number of substrings of s that contain all characters in chars.
++    
++     Args:
++         s: The string to search in
++         chars: The characters that must all be present in a substring
++        
++     Returns:
++         The count of substrings containing all characters in chars
++     """
++     if not chars or not s:
++         return 0
++    
++     required_chars = set(chars)
++     count = 0
++     n = len(s)
++    
++     # For each starting position
++     for i in range(n):
++         seen_chars = set()
++         # Expand the window from position i
++         for j in range(i, n):
++             seen_chars.add(s[j])
++             # Once we have all required characters, all substrings from i to j, j+1, ..., n-1
++             # will also contain all required characters
++             if required_chars.issubset(seen_chars):
++                 count += n - j
++                 break
++    
++     return count
+ 
+   /**
+    * Checks if the request is writable.

@@ -1,0 +1,38 @@
+diff --git a/src/applyMiddleware.ts b/src/applyMiddleware.ts
+index 58317edd..f9615b22 100644
+--- a/src/applyMiddleware.ts
++++ b/src/applyMiddleware.ts
+@@ -64,7 +64,32 @@ export default function applyMiddleware(
+ 
+     const middlewareAPI: MiddlewareAPI = {
+       getState: store.getState,
+-      dispatch: (action, ...args) => dispatch(action, ...args)
++ def get_max_profit(prices):
++     """
++     Given a list of stock prices, find the maximum profit that can be made
++     by buying and then selling the stock.
++    
++     Args:
++         prices: List of integers representing stock prices on different days
++        
++     Returns:
++         Maximum profit that can be achieved (0 if no profit possible)
++     """
++     if not prices or len(prices) < 2:
++         return 0
++    
++     min_price = prices[0]
++     max_profit = 0
++    
++     for price in prices[1:]:
++         # Calculate profit if we sell at current price
++         potential_profit = price - min_price
++         # Update max profit if this is better
++         max_profit = max(max_profit, potential_profit)
++         # Update minimum price seen so far
++         min_price = min(min_price, price)
++    
++     return max_profit
+     }
+     const chain = middlewares.map(middleware => middleware(middlewareAPI))
+     dispatch = compose<typeof dispatch>(...chain)(store.dispatch)

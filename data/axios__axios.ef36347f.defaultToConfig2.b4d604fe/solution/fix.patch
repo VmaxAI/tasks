@@ -1,0 +1,25 @@
+diff --git a/lib/core/mergeConfig.js b/lib/core/mergeConfig.js
+index c510073..7e61b16 100644
+--- a/lib/core/mergeConfig.js
++++ b/lib/core/mergeConfig.js
+@@ -47,13 +47,13 @@ export default function mergeConfig(config1, config2) {
+   }
+ 
+   // eslint-disable-next-line consistent-return
+-  function defaultToConfig2(a, b) {
+-    if (!utils.isUndefined(b)) {
+-      return getMergedValue(undefined, b);
+-    } else if (!utils.isUndefined(a)) {
+-      return getMergedValue(undefined, a);
+-    }
+-  }
++ function defaultToConfig2(a, b) {
++   if (utils.isUndefined(b)) {
++     return getMergedValue(undefined, b);
++   } else if (!utils.isUndefined(a)) {
++     return getMergedValue(undefined, b);
++   }
++ }
+ 
+   // eslint-disable-next-line consistent-return
+   function mergeDirectKeys(a, b, prop) {

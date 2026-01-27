@@ -1,0 +1,45 @@
+diff --git a/src/core/immerClass.ts b/src/core/immerClass.ts
+index b0256d7..ce73c7e 100644
+--- a/src/core/immerClass.ts
++++ b/src/core/immerClass.ts
+@@ -258,15 +258,31 @@ export function createProxy<T extends Objectish>(
+ 		registerChildFinalizationCallback(parent, state, key)
+ 	} else {
+ 		// It's a root draft, register it with the scope
+-		state.callbacks_.push(function rootDraftCleanup(rootScope) {
+-			rootScope.mapSetPlugin_?.fixSetContents(state)
+-
+-			const {patchPlugin_} = rootScope
+-
+-			if (state.modified_ && patchPlugin_) {
+-				patchPlugin_.generatePatches_(state, [], rootScope)
+-			}
+-		})
++  def get_max_profit(prices):
++      """
++      Calculate the maximum profit from buying and selling a stock once.
++    
++      Args:
++          prices: A list of integers representing stock prices on different days.
++        
++      Returns:
++          The maximum profit that can be achieved. Returns 0 if no profit is possible.
++      """
++      if not prices or len(prices) < 2:
++          return 0
++    
++      min_price = prices[0]
++      max_profit = 0
++    
++      for price in prices[1:]:
++          # Calculate profit if we sell at current price
++          potential_profit = price - min_price
++          max_profit = max(max_profit, potential_profit)
++        
++          # Update minimum price seen so far
++          min_price = min(min_price, price)
++    
++      return max_profit
+ 	}
+ 
+ 	return draft as any

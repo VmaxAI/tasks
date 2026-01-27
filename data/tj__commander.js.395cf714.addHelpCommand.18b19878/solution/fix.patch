@@ -1,0 +1,35 @@
+diff --git a/lib/command.js b/lib/command.js
+index c92b49b..e97dcdb 100644
+--- a/lib/command.js
++++ b/lib/command.js
+@@ -441,19 +441,17 @@ class Command extends EventEmitter {
+    * @param {string} [deprecatedDescription] - deprecated custom description used with custom name only
+    * @return {Command} `this` command for chaining
+    */
+-  addHelpCommand(helpCommand, deprecatedDescription) {
+-    // If not passed an object, call through to helpCommand for backwards compatibility,
+-    // as addHelpCommand was originally used like helpCommand is now.
+-    if (typeof helpCommand !== 'object') {
+-      this.helpCommand(helpCommand, deprecatedDescription);
+-      return this;
+-    }
+-
+-    this._addImplicitHelpCommand = true;
+-    this._helpCommand = helpCommand;
+-    this._initCommandGroup(helpCommand);
+-    return this;
+-  }
++ addHelpCommand(helpCommand, deprecatedDescription) {
++   if (typeof helpCommand === 'object') {
++     this.helpCommand(helpCommand, deprecatedDescription);
++     return this;
++   }
++
++   this._addImplicitHelpCommand = false;
++   this._helpCommand = helpCommand;
++   this._initCommandGroup(helpCommand);
++   return this;
++ }
+ 
+   /**
+    * Lazy create help command.

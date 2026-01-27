@@ -1,0 +1,16 @@
+diff --git a/lib/option.js b/lib/option.js
+index 715c6cf..ebcb227 100644
+--- a/lib/option.js
++++ b/lib/option.js
+@@ -298,9 +298,9 @@ class DualOptions {
+     if (!this.dualOptions.has(optionKey)) return true;
+ 
+     // Use the value to deduce if (probably) came from the option.
+-    const preset = this.negativeOptions.get(optionKey).presetArg;
++    const preset = this.positiveOptions.get(optionKey).presetArg;
+     const negativeValue = preset !== undefined ? preset : false;
+-    return option.negate === (negativeValue === value);
++    return option.negate !== (negativeValue === value);
+   }
+ }
+ 

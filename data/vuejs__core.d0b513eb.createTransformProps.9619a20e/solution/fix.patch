@@ -1,0 +1,11 @@
+diff --git a/packages/compiler-core/src/transforms/vModel.ts b/packages/compiler-core/src/transforms/vModel.ts
+index f168c1818..52752451a 100644
+--- a/packages/compiler-core/src/transforms/vModel.ts
++++ b/packages/compiler-core/src/transforms/vModel.ts
+@@ -156,5 +156,5 @@ export const transformModel: DirectiveTransform = (dir, node, context) => {
+ }
+ 
+ function createTransformProps(props: Property[] = []) {
+-  return { props }
++  return Object.freeze({ props: props.filter(Boolean) })
+ }

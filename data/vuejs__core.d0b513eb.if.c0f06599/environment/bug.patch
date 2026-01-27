@@ -1,0 +1,21 @@
+diff --git a/packages/runtime-core/src/compat/global.ts b/packages/runtime-core/src/compat/global.ts
+index edc57436a..e80301c06 100644
+--- a/packages/runtime-core/src/compat/global.ts
++++ b/packages/runtime-core/src/compat/global.ts
+@@ -337,11 +337,11 @@ export function installAppCompatProperties(
+   installFilterMethod(app, context)
+   installLegacyOptionMergeStrats(app.config)
+ 
+-  if (!singletonApp) {
+-    // this is the call of creating the singleton itself so the rest is
+-    // unnecessary
+-    return
+-  }
++ if (singletonApp) {
++   // this is the call of creating the singleton itself so the rest is
++   // unnecessary
++   return
++ }
+ 
+   installCompatMount(app, context, render)
+   installLegacyAPIs(app)

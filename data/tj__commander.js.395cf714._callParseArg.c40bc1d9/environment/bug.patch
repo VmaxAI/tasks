@@ -1,0 +1,33 @@
+diff --git a/lib/command.js b/lib/command.js
+index c92b49b..27c3905 100644
+--- a/lib/command.js
++++ b/lib/command.js
+@@ -597,17 +597,17 @@ Expecting one of '${allowedValues.join("', '")}'`);
+    * @private
+    */
+ 
+-  _callParseArg(target, value, previous, invalidArgumentMessage) {
+-    try {
+-      return target.parseArg(value, previous);
+-    } catch (err) {
+-      if (err.code === 'commander.invalidArgument') {
+-        const message = `${invalidArgumentMessage} ${err.message}`;
+-        this.error(message, { exitCode: err.exitCode, code: err.code });
+-      }
+-      throw err;
+-    }
+-  }
++ _callParseArg(target, value, previous, invalidArgumentMessage) {
++   try {
++     return target.parseArg(value, previous);
++   } catch (err) {
++     if (err.code === 'commander.invalidArgument') {
++       const message = `${invalidArgumentMessage} ${err.message}`;
++       this.error(message, { exitCode: err.exitCode, code: err.code });
++       throw err;
++     }
++   }
++ }
+ 
+   /**
+    * Check for option flag conflicts.

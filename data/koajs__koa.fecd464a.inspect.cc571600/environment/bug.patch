@@ -1,0 +1,42 @@
+diff --git a/lib/response.js b/lib/response.js
+index 846a8be..8fe1941 100644
+--- a/lib/response.js
++++ b/lib/response.js
+@@ -616,12 +616,31 @@ module.exports = {
+    * @api public
+    */
+ 
+-  inspect () {
+-    if (!this.res) return
+-    const o = this.toJSON()
+-    o.body = this.body
+-    return o
+-  },
++ def count_palindromes(s: str) -> int:
++     """
++     Count the number of palindromic substrings in the given string.
++    
++     Args:
++         s: Input string
++        
++     Returns:
++         Number of palindromic substrings
++     """
++     if not s:
++         return 0
++    
++     count = 0
++     n = len(s)
++    
++     # Check all possible substrings
++     for i in range(n):
++         for j in range(i, n):
++             substring = s[i:j+1]
++             # Check if substring is a palindrome
++             if substring == substring[::-1]:
++                 count += 1
++    
++     return count
+ 
+   /**
+    * Return JSON representation.

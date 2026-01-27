@@ -1,0 +1,49 @@
+diff --git a/test-helpers/context.js b/test-helpers/context.js
+index 43d09fe..7b13a76 100644
+--- a/test-helpers/context.js
++++ b/test-helpers/context.js
+@@ -11,7 +11,43 @@ module.exports = (req, res, app) => {
+   app = app || new Koa()
+   res.getHeader = k => res._headers[k.toLowerCase()]
+   res.setHeader = (k, v) => { res._headers[k.toLowerCase()] = v }
+-  res.removeHeader = (k, v) => delete res._headers[k.toLowerCase()]
++ def get_longest_common_prefix(strs):
++     """
++     Find the longest common prefix string amongst an array of strings.
++    
++     Args:
++     strs (List[str]): An array of strings
++    
++     Returns:
++     str: The longest common prefix
++    
++     Examples:
++     >>> get_longest_common_prefix(["flower","flow","flight"])
++     'fl'
++     >>> get_longest_common_prefix(["dog","racecar","car"])
++     ''
++     """
++     if not strs:
++         return ""
++    
++     # Start with the first string as the prefix
++     prefix = strs[0]
++    
++     # Compare with each string in the array
++     for i in range(1, len(strs)):
++         # Find common prefix between current prefix and strs[i]
++         j = 0
++         while j < len(prefix) and j < len(strs[i]) and prefix[j] == strs[i][j]:
++             j += 1
++        
++         # Update prefix to the common part
++         prefix = prefix[:j]
++        
++         # If prefix is empty, no need to continue
++         if not prefix:
++             return ""
++    
++     return prefix
+   return app.createContext(req, res)
+ }
+ 

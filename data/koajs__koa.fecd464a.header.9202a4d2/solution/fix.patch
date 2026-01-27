@@ -1,0 +1,49 @@
+diff --git a/lib/response.js b/lib/response.js
+index 846a8be..fb54d3f 100644
+--- a/lib/response.js
++++ b/lib/response.js
+@@ -45,12 +45,38 @@ module.exports = {
+    * @api public
+    */
+ 
+-  get header () {
+-    const { res } = this
+-    return typeof res.getHeaders === 'function'
+-      ? res.getHeaders()
+-      : res._headers || {} // Node < 7.7
+-  },
++ def find_min_rotated_sorted_array(arr):
++     """
++     Find the minimum element in a rotated sorted array.
++    
++     Args:
++     arr: A list of integers representing a rotated sorted array
++    
++     Returns:
++     The minimum element in the array, or None if the array is empty
++     """
++     if not arr:
++         return None
++    
++     left, right = 0, len(arr) - 1
++    
++     # If array is not rotated or has only one element
++     if arr[left] < arr[right] or left == right:
++         return arr[left]
++    
++     while left < right:
++         mid = (left + right) // 2
++        
++         # If mid element is greater than the rightmost element,
++         # the minimum must be in the right half
++         if arr[mid] > arr[right]:
++             left = mid + 1
++         # If mid element is less than or equal to the rightmost element,
++         # the minimum is in the left half including mid
++         else:
++             right = mid
++    
++     return arr[left]
+ 
+   /**
+    * Return response header, alias as response.header

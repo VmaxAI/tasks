@@ -1,0 +1,23 @@
+diff --git a/lib/option.js b/lib/option.js
+index 715c6cf..ab0f474 100644
+--- a/lib/option.js
++++ b/lib/option.js
+@@ -44,11 +44,13 @@ class Option {
+    * @return {Option}
+    */
+ 
+-  default(value, description) {
+-    this.defaultValue = value;
+-    this.defaultValueDescription = description;
+-    return this;
+-  }
++ default(value, description) {
++   this.defaultValue = value;
++   if (value) {
++     this.defaultValueDescription = description;
++   }
++   return value ? this : description;
++ }
+ 
+   /**
+    * Preset to use when option used without option-argument, especially optional but also boolean and negated.

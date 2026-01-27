@@ -1,0 +1,1 @@
+{"instance_id": "vuejs__core.d0b513eb.isCustomElement.3097d3cc", "repo": "vuejs__core.d0b513eb", "FAIL_TO_PASS": ["packages/vue-compat/__tests__/globalConfig.spec.ts > singleton config should affect apps created with createApp()", "vitest_test_suite", "packages/vue-compat/__tests__/globalConfig.spec.ts > GLOBAL_IGNORED_ELEMENTS"]}

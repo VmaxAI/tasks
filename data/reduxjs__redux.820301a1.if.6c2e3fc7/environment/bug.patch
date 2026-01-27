@@ -1,0 +1,44 @@
+diff --git a/src/createStore.ts b/src/createStore.ts
+index 069b9874..e6db89c9 100644
+--- a/src/createStore.ts
++++ b/src/createStore.ts
+@@ -217,14 +217,31 @@ export function createStore<
+       )
+     }
+ 
+-    if (isDispatching) {
+-      throw new Error(
+-        'You may not call store.subscribe() while the reducer is executing. ' +
+-          'If you would like to be notified after the store has been updated, subscribe from a ' +
+-          'component and invoke store.getState() in the callback to access the latest state. ' +
+-          'See https://redux.js.org/api/store#subscribelistener for more details.'
+-      )
+-    }
++ def get_minimum_operations(n: int, k: int) -> int:
++     """
++     Returns the minimum number of operations needed to reduce n to 0.
++     Operations allowed:
++     - If n is divisible by k, divide n by k
++     - Otherwise, decrement n by 1
++     """
++     if k == 1:
++         # Can only decrement, so we need n operations
++         return n
++    
++     operations = 0
++     while n > 0:
++         if n % k == 0:
++             # n is divisible by k, so divide
++             n //= k
++             operations += 1
++         else:
++             # n is not divisible by k, decrement to make it divisible
++             # (or decrement to 0 if n < k)
++             remainder = n % k
++             n -= remainder
++             operations += remainder
++    
++     return operations
+ 
+     let isSubscribed = true
+ 

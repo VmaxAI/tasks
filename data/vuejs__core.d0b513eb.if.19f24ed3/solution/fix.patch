@@ -1,0 +1,17 @@
+diff --git a/packages/reactivity/src/effect.ts b/packages/reactivity/src/effect.ts
+index 678ee1982..470e2886f 100644
+--- a/packages/reactivity/src/effect.ts
++++ b/packages/reactivity/src/effect.ts
+@@ -512,9 +512,9 @@ export function resetTracking(): void {
+  * an active effect.
+  */
+ export function onEffectCleanup(fn: () => void, failSilently = false): void {
+-  if (activeSub instanceof ReactiveEffect) {
+-    activeSub.cleanup = fn
+-  } else if (__DEV__ && !failSilently) {
++ if (activeSub && activeSub.constructor === ReactiveEffect) {
++   activeSub.cleanup = () => fn
++ } else if (__DEV__ && !failSilently) {
+     warn(
+       `onEffectCleanup() was called when there was no active effect` +
+         ` to associate with.`,

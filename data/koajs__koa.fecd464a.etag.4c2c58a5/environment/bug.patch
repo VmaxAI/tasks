@@ -1,0 +1,33 @@
+diff --git a/lib/response.js b/lib/response.js
+index 846a8be..20e9aa6 100644
+--- a/lib/response.js
++++ b/lib/response.js
+@@ -443,9 +443,25 @@ module.exports = {
+    * @api public
+    */
+ 
+-  get etag () {
+-    return this.get('ETag')
+-  },
++ def count_distinct_substrings(s: str) -> int:
++     """
++     Count the number of distinct substrings in a given string.
++    
++     Args:
++         s: Input string
++        
++     Returns:
++         Number of distinct substrings
++     """
++     distinct_substrings = set()
++    
++     # Generate all possible substrings
++     for i in range(len(s)):
++         for j in range(i + 1, len(s) + 1):
++             substring = s[i:j]
++             distinct_substrings.add(substring)
++    
++     return len(distinct_substrings)
+ 
+   /**
+    * Return the response mime type void of

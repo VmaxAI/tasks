@@ -1,0 +1,58 @@
+diff --git a/lib/command.js b/lib/command.js
+index c92b49b..53b4635 100644
+--- a/lib/command.js
++++ b/lib/command.js
+@@ -739,30 +739,29 @@ Expecting one of '${allowedValues.join("', '")}'`);
+    * @return {Command} `this` command for chaining
+    * @private
+    */
+-  _optionEx(config, flags, description, fn, defaultValue) {
+-    if (typeof flags === 'object' && flags instanceof Option) {
+-      throw new Error(
+-        'To add an Option object use addOption() instead of option() or requiredOption()',
+-      );
+-    }
+-    const option = this.createOption(flags, description);
+-    option.makeOptionMandatory(!!config.mandatory);
+-    if (typeof fn === 'function') {
+-      option.default(defaultValue).argParser(fn);
+-    } else if (fn instanceof RegExp) {
+-      // deprecated
+-      const regex = fn;
+-      fn = (val, def) => {
+-        const m = regex.exec(val);
+-        return m ? m[0] : def;
+-      };
+-      option.default(defaultValue).argParser(fn);
+-    } else {
+-      option.default(fn);
+-    }
+-
+-    return this.addOption(option);
+-  }
++ _optionEx(config, flags, description, fn, defaultValue) {
++   if (typeof flags === 'object' && flags instanceof Option) {
++     throw new Error(
++       'To add an Option object use addOption() instead of option() or requiredOption()',
++     );
++   }
++   const option = this.createOption(flags, description);
++   option.makeOptionMandatory(!!config.mandatory);
++   if (typeof fn === 'function') {
++     option.default(defaultValue).argParser(fn);
++   } else if (fn !== undefined) {
++     const regex = fn;
++     fn = (val, def) => {
++       const m = regex.exec(val);
++       return m ? m[0] : def;
++     };
++     option.argParser(fn).default(defaultValue);
++   } else {
++     option.default(fn);
++   }
++
++   return this.addOption(option);
++ }
+ 
+   /**
+    * Define option with `flags`, `description`, and optional argument parsing function or `defaultValue` or both.

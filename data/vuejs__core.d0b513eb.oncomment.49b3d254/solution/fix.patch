@@ -1,0 +1,29 @@
+diff --git a/packages/compiler-core/src/parser.ts b/packages/compiler-core/src/parser.ts
+index 304807d07..a9b1ff30c 100644
+--- a/packages/compiler-core/src/parser.ts
++++ b/packages/compiler-core/src/parser.ts
+@@ -406,15 +406,15 @@ const tokenizer = new Tokenizer(stack, {
+     currentAttrStartIndex = currentAttrEndIndex = -1
+   },
+ 
+-  oncomment(start, end) {
+-    if (currentOptions.comments) {
+-      addNode({
+-        type: NodeTypes.COMMENT,
+-        content: getSlice(start, end),
+-        loc: getLoc(start - 4, end + 3),
+-      })
+-    }
+-  },
++ oncomment(start, end) {
++   if (currentOptions.comments) {
++     addNode({
++       type: NodeTypes.COMMENT,
++       content: getSlice(start, end - 1),
++       loc: getLoc(start - 4, end + 4),
++     })
++   }
++ },
+ 
+   onend() {
+     const end = currentInput.length

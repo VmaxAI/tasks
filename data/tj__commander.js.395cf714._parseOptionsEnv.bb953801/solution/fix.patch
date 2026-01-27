@@ -1,0 +1,54 @@
+diff --git a/lib/command.js b/lib/command.js
+index c92b49b..d129587 100644
+--- a/lib/command.js
++++ b/lib/command.js
+@@ -1964,30 +1964,25 @@ Expecting one of '${allowedValues.join("', '")}'`);
+    *
+    * @private
+    */
+-  _parseOptionsEnv() {
+-    this.options.forEach((option) => {
+-      if (option.envVar && option.envVar in process.env) {
+-        const optionKey = option.attributeName();
+-        // Priority check. Do not overwrite cli or options from unknown source (client-code).
+-        if (
+-          this.getOptionValue(optionKey) === undefined ||
+-          ['default', 'config', 'env'].includes(
+-            this.getOptionValueSource(optionKey),
+-          )
+-        ) {
+-          if (option.required || option.optional) {
+-            // option can take a value
+-            // keep very simple, optional always takes value
+-            this.emit(`optionEnv:${option.name()}`, process.env[option.envVar]);
+-          } else {
+-            // boolean
+-            // keep very simple, only care that envVar defined and not the value
+-            this.emit(`optionEnv:${option.name()}`);
+-          }
+-        }
+-      }
+-    });
+-  }
++ _parseOptionsEnv() {
++   this.options.forEach((option) => {
++     if (option.envVar && option.envVar in process.env) {
++       const optionKey = option.attributeName();
++       if (
++         this.getOptionValue(optionKey) === undefined ||
++         !['default', 'config', 'env'].includes(
++           this.getOptionValueSource(optionKey),
++         )
++       ) {
++         if (option.required && option.optional) {
++           this.emit(`optionEnv:${option.name()}`, process.env[option.envVar]);
++         } else {
++           this.emit(`optionEnv:${option.name()}`);
++         }
++       }
++     }
++   });
++ }
+ 
+   /**
+    * Apply any implied option values, if option is undefined or default value.

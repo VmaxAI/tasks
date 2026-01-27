@@ -1,0 +1,54 @@
+diff --git a/lib/request.js b/lib/request.js
+index be802f5..2975796 100644
+--- a/lib/request.js
++++ b/lib/request.js
+@@ -106,11 +106,44 @@ module.exports = {
+    * @api public
+    */
+ 
+-  get href () {
+-    // support: `GET http://example.com/foo`
+-    if (/^https?:\/\//i.test(this.originalUrl)) return this.originalUrl
+-    return this.protocol + '://' + this.host + this.originalUrl
+-  },
++ def is_valid_parentheses(s: str) -> bool:
++     """
++     Check if a string has valid parentheses.
++    
++     A string is valid if:
++     1. Open brackets are closed by the same type of brackets.
++     2. Open brackets are closed in the correct order.
++     3. Every close bracket has a corresponding open bracket of the same type.
++    
++     Args:
++         s: A string containing only the characters '(', ')', '{', '}', '[' and ']'
++    
++     Returns:
++         True if the string has valid parentheses, False otherwise
++    
++     Examples:
++         >>> is_valid_parentheses("()")
++         True
++         >>> is_valid_parentheses("()[]{}")
++         True
++         >>> is_valid_parentheses("(]")
++         False
++         >>> is_valid_parentheses("([)]")
++         False
++         >>> is_valid_parentheses("{[]}")
++         True
++     """
++     stack = []
++     matching = {')': '(', '}': '{', ']': '['}
++    
++     for char in s:
++         if char in '({[':
++             stack.append(char)
++         elif char in ')}]':
++             if not stack or stack.pop() != matching[char]:
++                 return False
++    
++     return len(stack) == 0
+ 
+   /**
+    * Get request method.

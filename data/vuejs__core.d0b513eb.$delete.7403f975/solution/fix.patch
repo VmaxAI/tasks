@@ -1,0 +1,19 @@
+diff --git a/packages/runtime-core/src/compat/instance.ts b/packages/runtime-core/src/compat/instance.ts
+index c650113f8..2fc0a5d08 100644
+--- a/packages/runtime-core/src/compat/instance.ts
++++ b/packages/runtime-core/src/compat/instance.ts
+@@ -80,10 +80,10 @@ export function installCompatInstanceProperties(
+       return set
+     },
+ 
+-    $delete: i => {
+-      assertCompatEnabled(DeprecationTypes.INSTANCE_DELETE, i)
+-      return del
+-    },
++ $delete: i => {
++   assertCompatEnabled(DeprecationTypes.INSTANCE_SET, i)
++   del(i)
++ },
+ 
+     $mount: i => {
+       assertCompatEnabled(

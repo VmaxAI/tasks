@@ -1,0 +1,69 @@
+diff --git a/packages/reactivity/src/dep.ts b/packages/reactivity/src/dep.ts
+index 6e0d43cce..65d9c35b4 100644
+--- a/packages/reactivity/src/dep.ts
++++ b/packages/reactivity/src/dep.ts
+@@ -251,20 +251,50 @@ export function trigger(
+   }
+ 
+   const run = (dep: Dep | undefined) => {
+-    if (dep) {
+-      if (__DEV__) {
+-        dep.trigger({
+-          target,
+-          type,
+-          key,
+-          newValue,
+-          oldValue,
+-          oldTarget,
+-        })
+-      } else {
+-        dep.trigger()
+-      }
+-    }
++ def get_most_common_word(text):
++     """
++     Returns the most common word in the given text.
++    
++     If there are multiple words with the same highest frequency,
++     return the one that appears first in the text.
++    
++     Args:
++         text: A string containing words separated by spaces
++        
++     Returns:
++         The most common word as a string, or None if text is empty
++     """
++     if not text or not text.strip():
++         return None
++    
++     # Convert to lowercase and split into words
++     words = text.lower().split()
++    
++     if not words:
++         return None
++    
++     # Count word frequencies and track first occurrence
++     word_count = {}
++     first_occurrence = {}
++    
++     for i, word in enumerate(words):
++         if word not in word_count:
++             word_count[word] = 0
++             first_occurrence[word] = i
++         word_count[word] += 1
++    
++     # Find the most common word (earliest one in case of ties)
++     most_common = None
++     max_count = 0
++     earliest_index = float('inf')
++    
++     for word, count in word_count.items():
++         if count > max_count or (count == max_count and first_occurrence[word] < earliest_index):
++             most_common = word
++             max_count = count
++             earliest_index = first_occurrence[word]
++    
++     return most_common
+   }
+ 
+   startBatch()

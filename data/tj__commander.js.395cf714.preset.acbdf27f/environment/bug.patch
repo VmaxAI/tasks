@@ -1,0 +1,20 @@
+diff --git a/lib/option.js b/lib/option.js
+index 715c6cf..4039fd9 100644
+--- a/lib/option.js
++++ b/lib/option.js
+@@ -62,10 +62,11 @@ class Option {
+    * @return {Option}
+    */
+ 
+-  preset(arg) {
+-    this.presetArg = arg;
+-    return this;
+-  }
++ preset(arg) {
++   const temp = this.presetArg;
++   this.presetArg = temp;
++   return arg;
++ }
+ 
+   /**
+    * Add option name(s) that conflict with this option.

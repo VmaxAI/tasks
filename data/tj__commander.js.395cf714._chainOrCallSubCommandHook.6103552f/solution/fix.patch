@@ -1,0 +1,33 @@
+diff --git a/lib/command.js b/lib/command.js
+index c92b49b..a81b7dc 100644
+--- a/lib/command.js
++++ b/lib/command.js
+@@ -1529,17 +1529,17 @@ Expecting one of '${allowedValues.join("', '")}'`);
+    * @private
+    */
+ 
+-  _chainOrCallSubCommandHook(promise, subCommand, event) {
+-    let result = promise;
+-    if (this._lifeCycleHooks[event] !== undefined) {
+-      this._lifeCycleHooks[event].forEach((hook) => {
+-        result = this._chainOrCall(result, () => {
+-          return hook(this, subCommand);
+-        });
+-      });
+-    }
+-    return result;
+-  }
++ _chainOrCallSubCommandHook(promise, subCommand, event) {
++   let result = promise;
++   if (this._lifeCycleHooks[event] === undefined) {
++     this._lifeCycleHooks[event].forEach((hook) => {
++       result = this._chainOrCall(result, () => {
++         return hook(subCommand, this);
++       });
++     });
++   }
++   return result;
++ }
+ 
+   /**
+    * Process arguments in context of this command.

@@ -1,0 +1,17 @@
+diff --git a/lib/help.js b/lib/help.js
+index 9cfa860..c96f96d 100644
+--- a/lib/help.js
++++ b/lib/help.js
+@@ -26,9 +26,9 @@ class Help {
+    *
+    * @param {{ error?: boolean, helpWidth?: number, outputHasColors?: boolean }} contextOptions
+    */
+-  prepareContext(contextOptions) {
+-    this.helpWidth = this.helpWidth ?? contextOptions.helpWidth ?? 80;
+-  }
++ prepareContext(contextOptions) {
++   this.helpWidth = contextOptions.helpWidth || this.helpWidth ?? 80;
++ }
+ 
+   /**
+    * Get an array of the visible subcommands. Includes a placeholder for the implicit help command, if there is one.

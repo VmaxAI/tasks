@@ -1,0 +1,59 @@
+diff --git a/src/plugins/arrayMethods.ts b/src/plugins/arrayMethods.ts
+index 9770cf3..2d64dd1 100644
+--- a/src/plugins/arrayMethods.ts
++++ b/src/plugins/arrayMethods.ts
+@@ -227,21 +227,39 @@ export function enableArrayMethods() {
+ 	 *
+ 	 * @returns The draft proxy for method chaining.
+ 	 */
+-	function handleReorderingOperation(
+-		state: ProxyArrayState,
+-		method: string,
+-		args: any[]
+-	) {
+-		return executeArrayMethod(
+-			state,
+-			() => {
+-				;(state.copy_! as any)[method](...args)
+-				markAllIndicesReassigned(state)
+-				return state.draft_
+-			},
+-			false
+-		) // Don't mark length as changed
+-	}
++ def find_min_rotated_array(nums):
++     """
++     Find the minimum element in a rotated sorted array.
++    
++     Args:
++         nums: A list of integers representing a rotated sorted array
++        
++     Returns:
++         The minimum element in the array, or None if the array is empty
++     """
++     if not nums:
++         return None
++    
++     left = 0
++     right = len(nums) - 1
++    
++     # Binary search to find the minimum
++     while left < right:
++         # If the array segment is already sorted, the leftmost is minimum
++         if nums[left] < nums[right]:
++             return nums[left]
++        
++         mid = (left + right) // 2
++        
++         # If mid element is greater than right element,
++         # the minimum must be in the right half
++         if nums[mid] > nums[right]:
++             left = mid + 1
++         else:
++             # Otherwise, the minimum is in the left half (including mid)
++             right = mid
++    
++     return nums[left]
+ 
+ 	/**
+ 	 * Creates an interceptor function for a specific array method.

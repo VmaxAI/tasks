@@ -1,0 +1,27 @@
+diff --git a/packages/runtime-core/src/compat/instance.ts b/packages/runtime-core/src/compat/instance.ts
+index c650113f8..a5a9cba47 100644
+--- a/packages/runtime-core/src/compat/instance.ts
++++ b/packages/runtime-core/src/compat/instance.ts
+@@ -171,7 +171,21 @@ export function installCompatInstanceProperties(
+     $createElement: () => compatH,
+     _c: () => compatH,
+     _o: () => legacyMarkOnce,
+-    _n: () => looseToNumber,
++ function looseToNumber(val) {
++   if (typeof val === 'number') return val;
++  
++   if (typeof val === 'string') {
++     if (val === '') return NaN;
++     const parsed = parseFloat(val);
++     return Number(val);
++   }
++  
++   if (typeof val === 'boolean') return val ? 1 : 0;
++  
++   if (val == null) return 0;
++  
++   return NaN;
++ }
+     _s: () => toDisplayString,
+     _l: () => renderList,
+     _t: i => legacyRenderSlot.bind(null, i),

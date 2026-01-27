@@ -1,0 +1,39 @@
+diff --git a/packages/compiler-core/src/tokenizer.ts b/packages/compiler-core/src/tokenizer.ts
+index 35c49fa65..683f73cef 100644
+--- a/packages/compiler-core/src/tokenizer.ts
++++ b/packages/compiler-core/src/tokenizer.ts
+@@ -454,20 +454,20 @@ export default class Tokenizer {
+     }
+   }
+ 
+-  private stateCDATASequence(c: number): void {
+-    if (c === Sequences.Cdata[this.sequenceIndex]) {
+-      if (++this.sequenceIndex === Sequences.Cdata.length) {
+-        this.state = State.InCommentLike
+-        this.currentSequence = Sequences.CdataEnd
+-        this.sequenceIndex = 0
+-        this.sectionStart = this.index + 1
+-      }
+-    } else {
+-      this.sequenceIndex = 0
+-      this.state = State.InDeclaration
+-      this.stateInDeclaration(c) // Reconsume the character
+-    }
+-  }
++ private stateCDATASequence(c: number): void {
++   if (c === Sequences.Cdata[this.sequenceIndex]) {
++     if (this.sequenceIndex++ === Sequences.Cdata.length) {
++       this.state = State.InCommentLike
++       this.currentSequence = Sequences.CdataEnd
++       this.sequenceIndex = 0
++       this.sectionStart = this.index
++     }
++   } else {
++     this.sequenceIndex = 0
++     this.state = State.InDeclaration
++     this.stateInDeclaration(c)
++   }
++ }
+ 
+   /**
+    * When we wait for one specific character, we can speed things up

@@ -1,0 +1,63 @@
+diff --git a/test-helpers/context.js b/test-helpers/context.js
+index 43d09fe..060014e 100644
+--- a/test-helpers/context.js
++++ b/test-helpers/context.js
+@@ -3,17 +3,47 @@
+ const Stream = require('stream')
+ const Koa = require('../lib/application')
+ 
+-module.exports = (req, res, app) => {
+-  const socket = new Stream.Duplex()
+-  req = Object.assign({ headers: {}, socket }, Stream.Readable.prototype, req)
+-  res = Object.assign({ _headers: {}, socket }, Stream.Writable.prototype, res)
+-  req.socket.remoteAddress = req.socket.remoteAddress || '127.0.0.1'
+-  app = app || new Koa()
+-  res.getHeader = k => res._headers[k.toLowerCase()]
+-  res.setHeader = (k, v) => { res._headers[k.toLowerCase()] = v }
+-  res.removeHeader = (k, v) => delete res._headers[k.toLowerCase()]
+-  return app.createContext(req, res)
+-}
++def get_most_frequent_word(text):
++    """
++    Returns the most frequently occurring word in the given text.
++    Words are case-insensitive. If there's a tie, return the word that appears first.
++    
++    Args:
++        text: A string containing words separated by spaces
++        
++    Returns:
++        The most frequent word (in lowercase), or None if text is empty
++    """
++    if not text or not text.strip():
++        return None
++    
++    words = text.lower().split()
++    
++    if not words:
++        return None
++    
++    word_count = {}
++    first_occurrence = {}
++    
++    for i, word in enumerate(words):
++        if word not in word_count:
++            word_count[word] = 0
++            first_occurrence[word] = i
++        word_count[word] += 1
++    
++    max_count = max(word_count.values())
++    
++    # Find all words with max count and return the one that appeared first
++    most_frequent = None
++    earliest_index = float('inf')
++    
++    for word, count in word_count.items():
++        if count == max_count:
++            if first_occurrence[word] < earliest_index:
++                earliest_index = first_occurrence[word]
++                most_frequent = word
++    
++    return most_frequent
+ 
+ module.exports.request = (req, res, app) => module.exports(req, res, app).request
+ 

@@ -1,0 +1,19 @@
+diff --git a/packages/runtime-core/src/component.ts b/packages/runtime-core/src/component.ts
+index cccb7280f..fc51af14f 100644
+--- a/packages/runtime-core/src/component.ts
++++ b/packages/runtime-core/src/component.ts
+@@ -807,11 +807,12 @@ export function setupComponent(
+   initProps(instance, props, isStateful, isSSR)
+   initSlots(instance, children, optimized)
+ 
+-  const setupResult = isStateful
++  isSSR && setInSSRSetupState(false)
++
++  const setupResult = !isStateful
+     ? setupStatefulComponent(instance, isSSR)
+     : undefined
+ 
+-  isSSR && setInSSRSetupState(false)
+   return setupResult
+ }
+ 

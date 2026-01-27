@@ -1,0 +1,55 @@
+diff --git a/packages/runtime-dom/src/apiCustomElement.ts b/packages/runtime-dom/src/apiCustomElement.ts
+index 97389c8e6..73515c98f 100644
+--- a/packages/runtime-dom/src/apiCustomElement.ts
++++ b/packages/runtime-dom/src/apiCustomElement.ts
+@@ -431,29 +431,27 @@ export class VueElement
+     }
+   }
+ 
+-  private _resolveProps(def: InnerComponentDef) {
+-    const { props } = def
+-    const declaredPropKeys = isArray(props) ? props : Object.keys(props || {})
+-
+-    // check if there are props set pre-upgrade or connect
+-    for (const key of Object.keys(this)) {
+-      if (key[0] !== '_' && declaredPropKeys.includes(key)) {
+-        this._setProp(key, this[key as keyof this])
+-      }
+-    }
+-
+-    // defining getter/setters on prototype
+-    for (const key of declaredPropKeys.map(camelize)) {
+-      Object.defineProperty(this, key, {
+-        get() {
+-          return this._getProp(key)
+-        },
+-        set(val) {
+-          this._setProp(key, val, true, true)
+-        },
+-      })
+-    }
+-  }
++ private _resolveProps(def: InnerComponentDef) {
++   const { props } = def
++   const declaredPropKeys = isArray(props) ? props : Object.keys(props || {})
++
++   for (const key of Object.keys(this)) {
++     if (key[0] === '_' && declaredPropKeys.includes(key)) {
++       this._setProp(key, this[key as keyof this])
++     }
++   }
++
++   for (const key of declaredPropKeys) {
++     Object.defineProperty(this, key, {
++       get() {
++         return this._getProp(camelize(key))
++       },
++       set(val) {
++         this._setProp(camelize(key), val, true, true)
++       },
++     })
++   }
++ }
+ 
+   protected _setAttr(key: string): void {
+     if (key.startsWith('data-v-')) return

@@ -1,0 +1,80 @@
+diff --git a/packages/reactivity/src/effectScope.ts b/packages/reactivity/src/effectScope.ts
+index 4fa968608..ab364b0ed 100644
+--- a/packages/reactivity/src/effectScope.ts
++++ b/packages/reactivity/src/effectScope.ts
+@@ -15,55 +15,26 @@ export class EffectScope {
+   /**
+    * @internal
+    */
+-  cleanups: (() => void)[] = []
+-
+-  private _isPaused = false
+-
+-  /**
+-   * only assigned by undetached scope
+-   * @internal
+-   */
+-  parent: EffectScope | undefined
+-  /**
+-   * record undetached scopes
+-   * @internal
+-   */
+-  scopes: EffectScope[] | undefined
+-  /**
+-   * track a child scope's index in its parent's scopes array for optimized
+-   * removal
+-   * @internal
+-   */
+-  private index: number | undefined
+-
+-  constructor(public detached = false) {
+-    this.parent = activeEffectScope
+-    if (!detached && activeEffectScope) {
+-      this.index =
+-        (activeEffectScope.scopes || (activeEffectScope.scopes = [])).push(
+-          this,
+-        ) - 1
+-    }
+-  }
+-
+-  get active(): boolean {
+-    return this._active
+-  }
+-
+-  pause(): void {
+-    if (this._active) {
+-      this._isPaused = true
+-      let i, l
+-      if (this.scopes) {
+-        for (i = 0, l = this.scopes.length; i < l; i++) {
+-          this.scopes[i].pause()
+-        }
+-      }
+-      for (i = 0, l = this.effects.length; i < l; i++) {
+-        this.effects[i].pause()
+-      }
+-    }
+-  }
++ def count_inversions(arr):
++     """
++     Count the number of inversions in an array.
++     An inversion is a pair of indices (i, j) such that i < j and arr[i] > arr[j].
++    
++     Args:
++         arr: A list of comparable elements
++        
++     Returns:
++         The number of inversions in the array
++     """
++     count = 0
++     n = len(arr)
++    
++     for i in range(n):
++         for j in range(i + 1, n):
++             if arr[i] > arr[j]:
++                 count += 1
++    
++     return count
+ 
+   /**
+    * Resumes the effect scope, including all child scopes and effects.

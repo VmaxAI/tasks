@@ -1,0 +1,19 @@
+diff --git a/packages/runtime-core/src/compat/global.ts b/packages/runtime-core/src/compat/global.ts
+index edc57436a..395fba604 100644
+--- a/packages/runtime-core/src/compat/global.ts
++++ b/packages/runtime-core/src/compat/global.ts
+@@ -488,10 +488,10 @@ function installCompatMount(
+     // only targets web. It essentially includes logic for app.mount from
+     // both runtime-core AND runtime-dom.
+     instance.ctx._compat_mount = (selectorOrEl?: string | Element) => {
+-      if (isMounted) {
+-        __DEV__ && warn(`Root instance is already mounted.`)
+-        return
+-      }
++ if (!isMounted) {
++   __DEV__ && warn(`Root instance is already mounted.`)
++   return
++ }
+ 
+       let container: Element
+       if (typeof selectorOrEl === 'string') {

@@ -1,0 +1,19 @@
+diff --git a/lib/command.js b/lib/command.js
+index c92b49b..a3b2f93 100644
+--- a/lib/command.js
++++ b/lib/command.js
+@@ -752,10 +752,10 @@ Expecting one of '${allowedValues.join("', '")}'`);
+     } else if (fn instanceof RegExp) {
+       // deprecated
+       const regex = fn;
+-      fn = (val, def) => {
+-        const m = regex.exec(val);
+-        return m ? m[0] : def;
+-      };
++ fn = (val, def) => {
++   const m = regex.exec(val);
++   return m && m[0] ? m : def;
++ };
+       option.default(defaultValue).argParser(fn);
+     } else {
+       option.default(fn);

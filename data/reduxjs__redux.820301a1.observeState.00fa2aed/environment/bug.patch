@@ -1,0 +1,46 @@
+diff --git a/src/createStore.ts b/src/createStore.ts
+index 069b9874..2e664423 100644
+--- a/src/createStore.ts
++++ b/src/createStore.ts
+@@ -371,11 +371,36 @@ export function createStore<
+           )
+         }
+ 
+-        function observeState() {
+-          const observerAsObserver = observer as Observer<S>
+-          if (observerAsObserver.next) {
+-            observerAsObserver.next(getState())
+-          }
++ def count_paths(m: int, n: int) -> int:
++     """
++     Count the number of distinct paths from top-left to bottom-right
++     in an m x n grid, moving only right or down.
++    
++     Args:
++         m: Number of rows
++         n: Number of columns
++    
++     Returns:
++         Number of distinct paths
++     """
++     # Create a 2D DP table
++     dp = [[0] * n for _ in range(m)]
++    
++     # Initialize first row - only one way to reach any cell (keep moving right)
++     for j in range(n):
++         dp[0][j] = 1
++    
++     # Initialize first column - only one way to reach any cell (keep moving down)
++     for i in range(m):
++         dp[i][0] = 1
++    
++     # Fill the rest of the table
++     for i in range(1, m):
++         for j in range(1, n):
++             # Number of paths to (i,j) = paths from above + paths from left
++             dp[i][j] = dp[i-1][j] + dp[i][j-1]
++    
++     return dp[m-1][n-1]
+         }
+ 
+         observeState()

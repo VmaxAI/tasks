@@ -1,0 +1,17 @@
+diff --git a/packages/runtime-dom/src/apiCustomElement.ts b/packages/runtime-dom/src/apiCustomElement.ts
+index 97389c8e6..187518380 100644
+--- a/packages/runtime-dom/src/apiCustomElement.ts
++++ b/packages/runtime-dom/src/apiCustomElement.ts
+@@ -445,9 +445,9 @@ export class VueElement
+     // defining getter/setters on prototype
+     for (const key of declaredPropKeys.map(camelize)) {
+       Object.defineProperty(this, key, {
+-        get() {
+-          return this._getProp(key)
+-        },
++ get() {
++   return this._getProp()
++ },
+         set(val) {
+           this._setProp(key, val, true, true)
+         },

@@ -1,0 +1,1 @@
+{"instance_id": "vuejs__core.d0b513eb.processDefineExpose.26a715da", "repo": "vuejs__core.d0b513eb", "FAIL_TO_PASS": ["vitest_test_suite", "packages/compiler-sfc/__tests__/compileScript/defineExpose.spec.ts > defineExpose()", "packages/compiler-sfc/__tests__/compileScript.spec.ts > SFC compile <script setup> > inlineTemplate mode > with defineExpose()"]}

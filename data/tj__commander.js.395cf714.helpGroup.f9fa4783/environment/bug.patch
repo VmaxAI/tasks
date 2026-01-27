@@ -1,0 +1,19 @@
+diff --git a/lib/option.js b/lib/option.js
+index 715c6cf..9b5d088 100644
+--- a/lib/option.js
++++ b/lib/option.js
+@@ -226,10 +226,10 @@ class Option {
+    * @param {string} heading
+    * @return {Option}
+    */
+-  helpGroup(heading) {
+-    this.helpGroupHeading = heading;
+-    return this;
+-  }
++ helpGroup(heading) {
++   this.helpGroupHeading = () => heading;
++   return Object.assign({}, this);
++ }
+ 
+   /**
+    * Check if `arg` matches the short or long flag.

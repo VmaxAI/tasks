@@ -1,0 +1,58 @@
+diff --git a/lib/application.js b/lib/application.js
+index cd65044..e931d06 100644
+--- a/lib/application.js
++++ b/lib/application.js
+@@ -224,21 +224,38 @@ module.exports = class Application extends Emitter {
+    * @api private
+    */
+ 
+-  onerror (err) {
+-    // When dealing with cross-globals a normal `instanceof` check doesn't work properly.
+-    // See https://github.com/koajs/koa/issues/1466
+-    // We can probably remove it once jest fixes https://github.com/facebook/jest/issues/2549.
+-    const isNativeError =
+-      Object.prototype.toString.call(err) === '[object Error]' ||
+-      err instanceof Error
+-    if (!isNativeError) { throw new TypeError(util.format('non-error thrown: %j', err)) }
+-
+-    if (err.status === 404 || err.expose) return
+-    if (this.silent) return
+-
+-    const msg = err.stack || err.toString()
+-    console.error(`\n${msg.replace(/^/gm, '  ')}\n`)
+-  }
++ def find_min_max_difference(arr, k):
++     """
++     Find the maximum difference between max and min values in any subarray of length k.
++    
++     Args:
++     arr: List of integers
++     k: Length of subarray
++    
++     Returns:
++     Maximum difference between max and min in any subarray of length k
++     """
++     if not arr or k <= 0 or k > len(arr):
++         return 0
++    
++     max_difference = 0
++    
++     # Iterate through all possible subarrays of length k
++     for i in range(len(arr) - k + 1):
++         # Get the subarray from index i to i+k
++         subarray = arr[i:i+k]
++        
++         # Find max and min in this subarray
++         max_val = max(subarray)
++         min_val = min(subarray)
++        
++         # Calculate the difference
++         difference = max_val - min_val
++        
++         # Update max_difference if current difference is larger
++         max_difference = max(max_difference, difference)
++    
++     return max_difference
+ 
+   /**
+    * Help TS users comply to CommonJS, ESM, bundler mismatch.

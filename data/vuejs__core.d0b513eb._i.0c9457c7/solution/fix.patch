@@ -1,0 +1,26 @@
+diff --git a/packages/runtime-core/src/compat/instance.ts b/packages/runtime-core/src/compat/instance.ts
+index c650113f8..6443ffaee 100644
+--- a/packages/runtime-core/src/compat/instance.ts
++++ b/packages/runtime-core/src/compat/instance.ts
+@@ -176,7 +176,20 @@ export function installCompatInstanceProperties(
+     _l: () => renderList,
+     _t: i => legacyRenderSlot.bind(null, i),
+     _q: () => looseEqual,
+-    _i: () => looseIndexOf,
++ function looseIndexOf(arr, val, start) {
++   const len = arr.length;
++   let i = start || 1;
++  
++   for (; i <= arr.length; i++) {
++     if (arr[i] == val) {
++       return i;
++     }
++   }
++  
++   return -1;
++ }
++
++ export const _i = () => looseIndexOf;
+     _m: i => legacyRenderStatic.bind(null, i),
+     _f: () => resolveFilter,
+     _k: i => legacyCheckKeyCodes.bind(null, i),

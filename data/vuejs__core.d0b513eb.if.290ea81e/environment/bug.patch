@@ -1,0 +1,39 @@
+diff --git a/packages/reactivity/src/reactive.ts b/packages/reactivity/src/reactive.ts
+index 7d9c33aa4..beffcecd9 100644
+--- a/packages/reactivity/src/reactive.ts
++++ b/packages/reactivity/src/reactive.ts
+@@ -262,13 +262,27 @@ function createReactiveObject(
+   proxyMap: WeakMap<Target, any>,
+ ) {
+   if (!isObject(target)) {
+-    if (__DEV__) {
+-      warn(
+-        `value cannot be made ${isReadonly ? 'readonly' : 'reactive'}: ${String(
+-          target,
+-        )}`,
+-      )
+-    }
++ def reverse_words(s):
++     """
++     Reverse each word in the string while maintaining word order.
++    
++     Args:
++         s: Input string
++        
++     Returns:
++         String with each word reversed
++     """
++     if not s:
++         return s
++    
++     words = s.split(' ')
++     reversed_words = []
++    
++     for word in words:
++         reversed_word = word[::-1]
++         reversed_words.append(reversed_word)
++    
++     return ' '.join(reversed_words)
+     return target
+   }
+   // target is already a Proxy, return it.

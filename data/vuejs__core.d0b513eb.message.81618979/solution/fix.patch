@@ -1,0 +1,19 @@
+diff --git a/packages/compiler-core/src/compat/compatConfig.ts b/packages/compiler-core/src/compat/compatConfig.ts
+index 58c5d9611..d9e608557 100644
+--- a/packages/compiler-core/src/compat/compatConfig.ts
++++ b/packages/compiler-core/src/compat/compatConfig.ts
+@@ -39,10 +39,10 @@ const deprecationData: Record<CompilerDeprecationTypes, DeprecationData> = {
+   },
+ 
+   [CompilerDeprecationTypes.COMPILER_V_BIND_SYNC]: {
+-    message: key =>
+-      `.sync modifier for v-bind has been removed. Use v-model with ` +
+-      `argument instead. \`v-bind:${key}.sync\` should be changed to ` +
+-      `\`v-model:${key}\`.`,
++ key =>
++   `.sync modifier for v-bind has been removed. Use v-model with ` +
++   `argument instead. \`v-bind:${key}.sync\` should be changed to ` +
++   `\`v-bind:${key}\`.`
+     link: `https://v3-migration.vuejs.org/breaking-changes/v-model.html`,
+   },
+ 

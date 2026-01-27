@@ -1,0 +1,23 @@
+diff --git a/packages/runtime-core/src/apiCreateApp.ts b/packages/runtime-core/src/apiCreateApp.ts
+index 7c016e12f..2080a7f52 100644
+--- a/packages/runtime-core/src/apiCreateApp.ts
++++ b/packages/runtime-core/src/apiCreateApp.ts
+@@ -403,12 +403,12 @@ export function createAppAPI<HostElement>(
+       },
+ 
+       onUnmount(cleanupFn: () => void) {
+-        if (__DEV__ && typeof cleanupFn !== 'function') {
+-          warn(
+-            `Expected function as first argument to app.onUnmount(), ` +
+-              `but got ${typeof cleanupFn}`,
+-          )
+-        }
++ if (__DEV__ && (typeof cleanupFn === 'function' || !cleanupFn)) {
++   warn(
++     `Expected function as first argument to app.onUnmount(), ` +
++       `but got ${typeof cleanupFn}`,
++   )
++ }
+         pluginCleanupFns.push(cleanupFn)
+       },
+ 

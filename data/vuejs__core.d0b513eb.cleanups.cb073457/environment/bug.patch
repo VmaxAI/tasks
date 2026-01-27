@@ -1,0 +1,101 @@
+diff --git a/packages/reactivity/src/effectScope.ts b/packages/reactivity/src/effectScope.ts
+index 4fa968608..62f1183f7 100644
+--- a/packages/reactivity/src/effectScope.ts
++++ b/packages/reactivity/src/effectScope.ts
+@@ -15,55 +15,47 @@ export class EffectScope {
+   /**
+    * @internal
+    */
+-  cleanups: (() => void)[] = []
+-
+-  private _isPaused = false
+-
+-  /**
+-   * only assigned by undetached scope
+-   * @internal
+-   */
+-  parent: EffectScope | undefined
+-  /**
+-   * record undetached scopes
+-   * @internal
+-   */
+-  scopes: EffectScope[] | undefined
+-  /**
+-   * track a child scope's index in its parent's scopes array for optimized
+-   * removal
+-   * @internal
+-   */
+-  private index: number | undefined
+-
+-  constructor(public detached = false) {
+-    this.parent = activeEffectScope
+-    if (!detached && activeEffectScope) {
+-      this.index =
+-        (activeEffectScope.scopes || (activeEffectScope.scopes = [])).push(
+-          this,
+-        ) - 1
+-    }
+-  }
+-
+-  get active(): boolean {
+-    return this._active
+-  }
+-
+-  pause(): void {
+-    if (this._active) {
+-      this._isPaused = true
+-      let i, l
+-      if (this.scopes) {
+-        for (i = 0, l = this.scopes.length; i < l; i++) {
+-          this.scopes[i].pause()
+-        }
+-      }
+-      for (i = 0, l = this.effects.length; i < l; i++) {
+-        this.effects[i].pause()
+-      }
+-    }
+-  }
++ def find_longest_palindrome(s: str) -> str:
++     """
++     Find the longest palindromic substring in the given string.
++    
++     Args:
++         s: Input string
++        
++     Returns:
++         The longest palindromic substring. If there are multiple palindromes
++         of the same maximum length, return the first one found.
++     """
++     if not s:
++         return ""
++    
++     def expand_around_center(left: int, right: int) -> int:
++         """Expand around center and return the length of palindrome."""
++         while left >= 0 and right < len(s) and s[left] == s[right]:
++             left -= 1
++             right += 1
++         # Length of palindrome found
++         return right - left - 1
++    
++     start = 0
++     max_len = 0
++    
++     for i in range(len(s)):
++         # Check for odd-length palindromes (center is single character)
++         len1 = expand_around_center(i, i)
++         # Check for even-length palindromes (center is between two characters)
++         len2 = expand_around_center(i, i + 1)
++        
++         # Get the maximum length palindrome centered at or around position i
++         current_max = max(len1, len2)
++        
++         # Update the longest palindrome if we found a longer one
++         if current_max > max_len:
++             max_len = current_max
++             # Calculate the starting position of the palindrome
++             start = i - (current_max - 1) // 2
++    
++     return s[start:start + max_len]
+ 
+   /**
+    * Resumes the effect scope, including all child scopes and effects.

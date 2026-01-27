@@ -1,0 +1,45 @@
+diff --git a/test-helpers/stream.js b/test-helpers/stream.js
+index ffc49b3..684f313 100644
+--- a/test-helpers/stream.js
++++ b/test-helpers/stream.js
+@@ -3,7 +3,39 @@
+ const { EventEmitter } = require('events')
+ 
+ class Readable extends EventEmitter {
+-  pipe () {}
++ def find_min_rotated_sorted_array(arr):
++     """
++     Find the minimum element in a rotated sorted array.
++    
++     Args:
++     arr: A list of integers representing a rotated sorted array
++    
++     Returns:
++     The minimum element in the array
++     """
++     if not arr:
++         return None
++    
++     left = 0
++     right = len(arr) - 1
++    
++     # If array is not rotated or has only one element
++     if arr[left] <= arr[right]:
++         return arr[left]
++    
++     # Binary search for the pivot point
++     while left < right:
++         mid = left + (right - left) // 2
++        
++         # If mid element is greater than the rightmost element,
++         # the minimum must be in the right half
++         if arr[mid] > arr[right]:
++             left = mid + 1
++         else:
++             # Otherwise, the minimum is in the left half (including mid)
++             right = mid
++    
++     return arr[left]
+   read () {}
+   destroy () {}
+   get readable () {

@@ -1,0 +1,1 @@
+{"instance_id": "tj__commander.js.395cf714.constructor.98511706", "repo": "tj__commander.js.395cf714", "FAIL_TO_PASS": ["when unsorted then commands in order added", "when commands hidden then not visible", "when call helpInformation for program then help format is as expected (usage, options, commands)", "when add command then visible (with help)"]}

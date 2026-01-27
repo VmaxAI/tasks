@@ -1,0 +1,1 @@
+{"instance_id": "tj__commander.js.395cf714.storeOptionsAsProperties.81b5c6f2", "repo": "tj__commander.js.395cf714", "FAIL_TO_PASS": ["when storeOptionsAsProperties() after adding option then throw", "when storeOptionsAsProperties() after setting option value then throw"]}

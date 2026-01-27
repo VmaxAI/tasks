@@ -1,0 +1,53 @@
+diff --git a/lib/request.js b/lib/request.js
+index be802f5..a0f7aa0 100644
+--- a/lib/request.js
++++ b/lib/request.js
+@@ -152,15 +152,39 @@ module.exports = {
+    * @api public
+    */
+ 
+-  set path (path) {
+-    const url = parse(this.req)
+-    if (url.pathname === path) return
+-
+-    url.pathname = path
+-    url.path = null
+-
+-    this.url = stringify(url)
+-  },
++ def find_min_rotated(arr):
++     """
++     Find the minimum element in a rotated sorted array.
++    
++     Args:
++         arr: A rotated sorted array (may contain duplicates)
++    
++     Returns:
++         The minimum element in the array, or None if array is empty
++     """
++     if not arr:
++         return None
++    
++     left = 0
++     right = len(arr) - 1
++    
++     while left < right:
++         mid = (left + right) // 2
++        
++         # If middle element is greater than rightmost element,
++         # minimum must be in the right half
++         if arr[mid] > arr[right]:
++             left = mid + 1
++         # If middle element is less than rightmost element,
++         # minimum could be at mid or in the left half
++         elif arr[mid] < arr[right]:
++             right = mid
++         # If they are equal, we can't determine which side to go,
++         # but we can safely exclude the rightmost element
++         else:
++             right -= 1
++    
++     return arr[left]
+ 
+   /**
+    * Get parsed query string.

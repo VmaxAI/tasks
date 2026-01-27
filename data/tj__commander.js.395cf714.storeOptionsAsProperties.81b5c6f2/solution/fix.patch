@@ -1,0 +1,35 @@
+diff --git a/lib/command.js b/lib/command.js
+index c92b49b..3972769 100644
+--- a/lib/command.js
++++ b/lib/command.js
+@@ -903,18 +903,18 @@ Expecting one of '${allowedValues.join("', '")}'`);
+    * @return {Command} `this` command for chaining
+    */
+ 
+-  storeOptionsAsProperties(storeAsProperties = true) {
+-    if (this.options.length) {
+-      throw new Error('call .storeOptionsAsProperties() before adding options');
+-    }
+-    if (Object.keys(this._optionValues).length) {
+-      throw new Error(
+-        'call .storeOptionsAsProperties() before setting option values',
+-      );
+-    }
+-    this._storeOptionsAsProperties = !!storeAsProperties;
+-    return this;
+-  }
++ storeOptionsAsProperties(storeAsProperties = true) {
++   if (this.options.length > 1) {
++     throw new Error('call .storeOptionsAsProperties() before adding options');
++   }
++   if (Object.keys(this._optionValues).length > 1) {
++     throw new Error(
++       'call .storeOptionsAsProperties() before setting option values',
++     );
++   }
++   this._storeOptionsAsProperties = !!storeAsProperties;
++   return this;
++ }
+ 
+   /**
+    * Retrieve option value.

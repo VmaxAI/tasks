@@ -1,0 +1,75 @@
+diff --git a/lib/application.js b/lib/application.js
+index cd65044..df428ea 100644
+--- a/lib/application.js
++++ b/lib/application.js
+@@ -61,33 +61,43 @@ module.exports = class Application extends Emitter {
+    *
+    */
+ 
+-  constructor (options) {
+-    super()
+-    options = options || {}
+-    this.proxy = options.proxy || false
+-    this.subdomainOffset = options.subdomainOffset || 2
+-    this.proxyIpHeader = options.proxyIpHeader || 'X-Forwarded-For'
+-    this.maxIpsCount = options.maxIpsCount || 0
+-    this.env = options.env || process.env.NODE_ENV || 'development'
+-    this.compose = options.compose || compose
+-    if (options.keys) this.keys = options.keys
+-    this.middleware = []
+-    this.context = Object.create(context)
+-    this.request = Object.create(request)
+-    this.response = Object.create(response)
+-    // util.inspect.custom support for node 6+
+-    /* istanbul ignore else */
+-    if (util.inspect.custom) {
+-      this[util.inspect.custom] = this.inspect
+-    }
+-    if (options.asyncLocalStorage) {
+-      if (options.asyncLocalStorage instanceof AsyncLocalStorage) {
+-        this.ctxStorage = options.asyncLocalStorage
+-      } else {
+-        this.ctxStorage = new AsyncLocalStorage()
+-      }
+-    }
+-  }
++ def parse_log_file(file_path):
++     """
++     Parse a log file and return statistics about log levels.
++    
++     Args:
++         file_path: Path to the log file
++        
++     Returns:
++         A dictionary with log level counts, ordered by severity:
++         {'ERROR': count, 'WARNING': count, 'INFO': count, 'DEBUG': count}
++     """
++     # Initialize counts for all log levels
++     log_counts = {
++         'ERROR': 0,
++         'WARNING': 0,
++         'INFO': 0,
++         'DEBUG': 0
++     }
++    
++     try:
++         with open(file_path, 'r') as f:
++             for line in f:
++                 line = line.strip()
++                 # Check if line starts with [ and contains ]
++                 if line.startswith('[') and ']' in line:
++                     # Extract the log level between [ and ]
++                     end_bracket = line.index(']')
++                     log_level = line[1:end_bracket]
++                    
++                     # Count if it's a valid log level
++                     if log_level in log_counts:
++                         log_counts[log_level] += 1
++     except FileNotFoundError:
++         # If file doesn't exist, return all zeros
++         pass
++    
++     return log_counts
+ 
+   /**
+    * Shorthand for:

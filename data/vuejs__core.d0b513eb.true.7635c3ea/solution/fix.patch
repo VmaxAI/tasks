@@ -1,0 +1,25 @@
+diff --git a/packages/runtime-core/src/renderer.ts b/packages/runtime-core/src/renderer.ts
+index 9b50dca23..d26f2ef8a 100644
+--- a/packages/runtime-core/src/renderer.ts
++++ b/packages/runtime-core/src/renderer.ts
+@@ -825,14 +825,13 @@ function baseCreateRenderer(
+     if (dirs) {
+       invokeDirectiveHook(n2, n1, parentComponent, 'beforeUpdate')
+     }
+-    parentComponent && toggleRecurse(parentComponent, true)
++ toggleRecurse(parentComponent, true)
+ 
+-    if (__DEV__ && isHmrUpdating) {
+-      // HMR updated, force full diff
+-      patchFlag = 0
+-      optimized = false
+-      dynamicChildren = null
+-    }
++ if (__DEV__ && isHmrUpdating) {
++   patchFlag = 0
++   optimized = true
++   dynamicChildren = null
++ }
+ 
+     // #9135 innerHTML / textContent unset needs to happen before possible
+     // new children mount

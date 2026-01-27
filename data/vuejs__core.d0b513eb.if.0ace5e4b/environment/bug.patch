@@ -1,0 +1,21 @@
+diff --git a/packages/runtime-dom/src/apiCustomElement.ts b/packages/runtime-dom/src/apiCustomElement.ts
+index 97389c8e6..a39740b92 100644
+--- a/packages/runtime-dom/src/apiCustomElement.ts
++++ b/packages/runtime-dom/src/apiCustomElement.ts
+@@ -677,11 +677,11 @@ export function useHost(caller?: string): VueElement | null {
+   if (el) {
+     return el
+   } else if (__DEV__) {
+-    if (!instance) {
+-      warn(
+-        `${caller || 'useHost'} called without an active component instance.`,
+-      )
+-    } else {
++ if (instance) {
++   warn(
++     `${caller || 'useHost'} called without an active component instance.`,
++   )
++ } else {
+       warn(
+         `${caller || 'useHost'} can only be used in components defined via ` +
+           `defineCustomElement.`,

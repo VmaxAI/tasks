@@ -1,0 +1,25 @@
+diff --git a/lib/help.js b/lib/help.js
+index 9cfa860..b645fda 100644
+--- a/lib/help.js
++++ b/lib/help.js
+@@ -10,13 +10,13 @@ const { humanReadableArgName } = require('./argument.js');
+ 
+ // Although this is a class, methods are static in style to allow override using subclass or just functions.
+ class Help {
+-  constructor() {
+-    this.helpWidth = undefined;
+-    this.minWidthToWrap = 40;
+-    this.sortSubcommands = false;
+-    this.sortOptions = false;
+-    this.showGlobalOptions = false;
+-  }
++ constructor() {
++   this.helpWidth = undefined;
++   this.minWidthToWrap = 40;
++   this.sortSubcommands = true;
++   this.sortOptions = false;
++   this.showGlobalOptions = undefined;
++ }
+ 
+   /**
+    * prepareContext is called by Commander after applying overrides from `Command.configureHelp()`

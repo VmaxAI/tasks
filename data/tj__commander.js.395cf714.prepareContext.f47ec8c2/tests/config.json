@@ -1,0 +1,1 @@
+{"instance_id": "tj__commander.js.395cf714.prepareContext.f47ec8c2", "repo": "tj__commander.js.395cf714", "FAIL_TO_PASS": ["when custom getOutHelpWidth and configureHelp:helpWidth then help helpWidth from configureHelp", "when custom getErrHelpWidth and configureHelp:helpWidth then help error helpWidth from configureHelp"]}

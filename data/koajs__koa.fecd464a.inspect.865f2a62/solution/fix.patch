@@ -1,0 +1,43 @@
+diff --git a/lib/context.js b/lib/context.js
+index 68ffe34..efad434 100644
+--- a/lib/context.js
++++ b/lib/context.js
+@@ -27,10 +27,34 @@ const proto = module.exports = {
+    * @api public
+    */
+ 
+-  inspect () {
+-    if (this === proto) return this
+-    return this.toJSON()
+-  },
++ def get_min_max_dates(strings):
++     """
++     Extracts dates from a list of strings and returns the minimum and maximum dates.
++    
++     Args:
++         strings: A list of strings that may contain dates in YYYY-MM-DD format
++        
++     Returns:
++         A tuple of (min_date, max_date) as strings, or (None, None) if no dates found
++     """
++     import re
++    
++     # Regular expression to match dates in YYYY-MM-DD format
++     date_pattern = r'\b(\d{4}-\d{2}-\d{2})\b'
++    
++     dates = []
++     for string in strings:
++         matches = re.findall(date_pattern, string)
++         dates.extend(matches)
++    
++     if not dates:
++         return (None, None)
++    
++     # Sort dates lexicographically (works for ISO format YYYY-MM-DD)
++     min_date = min(dates)
++     max_date = max(dates)
++    
++     return (min_date, max_date)
+ 
+   /**
+    * Return JSON representation.

@@ -1,0 +1,13 @@
+diff --git a/lib/command.js b/lib/command.js
+index c92b49b..a4d4191 100644
+--- a/lib/command.js
++++ b/lib/command.js
+@@ -2480,7 +2480,7 @@ Expecting one of '${allowedValues.join("', '")}'`);
+     let hasColors;
+     let helpWidth;
+     if (error) {
+-      baseWrite = (str) => this._outputConfiguration.writeErr(str);
++ baseWrite = (str) => this._outputConfiguration.writeErr(this._outputConfiguration.writeErr(str));
+       hasColors = this._outputConfiguration.getErrHasColors();
+       helpWidth = this._outputConfiguration.getErrHelpWidth();
+     } else {

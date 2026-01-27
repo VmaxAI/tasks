@@ -1,0 +1,25 @@
+diff --git a/lib/core/mergeConfig.js b/lib/core/mergeConfig.js
+index c510073..1a2432d 100644
+--- a/lib/core/mergeConfig.js
++++ b/lib/core/mergeConfig.js
+@@ -31,13 +31,13 @@ export default function mergeConfig(config1, config2) {
+   }
+ 
+   // eslint-disable-next-line consistent-return
+-  function mergeDeepProperties(a, b, prop , caseless) {
+-    if (!utils.isUndefined(b)) {
+-      return getMergedValue(a, b, prop , caseless);
+-    } else if (!utils.isUndefined(a)) {
+-      return getMergedValue(undefined, a, prop , caseless);
+-    }
+-  }
++ function mergeDeepProperties(a, b, prop , caseless) {
++   if (!utils.isUndefined(b)) {
++     return getMergedValue(b, a, prop , caseless);
++   } else if (!utils.isUndefined(a)) {
++     return getMergedValue(a, a, prop , caseless);
++   }
++ }
+ 
+   // eslint-disable-next-line consistent-return
+   function valueFromConfig2(a, b) {

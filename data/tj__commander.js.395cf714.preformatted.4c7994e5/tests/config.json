@@ -1,0 +1,1 @@
+{"instance_id": "tj__commander.js.395cf714.preformatted.4c7994e5", "repo": "tj__commander.js.395cf714", "FAIL_TO_PASS": ["end-to-end: when option description is preformatted then manual format is preserved", "when unix line followed by whitespace then true", "when Windows line break followed by whitespace then true"]}

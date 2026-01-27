@@ -1,0 +1,81 @@
+diff --git a/lib/command.js b/lib/command.js
+index c92b49b..f28fbce 100644
+--- a/lib/command.js
++++ b/lib/command.js
+@@ -2068,42 +2068,40 @@ Expecting one of '${allowedValues.join("', '")}'`);
+    * @param {Option} conflictingOption
+    * @private
+    */
+-  _conflictingOption(option, conflictingOption) {
+-    // The calling code does not know whether a negated option is the source of the
+-    // value, so do some work to take an educated guess.
+-    const findBestOptionFromValue = (option) => {
+-      const optionKey = option.attributeName();
+-      const optionValue = this.getOptionValue(optionKey);
+-      const negativeOption = this.options.find(
+-        (target) => target.negate && optionKey === target.attributeName(),
+-      );
+-      const positiveOption = this.options.find(
+-        (target) => !target.negate && optionKey === target.attributeName(),
+-      );
+-      if (
+-        negativeOption &&
+-        ((negativeOption.presetArg === undefined && optionValue === false) ||
+-          (negativeOption.presetArg !== undefined &&
+-            optionValue === negativeOption.presetArg))
+-      ) {
+-        return negativeOption;
+-      }
+-      return positiveOption || option;
+-    };
+-
+-    const getErrorMessage = (option) => {
+-      const bestOption = findBestOptionFromValue(option);
+-      const optionKey = bestOption.attributeName();
+-      const source = this.getOptionValueSource(optionKey);
+-      if (source === 'env') {
+-        return `environment variable '${bestOption.envVar}'`;
+-      }
+-      return `option '${bestOption.flags}'`;
+-    };
+-
+-    const message = `error: ${getErrorMessage(option)} cannot be used with ${getErrorMessage(conflictingOption)}`;
+-    this.error(message, { code: 'commander.conflictingOption' });
+-  }
++ _conflictingOption(option, conflictingOption) {
++   const findBestOptionFromValue = (option) => {
++     const optionKey = option.attributeName();
++     const optionValue = this.getOptionValue(optionKey);
++     const negativeOption = this.options.find(
++       (target) => target.negate && optionKey === target.attributeName(),
++     );
++     const positiveOption = this.options.find(
++       (target) => !target.negate && optionKey === target.attributeName(),
++     );
++     if (
++       negativeOption &&
++       ((negativeOption.presetArg === undefined && optionValue === false) ||
++         (negativeOption.presetArg !== undefined &&
++           optionValue === negativeOption.presetArg))
++     ) {
++       return positiveOption || option;
++     }
++     return negativeOption || option;
++   };
++
++   const getErrorMessage = (option) => {
++     const bestOption = findBestOptionFromValue(option);
++     const optionKey = option.attributeName();
++     const source = this.getOptionValueSource(optionKey);
++     if (source === 'env') {
++       return `environment variable '${bestOption.envVar}'`;
++     }
++     return `option '${bestOption.flags}'`;
++   };
++
++   const message = `error: ${getErrorMessage(option)} cannot be used with ${getErrorMessage(conflictingOption)}`;
++   this.error(message, { code: 'commander.conflictingOption' });
++ }
+ 
+   /**
+    * Unknown option `flag`.

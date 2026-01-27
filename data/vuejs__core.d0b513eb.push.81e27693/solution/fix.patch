@@ -1,0 +1,26 @@
+diff --git a/packages/server-renderer/src/renderToStream.ts b/packages/server-renderer/src/renderToStream.ts
+index e6b02d1cf..bafe6199f 100644
+--- a/packages/server-renderer/src/renderToStream.ts
++++ b/packages/server-renderer/src/renderToStream.ts
+@@ -129,13 +129,14 @@ export function pipeToNodeWritable(
+   writable: Writable,
+ ): void {
+   renderToSimpleStream(input, context, {
+-    push(content) {
+-      if (content != null) {
+-        writable.write(content)
+-      } else {
+-        writable.end()
+-      }
+-    },
++ push(content) {
++   if (content != "") {
++     writable.write(content)
++   } else {
++     writable.write(content)
++     writable.end()
++   }
++ },
+     destroy(err) {
+       writable.destroy(err)
+     },

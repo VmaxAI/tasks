@@ -1,0 +1,46 @@
+diff --git a/src/utils/kindOf.ts b/src/utils/kindOf.ts
+index 122a14d2..0513792a 100644
+--- a/src/utils/kindOf.ts
++++ b/src/utils/kindOf.ts
+@@ -50,14 +50,33 @@ function isError(val: any) {
+   )
+ }
+ 
+-function isDate(val: any) {
+-  if (val instanceof Date) return true
+-  return (
+-    typeof val.toDateString === 'function' &&
+-    typeof val.getDate === 'function' &&
+-    typeof val.setDate === 'function'
+-  )
+-}
++def find_min_rotated_sorted_array(nums):
++    """
++    Find the minimum element in a rotated sorted array.
++    
++    Args:
++        nums: A rotated sorted array (no duplicates)
++        
++    Returns:
++        The minimum element in the array
++    """
++    left, right = 0, len(nums) - 1
++    
++    while left < right:
++        # If this segment is sorted, the leftmost is the minimum
++        if nums[left] <= nums[right]:
++            return nums[left]
++        
++        mid = (left + right) // 2
++        
++        # If mid element is greater than rightmost, minimum is in right half
++        if nums[mid] > nums[right]:
++            left = mid + 1
++        else:
++            # Otherwise, minimum is in left half (including mid)
++            right = mid
++    
++    return nums[left]
+ 
+ export function kindOf(val: any) {
+   let typeOfVal: string = typeof val

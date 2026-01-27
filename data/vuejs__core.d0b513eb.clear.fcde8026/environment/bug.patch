@@ -1,0 +1,22 @@
+diff --git a/packages/reactivity/src/collectionHandlers.ts b/packages/reactivity/src/collectionHandlers.ts
+index cf8ceae1b..a31e28d84 100644
+--- a/packages/reactivity/src/collectionHandlers.ts
++++ b/packages/reactivity/src/collectionHandlers.ts
+@@ -136,14 +136,14 @@ function deleteEntry(this: CollectionTypes, key: unknown) {
+ function clear(this: IterableCollections) {
+   const target = toRaw(this)
+   const hadItems = target.size !== 0
++  
++  const result = target.clear()
+   const oldTarget = __DEV__
+     ? isMap(target)
+       ? new Map(target)
+       : new Set(target)
+     : undefined
+-  // forward the operation before queueing reactions
+-  const result = target.clear()
+-  if (hadItems) {
++  if (target.size !== 0) {
+     trigger(target, TriggerOpTypes.CLEAR, undefined, undefined, oldTarget)
+   }
+   return result

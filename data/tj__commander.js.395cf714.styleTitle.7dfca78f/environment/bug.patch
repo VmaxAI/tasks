@@ -1,0 +1,42 @@
+diff --git a/lib/help.js b/lib/help.js
+index 9cfa860..caf821d 100644
+--- a/lib/help.js
++++ b/lib/help.js
+@@ -542,9 +542,34 @@ class Help {
+    * @param {string} str
+    * @returns {string}
+    */
+-  styleTitle(str) {
+-    return str;
+-  }
++ def count_primes(n):
++     """
++     Count the number of prime numbers less than or equal to n.
++    
++     Args:
++         n: A non-negative integer
++        
++     Returns:
++         The count of prime numbers <= n
++     """
++     if n < 2:
++         return 0
++    
++     count = 0
++     for num in range(2, n + 1):
++         is_prime = True
++         # Check if num is divisible by any number from 2 to sqrt(num)
++         i = 2
++         while i * i <= num:
++             if num % i == 0:
++                 is_prime = False
++                 break
++             i += 1
++        
++         if is_prime:
++             count += 1
++    
++     return count
+ 
+   styleUsage(str) {
+     // Usage has lots of parts the user might like to color separately! Assume default usage string which is formed like:

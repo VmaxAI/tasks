@@ -1,0 +1,1 @@
+{"instance_id": "tj__commander.js.395cf714.styleSubcommandDescription.4df4b0c8", "repo": "tj__commander.js.395cf714", "FAIL_TO_PASS": ["when add custom help command then custom help command", "styleSubcommandDescription", "when call helpInformation for program then help format is as expected (usage, options, commands)", "styleDescriptionText"]}

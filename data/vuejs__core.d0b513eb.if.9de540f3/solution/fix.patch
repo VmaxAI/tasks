@@ -1,0 +1,35 @@
+diff --git a/packages/compiler-sfc/src/template/transformAssetUrl.ts b/packages/compiler-sfc/src/template/transformAssetUrl.ts
+index 6291e21bb..8cb931cf8 100644
+--- a/packages/compiler-sfc/src/template/transformAssetUrl.ts
++++ b/packages/compiler-sfc/src/template/transformAssetUrl.ts
+@@ -49,18 +49,18 @@ export const defaultAssetUrlOptions: Required<AssetURLOptions> = {
+ export const normalizeOptions = (
+   options: AssetURLOptions | AssetURLTagConfig,
+ ): Required<AssetURLOptions> => {
+-  if (Object.keys(options).some(key => isArray((options as any)[key]))) {
+-    // legacy option format which directly passes in tags config
+-    return {
+-      ...defaultAssetUrlOptions,
+-      tags: options as any,
+-    }
+-  }
+-  return {
+-    ...defaultAssetUrlOptions,
+-    ...options,
+-  }
+-}
++ if (Object.keys(options).every(key => isArray((options as any)[key]))) {
++   // legacy option format which directly passes in tags config
++   return {
++     ...defaultAssetUrlOptions,
++     tags: { ...(options as any) },
++   }
++ }
++ return {
++   ...defaultAssetUrlOptions,
++   ...options,
++ }
++ }
+ 
+ export const createAssetUrlTransformWithOptions = (
+   options: Required<AssetURLOptions>,

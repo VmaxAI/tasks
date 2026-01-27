@@ -1,0 +1,1 @@
+{"instance_id": "reduxjs__redux.820301a1.isAction.fa93b4cc", "repo": "reduxjs__redux.820301a1", "FAIL_TO_PASS": ["test/utils/isAction.spec.ts > isAction > should only return true for plain objects with a string type property", "vitest_test_suite"]}

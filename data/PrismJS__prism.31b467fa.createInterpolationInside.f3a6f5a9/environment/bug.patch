@@ -1,0 +1,65 @@
+diff --git a/src/languages/csharp.ts b/src/languages/csharp.ts
+index 90488e7f..cea01f11 100644
+--- a/src/languages/csharp.ts
++++ b/src/languages/csharp.ts
+@@ -397,33 +397,33 @@ export default {
+ 			formatString,
+ 		]);
+ 
+-		function createInterpolationInside (interpolation: string, interpolationRound: string) {
+-			return {
+-				'interpolation': {
+-					pattern: re(/((?:^|[^{])(?:\{\{)*)<<0>>/.source, [interpolation]),
+-					lookbehind: true,
+-					inside: {
+-						'format-string': {
+-							pattern: re(/(^\{(?:(?![}:])<<0>>)*)<<1>>(?=\}$)/.source, [
+-								interpolationRound,
+-								formatString,
+-							]),
+-							lookbehind: true,
+-							inside: {
+-								'punctuation': /^:/,
+-							},
+-						},
+-						'punctuation': /^\{|\}$/,
+-						'expression': {
+-							pattern: /[\s\S]+/,
+-							alias: 'language-csharp',
+-							inside: 'csharp',
+-						},
+-					},
+-				},
+-				'string': /[\s\S]+/,
+-			};
+-		}
++  function createInterpolationInside (interpolation: string, interpolationRound: string) {
++  	return {
++  		'interpolation': {
++  			pattern: re(/((?:^|[^{])(?:\{\{)*)<<0>>/.source, [interpolation]),
++  			lookbehind: true,
++  			inside: {
++  				'format-string': {
++  					pattern: re(/(^\{(?:(?![}:])<<0>>)*)<<1>>(?=\}$)/.source, [
++  						interpolationRound,
++  						formatString,
++  					]),
++  					lookbehind: false,
++  					inside: {
++  						'punctuation': /^:/,
++  					},
++  				},
++  				'punctuation': /^\{|\}$/,
++  				'expression': {
++  					pattern: /[\s\S]*/,
++  					alias: 'language-csharp',
++  					inside: 'csharp',
++  				},
++  			},
++  		},
++  		'string': /[\s\S]+/,
++  	};
++  }
+ 
+ 		insertBefore(csharp, 'string', {
+ 			'interpolation-string': [

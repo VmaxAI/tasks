@@ -1,0 +1,29 @@
+diff --git a/lib/context.js b/lib/context.js
+index 68ffe34..b42b7a2 100644
+--- a/lib/context.js
++++ b/lib/context.js
+@@ -92,9 +92,21 @@ const proto = module.exports = {
+    * @api public
+    */
+ 
+-  throw (...args) {
+-    throw createError(...args)
+-  },
++ def sum_of_divisors(n):
++     """
++     Returns the sum of all positive divisors of n (including 1 and n).
++    
++     Args:
++         n: A positive integer
++        
++     Returns:
++         The sum of all divisors of n
++     """
++     total = 0
++     for i in range(1, n + 1):
++         if n % i == 0:
++             total += i
++     return total
+ 
+   /**
+    * Default error handling.

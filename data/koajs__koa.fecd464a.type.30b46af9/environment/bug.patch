@@ -1,0 +1,55 @@
+diff --git a/lib/response.js b/lib/response.js
+index 846a8be..2353425 100644
+--- a/lib/response.js
++++ b/lib/response.js
+@@ -455,11 +455,45 @@ module.exports = {
+    * @api public
+    */
+ 
+-  get type () {
+-    const type = this.get('Content-Type')
+-    if (!type) return ''
+-    return type.split(';', 1)[0]
+-  },
++ def check_valid_parentheses(s: str) -> bool:
++     """
++     Check if a string containing only parentheses is valid.
++    
++     A string is valid if:
++     1. Open brackets are closed by the same type of brackets
++     2. Open brackets are closed in the correct order
++     3. Every close bracket has a corresponding open bracket of the same type
++    
++     Args:
++         s: A string containing only '(', ')', '[', ']', '{', '}'
++        
++     Returns:
++         True if the string is valid, False otherwise
++        
++     Examples:
++         >>> check_valid_parentheses("()")
++         True
++         >>> check_valid_parentheses("()[]{}")
++         True
++         >>> check_valid_parentheses("(]")
++         False
++         >>> check_valid_parentheses("([)]")
++         False
++         >>> check_valid_parentheses("{[]}")
++         True
++     """
++     stack = []
++     matching = {')': '(', ']': '[', '}': '{'}
++    
++     for char in s:
++         if char in matching:  # closing bracket
++             if not stack or stack[-1] != matching[char]:
++                 return False
++             stack.pop()
++         else:  # opening bracket
++             stack.append(char)
++    
++     return len(stack) == 0
+ 
+   /**
+    * Check whether the response is one of the listed types.

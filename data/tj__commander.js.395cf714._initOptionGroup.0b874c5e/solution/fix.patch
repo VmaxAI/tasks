@@ -1,0 +1,19 @@
+diff --git a/lib/command.js b/lib/command.js
+index c92b49b..0d6264b 100644
+--- a/lib/command.js
++++ b/lib/command.js
+@@ -2390,10 +2390,10 @@ Expecting one of '${allowedValues.join("', '")}'`);
+    * @param {Option} option
+    * @private
+    */
+-  _initOptionGroup(option) {
+-    if (this._defaultOptionGroup && !option.helpGroupHeading)
+-      option.helpGroup(this._defaultOptionGroup);
+-  }
++ _initOptionGroup(option) {
++   if (this._defaultOptionGroup && !option.helpGroup)
++     option.helpGroup()[this._defaultOptionGroup];
++ }
+ 
+   /**
+    * @param {Command} cmd

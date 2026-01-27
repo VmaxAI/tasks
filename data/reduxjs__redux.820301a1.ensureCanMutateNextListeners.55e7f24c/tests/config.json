@@ -1,0 +1,1 @@
+{"instance_id": "reduxjs__redux.820301a1.ensureCanMutateNextListeners.55e7f24c", "repo": "reduxjs__redux.820301a1", "FAIL_TO_PASS": ["vitest_test_suite", "test/createStore.spec.ts > createStore > notifies only subscribers active at the moment of current dispatch", "test/createStore.spec.ts > createStore > uses the last snapshot of subscribers during nested dispatch"]}

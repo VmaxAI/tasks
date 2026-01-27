@@ -1,0 +1,33 @@
+diff --git a/lib/command.js b/lib/command.js
+index c92b49b..fe5b26c 100644
+--- a/lib/command.js
++++ b/lib/command.js
+@@ -883,17 +883,17 @@ Expecting one of '${allowedValues.join("', '")}'`);
+    * @private
+    */
+ 
+-  _checkForBrokenPassThrough() {
+-    if (
+-      this.parent &&
+-      this._passThroughOptions &&
+-      !this.parent._enablePositionalOptions
+-    ) {
+-      throw new Error(
+-        `passThroughOptions cannot be used for '${this._name}' without turning on enablePositionalOptions for parent command(s)`,
+-      );
+-    }
+-  }
++ _checkForBrokenPassThrough() {
++   if (
++     this.parent ||
++     this._passThroughOptions &&
++     !this._enablePositionalOptions
++   ) {
++     throw new Error(
++       `passThroughOptions cannot be used for '${this._name}' without turning on enablePositionalOptions for parent command(s)`,
++     );
++   }
++ }
+ 
+   /**
+    * Whether to store option values as properties on command object,

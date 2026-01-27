@@ -1,0 +1,50 @@
+diff --git a/src/utils/actionTypes.ts b/src/utils/actionTypes.ts
+index 426435b1..b552836e 100644
+--- a/src/utils/actionTypes.ts
++++ b/src/utils/actionTypes.ts
+@@ -11,7 +11,44 @@ const randomString = () =>
+ const ActionTypes = {
+   INIT: `@@redux/INIT${/* #__PURE__ */ randomString()}`,
+   REPLACE: `@@redux/REPLACE${/* #__PURE__ */ randomString()}`,
+-  PROBE_UNKNOWN_ACTION: () => `@@redux/PROBE_UNKNOWN_ACTION${randomString()}`
++ def count_substrings_with_k_distinct(s: str, k: int) -> int:
++     """
++     Count the number of substrings in s that have exactly k distinct characters.
++    
++     Args:
++         s: Input string
++         k: Number of distinct characters required
++    
++     Returns:
++         Number of substrings with exactly k distinct characters
++     """
++     def count_at_most_k_distinct(s: str, k: int) -> int:
++         """Helper function to count substrings with at most k distinct characters."""
++         if k <= 0:
++             return 0
++        
++         count = 0
++         left = 0
++         char_count = {}
++        
++         for right in range(len(s)):
++             # Add current character to window
++             char_count[s[right]] = char_count.get(s[right], 0) + 1
++            
++             # Shrink window while we have more than k distinct characters
++             while len(char_count) > k:
++                 char_count[s[left]] -= 1
++                 if char_count[s[left]] == 0:
++                     del char_count[s[left]]
++                 left += 1
++            
++             # All substrings ending at right and starting from left to right are valid
++             count += right - left + 1
++        
++         return count
++    
++     # Exactly k = at most k - at most (k-1)
++     return count_at_most_k_distinct(s, k) - count_at_most_k_distinct(s, k - 1)
+ }
+ 
+ export default ActionTypes

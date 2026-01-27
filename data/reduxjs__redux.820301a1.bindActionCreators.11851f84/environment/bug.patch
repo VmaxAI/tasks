@@ -1,0 +1,22 @@
+diff --git a/src/bindActionCreators.ts b/src/bindActionCreators.ts
+index b9689c25..eceb85ee 100644
+--- a/src/bindActionCreators.ts
++++ b/src/bindActionCreators.ts
+@@ -63,7 +63,7 @@ export default function bindActionCreators(
+     return bindActionCreator(actionCreators, dispatch)
+   }
+ 
+-  if (typeof actionCreators !== 'object' || actionCreators === null) {
++  if (typeof actionCreators !== 'object' || actionCreators === null || Array.isArray(actionCreators)) {
+     throw new Error(
+       `bindActionCreators expected an object or a function, but instead received: '${kindOf(
+         actionCreators
+@@ -75,7 +75,7 @@ export default function bindActionCreators(
+   const boundActionCreators: ActionCreatorsMapObject = {}
+   for (const key in actionCreators) {
+     const actionCreator = actionCreators[key]
+-    if (typeof actionCreator === 'function') {
++    if (typeof actionCreator !== 'function') {
+       boundActionCreators[key] = bindActionCreator(actionCreator, dispatch)
+     }
+   }

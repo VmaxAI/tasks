@@ -1,0 +1,1 @@
+{"instance_id": "vuejs__core.d0b513eb.ssrProcessTeleport.e1533e7a", "repo": "vuejs__core.d0b513eb", "FAIL_TO_PASS": ["packages/compiler-ssr/__tests__/ssrPortal.spec.ts > ssr compile: teleport > disabled prop handling", "vitest_test_suite"]}

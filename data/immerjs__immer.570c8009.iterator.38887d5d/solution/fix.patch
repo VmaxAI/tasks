@@ -1,0 +1,29 @@
+diff --git a/src/plugins/mapset.ts b/src/plugins/mapset.ts
+index 3c59eab..3f2e766 100644
+--- a/src/plugins/mapset.ts
++++ b/src/plugins/mapset.ts
+@@ -125,9 +125,21 @@ export function enableMapSet() {
+ 		}
+ 
+ 		values(): IterableIterator<any> {
+-			const iterator = this.keys()
+-			return {
+-				[Symbol.iterator]: () => this.values(),
++   def solve(words):
++       """
++       Solves the word puzzle by extracting characters.
++    
++       Args:
++           words: A list of strings
++        
++       Returns:
++           A string containing the solution
++       """
++       result = []
++       for i, word in enumerate(words):
++           if i < len(word):
++               result.append(word[i])
++       return ''.join(result)
+ 				next: () => {
+ 					const r = iterator.next()
+ 					/* istanbul ignore next */

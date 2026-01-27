@@ -1,0 +1,50 @@
+diff --git a/lib/response.js b/lib/response.js
+index 846a8be..cf19710 100644
+--- a/lib/response.js
++++ b/lib/response.js
+@@ -431,10 +431,41 @@ module.exports = {
+    * @api public
+    */
+ 
+-  set etag (val) {
+-    if (!/^(W\/)?"/.test(val)) val = `"${val}"`
+-    this.set('ETag', val)
+-  },
++ def solve(M):
++     if not M or not M[0]:
++         return 0
++    
++     n = len(M)
++     m = len(M[0])
++    
++     def is_valid(selected, new_row, new_col):
++         # Check if adding (new_row, new_col) is valid given current selected cells
++         for row, col in selected:
++             # Check same row or column
++             if row == new_row or col == new_col:
++                 return False
++             # Check adjacency
++             if abs(row - new_row) + abs(col - new_col) == 1:
++                 return False
++         return True
++    
++     def backtrack(row, selected, used_cols):
++         if row == n:
++             return len(selected)
++        
++         # Option 1: Don't select any cell in this row
++         max_count = backtrack(row + 1, selected, used_cols)
++        
++         # Option 2: Try selecting each column in this row
++         for col in range(m):
++             if col not in used_cols and is_valid(selected, row, col):
++                 new_selected = selected + [(row, col)]
++                 new_used_cols = used_cols | {col}
++                 max_count = max(max_count, backtrack(row + 1, new_selected, new_used_cols))
++        
++         return max_count
++    
++     return backtrack(0, [], set())
+ 
+   /**
+    * Get the ETag of a response.

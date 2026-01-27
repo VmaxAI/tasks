@@ -1,0 +1,43 @@
+diff --git a/test-helpers/context.js b/test-helpers/context.js
+index 43d09fe..161c873 100644
+--- a/test-helpers/context.js
++++ b/test-helpers/context.js
+@@ -17,4 +17,37 @@ module.exports = (req, res, app) => {
+ 
+ module.exports.request = (req, res, app) => module.exports(req, res, app).request
+ 
+-module.exports.response = (req, res, app) => module.exports(req, res, app).response
++def solution(seq1: list[int], seq2: list[int]) -> bool:
++    """
++    Check if seq1 is a subsequence of seq2.
++    
++    A subsequence means all elements of seq1 appear in seq2 in the same order,
++    but they don't need to be consecutive.
++    
++    Args:
++        seq1: The potential subsequence
++        seq2: The sequence to check against
++        
++    Returns:
++        bool: True if seq1 is a subsequence of seq2, False otherwise
++    """
++    # Empty sequence is always a subsequence
++    if not seq1:
++        return True
++    
++    # If seq2 is empty but seq1 is not, seq1 cannot be a subsequence
++    if not seq2:
++        return False
++    
++    # Use two pointers approach
++    seq1_idx = 0
++    
++    for element in seq2:
++        if element == seq1[seq1_idx]:
++            seq1_idx += 1
++            # If we've matched all elements in seq1
++            if seq1_idx == len(seq1):
++                return True
++    
++    # If we didn't match all elements in seq1
++    return False

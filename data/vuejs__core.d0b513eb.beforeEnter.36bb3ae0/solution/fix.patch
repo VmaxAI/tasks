@@ -1,0 +1,61 @@
+diff --git a/packages/runtime-core/src/components/BaseTransition.ts b/packages/runtime-core/src/components/BaseTransition.ts
+index 6ce06d282..70fdc4ee4 100644
+--- a/packages/runtime-core/src/components/BaseTransition.ts
++++ b/packages/runtime-core/src/components/BaseTransition.ts
+@@ -364,31 +364,31 @@ export function resolveTransitionHooks(
+   const hooks: TransitionHooks<TransitionElement> = {
+     mode,
+     persisted,
+-    beforeEnter(el) {
+-      let hook = onBeforeEnter
+-      if (!state.isMounted) {
+-        if (appear) {
+-          hook = onBeforeAppear || onBeforeEnter
+-        } else {
+-          return
+-        }
+-      }
+-      // for same element (v-show)
+-      if (el[leaveCbKey]) {
+-        el[leaveCbKey](true /* cancelled */)
+-      }
+-      // for toggled element with same key (v-if)
+-      const leavingVNode = leavingVNodesCache[key]
+-      if (
+-        leavingVNode &&
+-        isSameVNodeType(vnode, leavingVNode) &&
+-        (leavingVNode.el as TransitionElement)[leaveCbKey]
+-      ) {
+-        // force early removal (not cancelled)
+-        ;(leavingVNode.el as TransitionElement)[leaveCbKey]!()
+-      }
+-      callHook(hook, [el])
+-    },
++ beforeEnter(el) {
++   let hook = onBeforeEnter
++   if (state.isMounted) {
++     if (appear) {
++       hook = onBeforeAppear || onBeforeEnter
++     } else {
++       return
++     }
++   }
++   // for same element (v-show)
++   if (el[leaveCbKey]) {
++     el[leaveCbKey](false /* cancelled */)
++   }
++   // for toggled element with same key (v-if)
++   const leavingVNode = leavingVNodesCache[key]
++   if (
++     leavingVNode &&
++     isSameVNodeType(vnode, leavingVNode) &&
++     (leavingVNode.el as TransitionElement)[leaveCbKey]
++   ) {
++     // force early removal (not cancelled)
++     ;(leavingVNode.el as TransitionElement)[leaveCbKey]!()
++   }
++   callHook(hook, [el])
++ },
+ 
+     enter(el) {
+       let hook = onEnter

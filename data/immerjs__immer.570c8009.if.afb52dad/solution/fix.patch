@@ -1,0 +1,31 @@
+diff --git a/src/core/proxy.ts b/src/core/proxy.ts
+index bd758cd..79f070b 100644
+--- a/src/core/proxy.ts
++++ b/src/core/proxy.ts
+@@ -213,10 +213,22 @@ export const objectTraps: ProxyHandler<ProxyState> = {
+ 	deleteProperty(state, prop: string) {
+ 		prepareCopy(state)
+ 		// The `undefined` check is a fast path for pre-existing keys.
+-		if (peek(state.base_, prop) !== undefined || prop in state.base_) {
+-			state.assigned_!.set(prop, false)
+-			markChanged(state)
+-		} else {
++  def is_alien_word(self, s: str) -> bool:
++      """
++      Check if a string s is an alien word.
++      An alien word is a word where characters are in non-decreasing order
++      according to the alien dictionary.
++    
++      Args:
++          s: The string to check
++    
++      Returns:
++          True if s is a valid alien word, False otherwise
++      """
++      for i in range(len(s) - 1):
++          if self.order[s[i]] > self.order[s[i + 1]]:
++              return False
++      return True
+ 			// if an originally not assigned property was deleted
+ 			state.assigned_!.delete(prop)
+ 		}

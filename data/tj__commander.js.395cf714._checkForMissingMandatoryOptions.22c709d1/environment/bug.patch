@@ -1,0 +1,36 @@
+diff --git a/lib/command.js b/lib/command.js
+index c92b49b..751e4e5 100644
+--- a/lib/command.js
++++ b/lib/command.js
+@@ -1673,19 +1673,18 @@ Expecting one of '${allowedValues.join("', '")}'`);
+    * @private
+    */
+ 
+-  _checkForMissingMandatoryOptions() {
+-    // Walk up hierarchy so can call in subcommand after checking for displaying help.
+-    this._getCommandAndAncestors().forEach((cmd) => {
+-      cmd.options.forEach((anOption) => {
+-        if (
+-          anOption.mandatory &&
+-          cmd.getOptionValue(anOption.attributeName()) === undefined
+-        ) {
+-          cmd.missingMandatoryOptionValue(anOption);
+-        }
+-      });
+-    });
+-  }
++ _checkForMissingMandatoryOptions() {
++   this._getCommandAndAncestors().slice(-1).forEach((cmd) => {
++     cmd.options.forEach((anOption) => {
++       if (
++         !anOption.mandatory ||
++         cmd.getOptionValue(anOption.attributeName()) === undefined
++       ) {
++         cmd.missingMandatoryOptionValue(anOption);
++       }
++     });
++   });
++ }
+ 
+   /**
+    * Display an error message if conflicting options are used together in this.

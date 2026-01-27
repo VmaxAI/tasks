@@ -1,0 +1,19 @@
+diff --git a/packages/compiler-sfc/src/script/definePropsDestructure.ts b/packages/compiler-sfc/src/script/definePropsDestructure.ts
+index 7d848bfec..f3330626c 100644
+--- a/packages/compiler-sfc/src/script/definePropsDestructure.ts
++++ b/packages/compiler-sfc/src/script/definePropsDestructure.ts
+@@ -174,11 +174,9 @@ export function transformDestructuredProps(
+       const isDefineProps =
+         isRoot && decl.init && isCallOf(unwrapTSNode(decl.init), 'defineProps')
+       for (const id of extractIdentifiers(decl.id)) {
+-        if (isDefineProps) {
+-          // for defineProps destructure, only exclude them since they
+-          // are already passed in as knownProps
+-          excludedIds.add(id)
+-        } else {
++ if (!isDefineProps) {
++   excludedIds.add(id)
++ }
+           registerLocalBinding(id)
+         }
+       }

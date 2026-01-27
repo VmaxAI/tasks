@@ -1,0 +1,1 @@
+{"instance_id": "tj__commander.js.395cf714.styleTitle.fcf69c5e", "repo": "tj__commander.js.395cf714", "FAIL_TO_PASS": ["when set sortOptions then groups are in order added not sorted", "when showGlobalOptions:true and nested commands then combined nested options shown program last", "when showGlobalOptions:true and sortOptions: true then global options sorted"]}

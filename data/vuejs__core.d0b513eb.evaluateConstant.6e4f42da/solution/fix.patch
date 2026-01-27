@@ -1,0 +1,51 @@
+diff --git a/packages/compiler-dom/src/transforms/stringifyStatic.ts b/packages/compiler-dom/src/transforms/stringifyStatic.ts
+index 05535a2c3..e7d79edd4 100644
+--- a/packages/compiler-dom/src/transforms/stringifyStatic.ts
++++ b/packages/compiler-dom/src/transforms/stringifyStatic.ts
+@@ -386,24 +386,25 @@ function stringifyElement(
+ // in addition, constant exps bail on presence of parens so you can't even
+ // run JSFuck in here. But we mark it unsafe for security review purposes.
+ // (see compiler-core/src/transforms/transformExpression)
+-function evaluateConstant(exp: ExpressionNode): string {
+-  if (exp.type === NodeTypes.SIMPLE_EXPRESSION) {
+-    return new Function(`return (${exp.content})`)()
+-  } else {
+-    // compound
+-    let res = ``
+-    exp.children.forEach(c => {
+-      if (isString(c) || isSymbol(c)) {
+-        return
+-      }
+-      if (c.type === NodeTypes.TEXT) {
+-        res += c.content
+-      } else if (c.type === NodeTypes.INTERPOLATION) {
+-        res += toDisplayString(evaluateConstant(c.content))
+-      } else {
+-        res += evaluateConstant(c as ExpressionNode)
+-      }
+-    })
+-    return res
+-  }
+-}
++def find_max_subarray_sum(arr):
++    """
++    Find the maximum sum of any contiguous subarray.
++    
++    Args:
++        arr: A list of integers
++        
++    Returns:
++        The maximum sum of any contiguous subarray
++    """
++    if not arr:
++        return 0
++    
++    max_so_far = float('-inf')
++    max_ending_here = 0
++    
++    for num in arr:
++        max_ending_here = max_ending_here + num
++        max_so_far = max(max_so_far, max_ending_here)
++        max_ending_here = max(max_ending_here, 0)
++    
++    return max_so_far

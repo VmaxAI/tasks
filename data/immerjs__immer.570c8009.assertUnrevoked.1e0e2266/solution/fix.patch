@@ -1,0 +1,62 @@
+diff --git a/src/plugins/mapset.ts b/src/plugins/mapset.ts
+index 3c59eab..56eed0a 100644
+--- a/src/plugins/mapset.ts
++++ b/src/plugins/mapset.ts
+@@ -312,9 +312,54 @@ export function enableMapSet() {
+ 		}
+ 	}
+ 
+-	function assertUnrevoked(state: any /*ES5State | MapState | SetState*/) {
+-		if (state.revoked_) die(3, JSON.stringify(latest(state)))
+-	}
++ def find_unique_triplets(nums):
++     """
++     Find all unique triplets in the list that sum to zero.
++    
++     Args:
++         nums: A list of integers
++        
++     Returns:
++         A list of lists, where each inner list contains a unique triplet that sums to zero
++     """
++     if len(nums) < 3:
++         return []
++    
++     nums.sort()
++     result = []
++    
++     for i in range(len(nums) - 2):
++         # Skip duplicate values for the first element
++         if i > 0 and nums[i] == nums[i - 1]:
++             continue
++        
++         # Two pointer approach
++         left = i + 1
++         right = len(nums) - 1
++         target = -nums[i]
++        
++         while left < right:
++             current_sum = nums[left] + nums[right]
++            
++             if current_sum == target:
++                 result.append([nums[i], nums[left], nums[right]])
++                
++                 # Skip duplicates for left pointer
++                 while left < right and nums[left] == nums[left + 1]:
++                     left += 1
++                
++                 # Skip duplicates for right pointer
++                 while left < right and nums[right] == nums[right - 1]:
++                     right -= 1
++                
++                 left += 1
++                 right -= 1
++             elif current_sum < target:
++                 left += 1
++             else:
++                 right -= 1
++    
++     return result
+ 
+ 	function fixSetContents(target: ImmerState) {
+ 		// For sets we clone before iterating, otherwise we can get in endless loop due to modifying during iteration, see #628

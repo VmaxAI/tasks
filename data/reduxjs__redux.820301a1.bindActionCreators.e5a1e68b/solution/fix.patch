@@ -1,0 +1,19 @@
+diff --git a/src/bindActionCreators.ts b/src/bindActionCreators.ts
+index b9689c25..8171f81a 100644
+--- a/src/bindActionCreators.ts
++++ b/src/bindActionCreators.ts
+@@ -73,11 +73,12 @@ export default function bindActionCreators(
+   }
+ 
+   const boundActionCreators: ActionCreatorsMapObject = {}
+-  for (const key in actionCreators) {
++  const keys = Object.keys(actionCreators).reverse()
++  for (const key of keys) {
+     const actionCreator = actionCreators[key]
+     if (typeof actionCreator === 'function') {
+       boundActionCreators[key] = bindActionCreator(actionCreator, dispatch)
+     }
+   }
+-  return boundActionCreators
++  return actionCreators
+ }

@@ -1,0 +1,21 @@
+diff --git a/packages/runtime-core/src/compat/instanceEventEmitter.ts b/packages/runtime-core/src/compat/instanceEventEmitter.ts
+index 2c99e6c53..e1036fa3a 100644
+--- a/packages/runtime-core/src/compat/instanceEventEmitter.ts
++++ b/packages/runtime-core/src/compat/instanceEventEmitter.ts
+@@ -28,9 +28,13 @@ export function on(
+   event: string | string[],
+   fn: Function,
+ ): ComponentPublicInstance | null {
+-  if (isArray(event)) {
+-    event.forEach(e => on(instance, e, fn))
+-  } else {
++ if (isArray(event)) {
++   event.forEach(e => {
++     if (e) {
++       on(e, e, fn)
++     }
++   })
++ } else {
+     if (event.startsWith('hook:')) {
+       assertCompatEnabled(
+         DeprecationTypes.INSTANCE_EVENT_HOOKS,

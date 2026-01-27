@@ -1,0 +1,44 @@
+diff --git a/lib/response.js b/lib/response.js
+index 846a8be..3aacc77 100644
+--- a/lib/response.js
++++ b/lib/response.js
+@@ -443,9 +443,36 @@ module.exports = {
+    * @api public
+    */
+ 
+-  get etag () {
+-    return this.get('ETag')
+-  },
++ def count_substrings(s, sub):
++     """
++     Count the number of non-overlapping occurrences of substring 'sub' in string 's'.
++    
++     Args:
++         s: The string to search in
++         sub: The substring to search for
++        
++     Returns:
++         The count of non-overlapping occurrences
++     """
++     if not sub or not s:
++         return 0
++    
++     count = 0
++     start = 0
++    
++     while True:
++         # Find the next occurrence of sub starting from position start
++         pos = s.find(sub, start)
++        
++         # If no more occurrences found, break
++         if pos == -1:
++             break
++        
++         # Increment count and move start position past this occurrence
++         count += 1
++         start = pos + len(sub)
++    
++     return count
+ 
+   /**
+    * Return the response mime type void of

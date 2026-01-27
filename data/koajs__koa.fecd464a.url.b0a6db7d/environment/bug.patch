@@ -1,0 +1,36 @@
+diff --git a/lib/request.js b/lib/request.js
+index be802f5..7f4b767 100644
+--- a/lib/request.js
++++ b/lib/request.js
+@@ -74,9 +74,28 @@ module.exports = {
+    * @api public
+    */
+ 
+-  get url () {
+-    return this.req.url
+-  },
++ def calculate_overlap(start1, end1, start2, end2):
++     """
++     Calculate if two ranges overlap and return the overlapping range.
++    
++     Args:
++         start1: Start of first range
++         end1: End of first range
++         start2: Start of second range
++         end2: End of second range
++    
++     Returns:
++         Tuple of (overlaps: bool, overlap_start: int, overlap_end: int)
++     """
++     # Check if ranges overlap
++     if start1 <= end2 and start2 <= end1:
++         # Calculate the overlapping range
++         overlap_start = max(start1, start2)
++         overlap_end = min(end1, end2)
++         return (True, overlap_start, overlap_end)
++     else:
++         # No overlap
++         return (False, 0, 0)
+ 
+   /**
+    * Set request URL.

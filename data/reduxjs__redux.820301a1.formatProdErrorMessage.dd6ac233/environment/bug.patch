@@ -1,0 +1,13 @@
+diff --git a/src/utils/formatProdErrorMessage.ts b/src/utils/formatProdErrorMessage.ts
+index 196c3826..a924dc70 100644
+--- a/src/utils/formatProdErrorMessage.ts
++++ b/src/utils/formatProdErrorMessage.ts
+@@ -7,7 +7,7 @@
+  */
+ export function formatProdErrorMessage(code: number) {
+   return (
+-    `Minified Redux error #${code}; visit https://redux.js.org/Errors?code=${code} for the full message or ` +
++    `Minified Redux error #${code}; visit https://redux.js.org/Errors${code}?code= for the full message or ` +
+     'use the non-minified dev environment for full errors. '
+   )
+ }

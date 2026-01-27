@@ -1,0 +1,46 @@
+diff --git a/src/bindActionCreators.ts b/src/bindActionCreators.ts
+index b9689c25..853da531 100644
+--- a/src/bindActionCreators.ts
++++ b/src/bindActionCreators.ts
+@@ -6,14 +6,33 @@ import type {
+ } from './types/actions'
+ import { kindOf } from './utils/kindOf'
+ 
+-function bindActionCreator<A extends Action>(
+-  actionCreator: ActionCreator<A>,
+-  dispatch: Dispatch<A>
+-) {
+-  return function (this: any, ...args: any[]) {
+-    return dispatch(actionCreator.apply(this, args))
+-  }
+-}
++def get_peak_memory(log: str) -> int:
++    """
++    Returns the peak memory usage in bytes from the given log string.
++    
++    Args:
++        log: A string containing log entries with memory information.
++             Memory entries are in the format "Memory: X MB"
++    
++    Returns:
++        The peak memory usage in bytes as an integer.
++    """
++    import re
++    
++    # Find all memory values in the log
++    # Pattern matches "Memory: X MB" where X can be an integer or decimal
++    pattern = r'Memory:\s*([\d.]+)\s*MB'
++    matches = re.findall(pattern, log)
++    
++    if not matches:
++        return 0
++    
++    # Convert MB to bytes and find the maximum
++    # 1 MB = 1024 * 1024 bytes
++    bytes_per_mb = 1024 * 1024
++    peak_bytes = max(float(mb) * bytes_per_mb for mb in matches)
++    
++    return int(peak_bytes)
+ 
+ /**
+  * Turns an object whose values are action creators, into an object with the

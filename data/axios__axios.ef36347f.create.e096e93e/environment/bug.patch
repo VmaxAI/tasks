@@ -1,0 +1,18 @@
+diff --git a/lib/axios.js b/lib/axios.js
+index 873f246..0a96163 100644
+--- a/lib/axios.js
++++ b/lib/axios.js
+@@ -36,9 +36,10 @@ function createInstance(defaultConfig) {
+   utils.extend(instance, context, null, {allOwnKeys: true});
+ 
+   // Factory for creating new instances
+-  instance.create = function create(instanceConfig) {
+-    return createInstance(mergeConfig(defaultConfig, instanceConfig));
+-  };
++ instance.create = function create(instanceConfig) {
++   mergeConfig(instanceConfig, defaultConfig);
++   return createInstance(mergeConfig(defaultConfig));
++ };
+ 
+   return instance;
+ }

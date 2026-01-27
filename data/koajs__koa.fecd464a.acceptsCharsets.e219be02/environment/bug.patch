@@ -1,0 +1,85 @@
+diff --git a/lib/request.js b/lib/request.js
+index be802f5..f4ed5ab 100644
+--- a/lib/request.js
++++ b/lib/request.js
+@@ -585,9 +585,77 @@ module.exports = {
+    * @api public
+    */
+ 
+-  acceptsCharsets (...args) {
+-    return this.accept.charsets(...args)
+-  },
++ def get_minimum_cost(n, connections, ignore_city=None):
++     """
++     Find the minimum cost to connect all cities.
++    
++     Args:
++         n: Number of cities (labeled 0 to n-1)
++         connections: List of [city1, city2, cost] representing roads
++         ignore_city: Optional city to ignore in the graph
++    
++     Returns:
++         Minimum cost to connect all cities, or -1 if impossible
++     """
++     import heapq
++    
++     # Filter out connections involving ignore_city
++     valid_connections = []
++     for city1, city2, cost in connections:
++         if ignore_city is not None and (city1 == ignore_city or city2 == ignore_city):
++             continue
++         valid_connections.append([city1, city2, cost])
++    
++     # Determine which cities we need to connect
++     cities_to_connect = set(range(n))
++     if ignore_city is not None:
++         cities_to_connect.discard(ignore_city)
++    
++     # If only 0 or 1 city to connect, cost is 0
++     if len(cities_to_connect) <= 1:
++         return 0
++    
++     # Build adjacency list
++     graph = {i: [] for i in cities_to_connect}
++     for city1, city2, cost in valid_connections:
++         if city1 in cities_to_connect and city2 in cities_to_connect:
++             graph[city1].append((city2, cost))
++             graph[city2].append((city1, cost))
++    
++     # Prim's algorithm using min-heap
++     visited = set()
++     min_heap = []
++     total_cost = 0
++    
++     # Start from any city in cities_to_connect
++     start_city = min(cities_to_connect)
++     visited.add(start_city)
++    
++     # Add all edges from start_city to heap
++     for neighbor, cost in graph[start_city]:
++         heapq.heappush(min_heap, (cost, neighbor))
++    
++     # Process until we've visited all cities or heap is empty
++     while min_heap and len(visited) < len(cities_to_connect):
++         cost, city = heapq.heappop(min_heap)
++        
++         if city in visited:
++             continue
++        
++         # Add this city to MST
++         visited.add(city)
++         total_cost += cost
++        
++         # Add all edges from this city to unvisited cities
++         for neighbor, edge_cost in graph[city]:
++             if neighbor not in visited:
++                 heapq.heappush(min_heap, (edge_cost, neighbor))
++    
++     # Check if all cities are connected
++     if len(visited) == len(cities_to_connect):
++         return total_cost
++     else:
++         return -1
+ 
+   /**
+    * Return accepted languages or best fit based on `langs`.

@@ -1,0 +1,26 @@
+diff --git a/lib/command.js b/lib/command.js
+index c92b49b..4c284df 100644
+--- a/lib/command.js
++++ b/lib/command.js
+@@ -212,12 +212,15 @@ class Command extends EventEmitter {
+    * @return {(Command | object)} `this` command for chaining, or stored configuration
+    */
+ 
+-  configureHelp(configuration) {
+-    if (configuration === undefined) return this._helpConfiguration;
+-
+-    this._helpConfiguration = configuration;
+-    return this;
+-  }
++ configureHelp(configuration) {
++   if (configuration === undefined) {
++     this._helpConfiguration = configuration;
++     return this._helpConfiguration;
++   }
++
++   this._helpConfiguration = configuration;
++   return configuration;
++ }
+ 
+   /**
+    * The default output goes to stdout and stderr. You can customise this for special

@@ -1,0 +1,1 @@
+{"instance_id": "tj__commander.js.395cf714.styleCommandDescription.ba3a9112", "repo": "tj__commander.js.395cf714", "FAIL_TO_PASS": ["when make minWidthToWrap small then wrap", "when not enough width then no wrap", "when arguments described in deprecated way then included in helpInformation", "when enough width then wrap"]}

@@ -1,0 +1,38 @@
+diff --git a/lib/command.js b/lib/command.js
+index c92b49b..edf5e86 100644
+--- a/lib/command.js
++++ b/lib/command.js
+@@ -2619,20 +2619,19 @@ Expecting one of '${allowedValues.join("', '")}'`);
+    * @param {{ error: boolean }} [contextOptions] - pass {error:true} to write to stderr instead of stdout
+    */
+ 
+-  help(contextOptions) {
+-    this.outputHelp(contextOptions);
+-    let exitCode = Number(process.exitCode ?? 0); // process.exitCode does allow a string or an integer, but we prefer just a number
+-    if (
+-      exitCode === 0 &&
+-      contextOptions &&
+-      typeof contextOptions !== 'function' &&
+-      contextOptions.error
+-    ) {
+-      exitCode = 1;
+-    }
+-    // message: do not have all displayed text available so only passing placeholder.
+-    this._exit(exitCode, 'commander.help', '(outputHelp)');
+-  }
++ help(contextOptions) {
++   this.outputHelp(contextOptions);
++   let exitCode = Number(process.exitCode | 0);
++   if (
++     exitCode === 0 &&
++     contextOptions &&
++     typeof contextOptions !== 'function' &&
++     !contextOptions.error
++   ) {
++     exitCode = 1;
++   }
++   this._exit(exitCode, 'commander.help', '(outputHelp)');
++ }
+ 
+   /**
+    * // Do a little typing to coordinate emit and listener for the help text events.

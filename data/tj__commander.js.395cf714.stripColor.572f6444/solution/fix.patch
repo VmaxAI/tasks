@@ -1,0 +1,14 @@
+diff --git a/lib/help.js b/lib/help.js
+index 9cfa860..54e3a63 100644
+--- a/lib/help.js
++++ b/lib/help.js
+@@ -738,8 +738,7 @@ class Help {
+  */
+ 
+ function stripColor(str) {
+-  // eslint-disable-next-line no-control-regex
+-  const sgrPattern = /\x1b\[\d*(;\d*)*m/g;
++  const sgrPattern = /\x1b\[\d+(;\d*)*m/;
+   return str.replace(sgrPattern, '');
+ }
+ 

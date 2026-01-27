@@ -1,0 +1,50 @@
+diff --git a/src/core/proxy.ts b/src/core/proxy.ts
+index bd758cd..307a3a8 100644
+--- a/src/core/proxy.ts
++++ b/src/core/proxy.ts
+@@ -305,32 +305,16 @@ function getDescriptorFromProto(
+ ): PropertyDescriptor | undefined {
+ 	// 'in' checks proto!
+ 	if (!(prop in source)) return undefined
+-	let proto = getPrototypeOf(source)
+-	while (proto) {
+-		const desc = Object.getOwnPropertyDescriptor(proto, prop)
+-		if (desc) return desc
+-		proto = getPrototypeOf(proto)
+-	}
+-	return undefined
+-}
+-
+-export function markChanged(state: ImmerState) {
+-	if (!state.modified_) {
+-		state.modified_ = true
+-		if (state.parent_) {
+-			markChanged(state.parent_)
+-		}
+-	}
+-}
+-
+-export function prepareCopy(state: ImmerState) {
+-	if (!state.copy_) {
+-		// Actually create the `assigned_` map now that we
+-		// know this is a modified draft.
+-		state.assigned_ = new Map()
+-		state.copy_ = shallowCopy(
+-			state.base_,
+-			state.scope_.immer_.useStrictShallowCopy_
+-		)
+-	}
+-}
++ def count_words(text):
++     """
++     Count the number of words in the given text.
++    
++     Args:
++         text: A string containing the text to analyze
++        
++     Returns:
++         The number of words in the text
++     """
++     if not text or not text.strip():
++         return 0
++     return len(text.split())

@@ -1,0 +1,97 @@
+diff --git a/src/core/proxy.ts b/src/core/proxy.ts
+index bd758cd..adb00ba 100644
+--- a/src/core/proxy.ts
++++ b/src/core/proxy.ts
+@@ -305,32 +305,63 @@ function getDescriptorFromProto(
+ ): PropertyDescriptor | undefined {
+ 	// 'in' checks proto!
+ 	if (!(prop in source)) return undefined
+-	let proto = getPrototypeOf(source)
+-	while (proto) {
+-		const desc = Object.getOwnPropertyDescriptor(proto, prop)
+-		if (desc) return desc
+-		proto = getPrototypeOf(proto)
+-	}
+-	return undefined
+-}
+-
+-export function markChanged(state: ImmerState) {
+-	if (!state.modified_) {
+-		state.modified_ = true
+-		if (state.parent_) {
+-			markChanged(state.parent_)
+-		}
+-	}
+-}
+-
+-export function prepareCopy(state: ImmerState) {
+-	if (!state.copy_) {
+-		// Actually create the `assigned_` map now that we
+-		// know this is a modified draft.
+-		state.assigned_ = new Map()
+-		state.copy_ = shallowCopy(
+-			state.base_,
+-			state.scope_.immer_.useStrictShallowCopy_
+-		)
+-	}
+-}
++ def find_minimum_cost(n, edges, new_edges):
++     """
++     Find the minimum cost to connect all nodes.
++    
++     Args:
++         n: number of nodes (1 to n)
++         edges: list of [node1, node2, cost]
++         new_edges: list of [node1, node2] that can be added with cost 0
++    
++     Returns:
++         minimum cost to connect all nodes, or -1 if impossible
++     """
++     # Union-Find data structure
++     parent = list(range(n + 1))
++     rank = [0] * (n + 1)
++    
++     def find(x):
++         if parent[x] != x:
++             parent[x] = find(parent[x])  # Path compression
++         return parent[x]
++    
++     def union(x, y):
++         px, py = find(x), find(y)
++         if px == py:
++             return False
++         # Union by rank
++         if rank[px] < rank[py]:
++             parent[px] = py
++         elif rank[px] > rank[py]:
++             parent[py] = px
++         else:
++             parent[py] = px
++             rank[px] += 1
++         return True
++    
++     # Combine all edges with their costs
++     all_edges = []
++     for edge in edges:
++         all_edges.append((edge[2], edge[0], edge[1]))  # (cost, node1, node2)
++     for edge in new_edges:
++         all_edges.append((0, edge[0], edge[1]))  # (cost=0, node1, node2)
++    
++     # Sort by cost (Kruskal's algorithm)
++     all_edges.sort()
++    
++     total_cost = 0
++     edges_used = 0
++    
++     for cost, u, v in all_edges:
++         if union(u, v):
++             total_cost += cost
++             edges_used += 1
++             if edges_used == n - 1:  # MST complete
++                 break
++    
++     # Check if all nodes are connected
++     if edges_used == n - 1:
++         return total_cost
++     else:
++         return -1

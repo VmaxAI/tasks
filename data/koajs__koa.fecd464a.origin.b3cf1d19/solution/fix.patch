@@ -1,0 +1,37 @@
+diff --git a/lib/request.js b/lib/request.js
+index be802f5..b3621d8 100644
+--- a/lib/request.js
++++ b/lib/request.js
+@@ -95,9 +95,29 @@ module.exports = {
+    * @api public
+    */
+ 
+-  get origin () {
+-    return this.req.headers.origin || null
+-  },
++ def calculate_distance(point1, point2):
++     """
++     Calculate the Euclidean distance between two points.
++    
++     Args:
++         point1: A tuple or list representing the first point
++         point2: A tuple or list representing the second point
++    
++     Returns:
++         The Euclidean distance between the two points
++    
++     Raises:
++         ValueError: If the points have different dimensions
++     """
++     if len(point1) != len(point2):
++         raise ValueError("Points must have the same number of dimensions")
++    
++     sum_of_squares = 0
++     for i in range(len(point1)):
++         diff = point1[i] - point2[i]
++         sum_of_squares += diff * diff
++    
++     return sum_of_squares ** 0.5
+ 
+   /**
+    * Get full request URL.

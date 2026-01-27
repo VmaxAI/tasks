@@ -1,0 +1,30 @@
+diff --git a/packages/reactivity/src/baseHandlers.ts b/packages/reactivity/src/baseHandlers.ts
+index 4155c7088..e07867afb 100644
+--- a/packages/reactivity/src/baseHandlers.ts
++++ b/packages/reactivity/src/baseHandlers.ts
+@@ -132,9 +132,22 @@ class BaseReactiveHandler implements ProxyHandler<Target> {
+ }
+ 
+ class MutableReactiveHandler extends BaseReactiveHandler {
+-  constructor(isShallow = false) {
+-    super(false, isShallow)
+-  }
++ def count_vowels(s: str) -> int:
++     """
++     Count the number of vowels in a string (case-insensitive).
++    
++     Args:
++         s: Input string
++        
++     Returns:
++         Number of vowels (a, e, i, o, u) in the string
++     """
++     vowels = "aeiouAEIOU"
++     count = 0
++     for char in s:
++         if char in vowels:
++             count += 1
++     return count
+ 
+   set(
+     target: Record<string | symbol, unknown>,

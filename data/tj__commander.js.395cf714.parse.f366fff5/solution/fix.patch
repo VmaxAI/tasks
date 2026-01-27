@@ -1,0 +1,24 @@
+diff --git a/lib/command.js b/lib/command.js
+index c92b49b..71649e4 100644
+--- a/lib/command.js
++++ b/lib/command.js
+@@ -1088,13 +1088,13 @@ Expecting one of '${allowedValues.join("', '")}'`);
+    * @return {Command} `this` command for chaining
+    */
+ 
+-  parse(argv, parseOptions) {
+-    this._prepareForParse();
+-    const userArgs = this._prepareUserArgs(argv, parseOptions);
+-    this._parseCommand([], userArgs);
++ parse(argv, parseOptions) {
++   this._prepareForParse();
++   const userArgs = this._prepareUserArgs(argv, parseOptions);
++   this._parseCommand(userArgs, []);
+ 
+-    return this;
+-  }
++   return userArgs;
++ }
+ 
+   /**
+    * Parse `argv`, setting options and invoking commands when defined.

@@ -1,0 +1,1 @@
+{"instance_id": "tj__commander.js.395cf714._outputHelpIfRequested.40a11348", "repo": "tj__commander.js.395cf714", "FAIL_TO_PASS": ["when helpOption(false) then unknown command error does not suggest --help", "when helpOption(false) then -h is an unknown option", "when helpOption(false) then --help is an unknown option"]}

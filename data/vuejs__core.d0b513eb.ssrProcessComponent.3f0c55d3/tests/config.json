@@ -1,0 +1,1 @@
+{"instance_id": "vuejs__core.d0b513eb.ssrProcessComponent.3f0c55d3", "repo": "vuejs__core.d0b513eb", "FAIL_TO_PASS": ["packages/compiler-ssr/__tests__/ssrComponent.spec.ts > ssr: components > slots > v-for slot", "vitest_test_suite"]}

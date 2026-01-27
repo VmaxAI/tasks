@@ -1,0 +1,1 @@
+{"instance_id": "tj__commander.js.395cf714._checkForMissingExecutable.0a5aca56", "repo": "tj__commander.js.395cf714", "FAIL_TO_PASS": ["when subcommand executable missing (ENOENT) then throw custom message"]}

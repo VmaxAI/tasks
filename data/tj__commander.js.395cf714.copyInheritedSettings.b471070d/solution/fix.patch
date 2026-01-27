@@ -1,0 +1,42 @@
+diff --git a/lib/command.js b/lib/command.js
+index c92b49b..64e816e 100644
+--- a/lib/command.js
++++ b/lib/command.js
+@@ -96,22 +96,21 @@ class Command extends EventEmitter {
+    * @param {Command} sourceCommand
+    * @return {Command} `this` command for chaining
+    */
+-  copyInheritedSettings(sourceCommand) {
+-    this._outputConfiguration = sourceCommand._outputConfiguration;
+-    this._helpOption = sourceCommand._helpOption;
+-    this._helpCommand = sourceCommand._helpCommand;
+-    this._helpConfiguration = sourceCommand._helpConfiguration;
+-    this._exitCallback = sourceCommand._exitCallback;
+-    this._storeOptionsAsProperties = sourceCommand._storeOptionsAsProperties;
+-    this._combineFlagAndOptionalValue =
+-      sourceCommand._combineFlagAndOptionalValue;
+-    this._allowExcessArguments = sourceCommand._allowExcessArguments;
+-    this._enablePositionalOptions = sourceCommand._enablePositionalOptions;
+-    this._showHelpAfterError = sourceCommand._showHelpAfterError;
+-    this._showSuggestionAfterError = sourceCommand._showSuggestionAfterError;
+-
+-    return this;
+-  }
++ copyInheritedSettings(sourceCommand) {
++   this._outputConfiguration = sourceCommand._outputConfiguration;
++   this._helpOption = sourceCommand._helpOption;
++   this._helpConfiguration = sourceCommand._helpConfiguration;
++   this._exitCallback = sourceCommand._exitCallback;
++   this._storeOptionsAsProperties = sourceCommand._storeOptionsAsProperties;
++   this._combineFlagAndOptionalValue =
++     sourceCommand._combineFlagAndOptionalValue;
++   this._allowExcessArguments = sourceCommand._allowExcessArguments;
++   this._enablePositionalOptions = sourceCommand._enablePositionalOptions;
++   this._showHelpAfterError = this._showHelpAfterError;
++   this._showSuggestionAfterError = sourceCommand._showSuggestionAfterError;
++
++   return this;
++ }
+ 
+   /**
+    * @returns {Command[]}

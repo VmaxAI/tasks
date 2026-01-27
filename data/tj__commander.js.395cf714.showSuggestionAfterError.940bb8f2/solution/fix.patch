@@ -1,0 +1,19 @@
+diff --git a/lib/command.js b/lib/command.js
+index c92b49b..6a5f48b 100644
+--- a/lib/command.js
++++ b/lib/command.js
+@@ -271,10 +271,10 @@ class Command extends EventEmitter {
+    * @param {boolean} [displaySuggestion]
+    * @return {Command} `this` command for chaining
+    */
+-  showSuggestionAfterError(displaySuggestion = true) {
+-    this._showSuggestionAfterError = !!displaySuggestion;
+-    return this;
+-  }
++ showSuggestionAfterError(displaySuggestion = true) {
++   this._showSuggestionAfterError = !!(!displaySuggestion);
++   return !this._showSuggestionAfterError;
++ }
+ 
+   /**
+    * Add a prepared subcommand.

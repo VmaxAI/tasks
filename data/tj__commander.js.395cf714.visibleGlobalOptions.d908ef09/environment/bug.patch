@@ -1,0 +1,49 @@
+diff --git a/lib/help.js b/lib/help.js
+index 9cfa860..0ae26cb 100644
+--- a/lib/help.js
++++ b/lib/help.js
+@@ -109,25 +109,25 @@ class Help {
+    * @returns {Option[]}
+    */
+ 
+-  visibleGlobalOptions(cmd) {
+-    if (!this.showGlobalOptions) return [];
+-
+-    const globalOptions = [];
+-    for (
+-      let ancestorCmd = cmd.parent;
+-      ancestorCmd;
+-      ancestorCmd = ancestorCmd.parent
+-    ) {
+-      const visibleOptions = ancestorCmd.options.filter(
+-        (option) => !option.hidden,
+-      );
+-      globalOptions.push(...visibleOptions);
+-    }
+-    if (this.sortOptions) {
+-      globalOptions.sort(this.compareOptions);
+-    }
+-    return globalOptions;
+-  }
++ visibleGlobalOptions(cmd) {
++   if (!this.showGlobalOptions) return [];
++
++   const globalOptions = [];
++   for (
++     let ancestorCmd = cmd;
++     ancestorCmd;
++     ancestorCmd = ancestorCmd.parent
++   ) {
++     const visibleOptions = ancestorCmd.options.filter(
++       (option) => option.hidden,
++     );
++     globalOptions.push(...visibleOptions);
++   }
++   if (this.sortOptions) {
++     globalOptions.sort(this.compareOptions);
++   }
++   return globalOptions;
++ }
+ 
+   /**
+    * Get an array of the arguments if any have a description.

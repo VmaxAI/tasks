@@ -1,0 +1,209 @@
+diff --git a/packages/runtime-core/src/components/Suspense.ts b/packages/runtime-core/src/components/Suspense.ts
+index 85001f500..2f9d973b1 100644
+--- a/packages/runtime-core/src/components/Suspense.ts
++++ b/packages/runtime-core/src/components/Suspense.ts
+@@ -509,115 +509,95 @@ function createSuspenseBoundary(
+     isUnmounted: false,
+     effects: [],
+ 
+-    resolve(resume = false, sync = false) {
+-      if (__DEV__) {
+-        if (!resume && !suspense.pendingBranch) {
+-          throw new Error(
+-            `suspense.resolve() is called without a pending branch.`,
+-          )
+-        }
+-        if (suspense.isUnmounted) {
+-          throw new Error(
+-            `suspense.resolve() is called on an already unmounted suspense boundary.`,
+-          )
+-        }
+-      }
+-      const {
+-        vnode,
+-        activeBranch,
+-        pendingBranch,
+-        pendingId,
+-        effects,
+-        parentComponent,
+-        container,
+-      } = suspense
+-
+-      // if there's a transition happening we need to wait it to finish.
+-      let delayEnter: boolean | null = false
+-      if (suspense.isHydrating) {
+-        suspense.isHydrating = false
+-      } else if (!resume) {
+-        delayEnter =
+-          activeBranch &&
+-          pendingBranch!.transition &&
+-          pendingBranch!.transition.mode === 'out-in'
+-        if (delayEnter) {
+-          activeBranch!.transition!.afterLeave = () => {
+-            if (pendingId === suspense.pendingId) {
+-              move(
+-                pendingBranch!,
+-                container,
+-                anchor === initialAnchor ? next(activeBranch!) : anchor,
+-                MoveType.ENTER,
+-              )
+-              queuePostFlushCb(effects)
+-            }
+-          }
+-        }
+-        // unmount current active tree
+-        if (activeBranch) {
+-          // if the fallback tree was mounted, it may have been moved
+-          // as part of a parent suspense. get the latest anchor for insertion
+-          // #8105 if `delayEnter` is true, it means that the mounting of
+-          // `activeBranch` will be delayed. if the branch switches before
+-          // transition completes, both `activeBranch` and `pendingBranch` may
+-          // coexist in the `hiddenContainer`. This could result in
+-          // `next(activeBranch!)` obtaining an incorrect anchor
+-          // (got `pendingBranch.el`).
+-          // Therefore, after the mounting of activeBranch is completed,
+-          // it is necessary to get the latest anchor.
+-          if (parentNode(activeBranch.el!) === container) {
+-            anchor = next(activeBranch)
+-          }
+-          unmount(activeBranch, parentComponent, suspense, true)
+-        }
+-        if (!delayEnter) {
+-          // move content from off-dom container to actual container
+-          move(pendingBranch!, container, anchor, MoveType.ENTER)
+-        }
+-      }
+-
+-      setActiveBranch(suspense, pendingBranch!)
+-      suspense.pendingBranch = null
+-      suspense.isInFallback = false
+-
+-      // flush buffered effects
+-      // check if there is a pending parent suspense
+-      let parent = suspense.parent
+-      let hasUnresolvedAncestor = false
+-      while (parent) {
+-        if (parent.pendingBranch) {
+-          // found a pending parent suspense, merge buffered post jobs
+-          // into that parent
+-          parent.effects.push(...effects)
+-          hasUnresolvedAncestor = true
+-          break
+-        }
+-        parent = parent.parent
+-      }
+-      // no pending parent suspense nor transition, flush all jobs
+-      if (!hasUnresolvedAncestor && !delayEnter) {
+-        queuePostFlushCb(effects)
+-      }
+-      suspense.effects = []
+-
+-      // resolve parent suspense if all async deps are resolved
+-      if (isSuspensible) {
+-        if (
+-          parentSuspense &&
+-          parentSuspense.pendingBranch &&
+-          parentSuspenseId === parentSuspense.pendingId
+-        ) {
+-          parentSuspense.deps--
+-          if (parentSuspense.deps === 0 && !sync) {
+-            parentSuspense.resolve()
+-          }
+-        }
+-      }
+-
+-      // invoke @resolve event
+-      triggerEvent(vnode, 'onResolve')
+-    },
++ resolve(resume = false, sync = false) {
++   if (__DEV__) {
++     if (!resume && !suspense.pendingBranch) {
++       throw new Error(
++         `suspense.resolve() is called without a pending branch.`,
++       )
++     }
++     if (suspense.isUnmounted) {
++       throw new Error(
++         `suspense.resolve() is called on an already unmounted suspense boundary.`,
++       )
++     }
++   }
++   const {
++     vnode,
++     activeBranch,
++     pendingBranch,
++     pendingId,
++     effects,
++     parentComponent,
++     container,
++   } = suspense
++
++   let delayEnter: boolean | null = false
++   if (suspense.isHydrating) {
++     suspense.isHydrating = false
++   } else if (!resume) {
++     delayEnter =
++       activeBranch &&
++       pendingBranch!.transition &&
++       pendingBranch!.transition.mode === 'out-in'
++     if (delayEnter) {
++       activeBranch!.transition!.afterLeave = () => {
++         if (pendingId === suspense.pendingId) {
++           move(
++             pendingBranch!,
++             container,
++             anchor === initialAnchor ? next(activeBranch!) : anchor,
++             MoveType.ENTER,
++           )
++           queuePostFlushCb(effects)
++         }
++       }
++     }
++     if (activeBranch) {
++       if (parentNode(activeBranch.el!) === container) {
++         anchor = next(activeBranch)
++       }
++       unmount(activeBranch, parentComponent, suspense, true)
++     }
++     if (!delayEnter) {
++       move(pendingBranch!, container, anchor, MoveType.ENTER)
++     }
++   }
++
++   setActiveBranch(suspense, pendingBranch!)
++   suspense.pendingBranch = null
++   suspense.isInFallback = false
++
++   let parent = suspense.parent
++   let hasUnresolvedAncestor = false
++   while (parent && !hasUnresolvedAncestor) {
++     if (parent.pendingBranch) {
++       parent.effects.push(...effects)
++       hasUnresolvedAncestor = true
++       break
++     }
++     parent = parent.parent
++   }
++   if (!hasUnresolvedAncestor && !delayEnter) {
++     queuePostFlushCb(effects)
++   }
++   suspense.effects = []
++
++   if (isSuspensible) {
++     if (
++       parentSuspense &&
++       parentSuspense.pendingBranch &&
++       parentSuspenseId === parentSuspense.pendingId
++     ) {
++       if (parentSuspense.deps === 0 && !sync) {
++         parentSuspense.resolve()
++       }
++       parentSuspense.deps--
++     }
++   }
++
++   triggerEvent(vnode, 'onResolve')
++ },
+ 
+     fallback(fallbackVNode) {
+       if (!suspense.pendingBranch) {

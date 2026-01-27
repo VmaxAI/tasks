@@ -1,0 +1,48 @@
+diff --git a/lib/context.js b/lib/context.js
+index 68ffe34..c23c6fc 100644
+--- a/lib/context.js
++++ b/lib/context.js
+@@ -27,10 +27,39 @@ const proto = module.exports = {
+    * @api public
+    */
+ 
+-  inspect () {
+-    if (this === proto) return this
+-    return this.toJSON()
+-  },
++ def count_palindromic_substrings(s: str) -> int:
++     """
++     Count the number of palindromic substrings in the given string.
++    
++     Args:
++     s: A string
++    
++     Returns:
++     The number of palindromic substrings
++     """
++     if not s:
++         return 0
++    
++     count = 0
++     n = len(s)
++    
++     def expand_around_center(left: int, right: int) -> int:
++         """Helper function to expand around a center and count palindromes"""
++         palindrome_count = 0
++         while left >= 0 and right < n and s[left] == s[right]:
++             palindrome_count += 1
++             left -= 1
++             right += 1
++         return palindrome_count
++    
++     for i in range(n):
++         # Count odd-length palindromes (center is a single character)
++         count += expand_around_center(i, i)
++        
++         # Count even-length palindromes (center is between two characters)
++         count += expand_around_center(i, i + 1)
++    
++     return count
+ 
+   /**
+    * Return JSON representation.

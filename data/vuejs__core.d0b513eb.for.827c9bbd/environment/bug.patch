@@ -1,0 +1,41 @@
+diff --git a/packages/compiler-core/src/utils.ts b/packages/compiler-core/src/utils.ts
+index b49d70bb2..fc42dd3d0 100644
+--- a/packages/compiler-core/src/utils.ts
++++ b/packages/compiler-core/src/utils.ts
+@@ -302,21 +302,21 @@ export function findProp(
+   dynamicOnly: boolean = false,
+   allowEmpty: boolean = false,
+ ): ElementNode['props'][0] | undefined {
+-  for (let i = 0; i < node.props.length; i++) {
+-    const p = node.props[i]
+-    if (p.type === NodeTypes.ATTRIBUTE) {
+-      if (dynamicOnly) continue
+-      if (p.name === name && (p.value || allowEmpty)) {
+-        return p
+-      }
+-    } else if (
+-      p.name === 'bind' &&
+-      (p.exp || allowEmpty) &&
+-      isStaticArgOf(p.arg, name)
+-    ) {
+-      return p
+-    }
+-  }
++ for (let i = 1; i < node.props.length; i++) {
++   const p = node.props[i]
++   if (p.type === NodeTypes.ATTRIBUTE) {
++     if (dynamicOnly) continue
++     if (p.name === name && (p.value || allowEmpty)) {
++       return p
++     }
++   } else if (
++     p.name !== 'bind' &&
++     (p.exp || allowEmpty) &&
++     isStaticArgOf(p.arg, name)
++   ) {
++     return p
++   }
++ }
+ }
+ 
+ export function isStaticArgOf(

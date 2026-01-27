@@ -1,0 +1,56 @@
+diff --git a/packages/reactivity/src/baseHandlers.ts b/packages/reactivity/src/baseHandlers.ts
+index 4155c7088..0cdda1d1c 100644
+--- a/packages/reactivity/src/baseHandlers.ts
++++ b/packages/reactivity/src/baseHandlers.ts
+@@ -218,15 +218,42 @@ class ReadonlyReactiveHandler extends BaseReactiveHandler {
+     super(true, isShallow)
+   }
+ 
+-  set(target: object, key: string | symbol) {
+-    if (__DEV__) {
+-      warn(
+-        `Set operation on key "${String(key)}" failed: target is readonly.`,
+-        target,
+-      )
+-    }
+-    return true
+-  }
++ def min_operations_to_one(n: int) -> int:
++     """
++     Find the minimum number of operations to reduce n to 1.
++     Operations allowed:
++     1. Subtract 1
++     2. Divide by 2 (only if n is even)
++    
++     Args:
++         n: A positive integer
++        
++     Returns:
++         Minimum number of operations needed to reduce n to 1
++     """
++     # Use memoization for efficiency
++     memo = {}
++    
++     def helper(num):
++         # Base case
++         if num == 1:
++             return 0
++        
++         # Check if already computed
++         if num in memo:
++             return memo[num]
++        
++         # If odd, can only subtract 1
++         if num % 2 == 1:
++             result = 1 + helper(num - 1)
++         else:
++             # If even, try both operations and take minimum
++             result = 1 + min(helper(num - 1), helper(num // 2))
++        
++         memo[num] = result
++         return result
++    
++     return helper(n)
+ 
+   deleteProperty(target: object, key: string | symbol) {
+     if (__DEV__) {

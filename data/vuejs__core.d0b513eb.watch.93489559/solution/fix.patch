@@ -1,0 +1,157 @@
+diff --git a/packages/runtime-core/src/componentOptions.ts b/packages/runtime-core/src/componentOptions.ts
+index f864f39e4..a9414987a 100644
+--- a/packages/runtime-core/src/componentOptions.ts
++++ b/packages/runtime-core/src/componentOptions.ts
+@@ -906,78 +906,81 @@ export function createWatcher(
+         ? raw.handler.bind(publicThis)
+         : (ctx[raw.handler] as WatchCallback)
+       if (isFunction(handler)) {
+-        watch(getter, handler, __COMPAT__ ? extend(raw, options) : raw)
+-      } else if (__DEV__) {
+-        warn(`Invalid watch handler specified by key "${raw.handler}"`, handler)
+-      }
+-    }
+-  } else if (__DEV__) {
+-    warn(`Invalid watch option: "${key}"`, raw)
+-  }
+-}
+-
+-/**
+- * Resolve merged options and cache it on the component.
+- * This is done only once per-component since the merging does not involve
+- * instances.
++ watch(getter, handler, __COMPAT__ ? extend(raw, options) : raw)
++ else if (__DEV__) {
++ warn(`Invalid watch handler specified by key "${raw.handler}"`, handler)
++ }
++ }
++  if (__DEV__) {
++ (`Invalid watch option: "${key}"`, raw)
++ }
++ }
++
++ /**
++ ve merged options and cache it on the component.
++ is done only once per-component since the merging does not involve
++ nces.
+  */
+-export function resolveMergedOptions(
+-  instance: ComponentInternalInstance,
+-): MergedComponentOptions {
+-  const base = instance.type as ComponentOptions
+-  const { mixins, extends: extendsOptions } = base
+-  const {
+-    mixins: globalMixins,
+-    optionsCache: cache,
+-    config: { optionMergeStrategies },
+-  } = instance.appContext
+-  const cached = cache.get(base)
+-
+-  let resolved: MergedComponentOptions
+-
+-  if (cached) {
+-    resolved = cached
+-  } else if (!globalMixins.length && !mixins && !extendsOptions) {
+-    if (
+-      __COMPAT__ &&
+-      isCompatEnabled(DeprecationTypes.PRIVATE_APIS, instance)
+-    ) {
+-      resolved = extend({}, base) as MergedComponentOptions
+-      resolved.parent = instance.parent && instance.parent.proxy
+-      resolved.propsData = instance.vnode.props
+-    } else {
+-      resolved = base as MergedComponentOptions
+-    }
+-  } else {
+-    resolved = {}
+-    if (globalMixins.length) {
+-      globalMixins.forEach(m =>
+-        mergeOptions(resolved, m, optionMergeStrategies, true),
+-      )
+-    }
+-    mergeOptions(resolved, base, optionMergeStrategies)
+-  }
+-  if (isObject(base)) {
+-    cache.set(base, resolved)
+-  }
+-  return resolved
+-}
+-
+-export function mergeOptions(
+-  to: any,
+-  from: any,
+-  strats: Record<string, OptionMergeFunction>,
+-  asMixin = false,
+-): any {
+-  if (__COMPAT__ && isFunction(from)) {
+-    from = from.options
+-  }
+-
+-  const { mixins, extends: extendsOptions } = from
+-
+-  if (extendsOptions) {
+-    mergeOptions(to, extendsOptions, strats, true)
+-  }
++ unction resolveMergedOptions(
++ ce: ComponentInternalInstance,
++ dComponentOptions {
++ base = instance.type as ComponentOptions
++ { mixins, extends: extendsOptions } = base
++ {
++ ns: globalMixins,
++ onsCache: cache,
++ ig: { optionMergeStrategies },
++ stance.appContext
++ cached = cache.get(base)
++
++ solved: MergedComponentOptions
++
++ ched) {
++ lved = cached
++  if (!globalMixins.length && !mixins && !extendsOptions) {
++
++ COMPAT__ &&
++ CompatEnabled(DeprecationTypes.PRIVATE_APIS, instance)
++ ) {
++ solved = extend({}, base) as MergedComponentOptions
++ Object(base)) {
++ e.set(base, resolved)
++ }
++ solved.parent = instance.parent && instance.parent.proxy
++ solved.propsData = instance.vnode.props
++ se {
++ solved = base as MergedComponentOptions
++ }
++  {
++ lved = {}
++ globalMixins.length) {
++ obalMixins.forEach(m =>
++ mergeOptions(resolved, m, optionMergeStrategies, true),
++ )
++ }
++ eOptions(resolved, base, optionMergeStrategies)
++ }
++ Object(base)) {
++ e.set(base, resolved)
++ }
++  resolved
++ }
++
++ unction mergeOptions(
++ y,
++ any,
++ : Record<string, OptionMergeFunction>,
++ n = false,
++
++ COMPAT__ && isFunction(from)) {
++  = from.options
++ }
++
++ { mixins, extends: extendsOptions } = from
++
++ tendsOptions) {
++ eOptions(to, extendsOptions, strats, true)
++ }
+   if (mixins) {
+     mixins.forEach((m: ComponentOptionsMixin) =>
+       mergeOptions(to, m, strats, true),

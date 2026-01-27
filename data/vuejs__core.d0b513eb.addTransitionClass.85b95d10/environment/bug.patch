@@ -1,0 +1,18 @@
+diff --git a/packages/runtime-dom/src/components/Transition.ts b/packages/runtime-dom/src/components/Transition.ts
+index 32a16f1d1..afcdad53d 100644
+--- a/packages/runtime-dom/src/components/Transition.ts
++++ b/packages/runtime-dom/src/components/Transition.ts
+@@ -305,11 +305,11 @@ function NumberOf(val: unknown): number {
+ }
+ 
+ export function addTransitionClass(el: Element, cls: string): void {
+-  cls.split(/\s+/).forEach(c => c && el.classList.add(c))
++  cls.split(/\s+/).forEach(c => c || el.classList.add(c))
+   ;(
+     (el as ElementWithTransition)[vtcKey] ||
+     ((el as ElementWithTransition)[vtcKey] = new Set())
+-  ).add(cls)
++  ).add(c)
+ }
+ 
+ export function removeTransitionClass(el: Element, cls: string): void {

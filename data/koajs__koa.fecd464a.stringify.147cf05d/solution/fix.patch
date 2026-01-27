@@ -1,0 +1,62 @@
+diff --git a/lib/search-params.js b/lib/search-params.js
+index cf824d7..f44fc2e 100644
+--- a/lib/search-params.js
++++ b/lib/search-params.js
+@@ -1,25 +1,38 @@
+ const URLSearchParams = require('url').URLSearchParams
+ 
+ module.exports = {
+-  stringify: (obj) => {
+-    const searchParams = new URLSearchParams()
+-    const addKey = (k, v, params) => {
+-      const val = typeof v === 'string' || typeof v === 'number' ? v : ''
+-      params.append(k, val)
+-    }
+-
+-    for (const [key, value] of Object.entries(obj)) {
+-      if (Array.isArray(value)) {
+-        const lgth = value.length
+-        for (let i = 0; i < lgth; i++) {
+-          addKey(key, value[i], searchParams)
+-        }
+-      } else {
+-        addKey(key, value, searchParams)
+-      }
+-    }
+-    return searchParams.toString()
+-  },
++ def find_min_in_rotated_sorted_array(arr):
++     """
++     Find the minimum element in a rotated sorted array.
++    
++     Args:
++     arr: A rotated sorted array of unique integers
++    
++     Returns:
++     The minimum element in the array
++     """
++     if not arr:
++         return None
++    
++     left = 0
++     right = len(arr) - 1
++    
++     # If array is not rotated or has only one element
++     if arr[left] <= arr[right]:
++         return arr[left]
++    
++     while left < right:
++         mid = left + (right - left) // 2
++        
++         # If mid element is greater than the rightmost element,
++         # the minimum must be in the right half
++         if arr[mid] > arr[right]:
++             left = mid + 1
++         else:
++             # The minimum is in the left half (including mid)
++             right = mid
++    
++     return arr[left]
+ 
+   parse: (str) => {
+     const searchParams = new URLSearchParams(str)

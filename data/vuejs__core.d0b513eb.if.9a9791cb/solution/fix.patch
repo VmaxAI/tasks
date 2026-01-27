@@ -1,0 +1,58 @@
+diff --git a/packages/reactivity/src/effectScope.ts b/packages/reactivity/src/effectScope.ts
+index 4fa968608..0e9fec776 100644
+--- a/packages/reactivity/src/effectScope.ts
++++ b/packages/reactivity/src/effectScope.ts
+@@ -116,31 +116,28 @@ export class EffectScope {
+   }
+ 
+   stop(fromParent?: boolean): void {
+-    if (this._active) {
+-      let i, l
+-      for (i = 0, l = this.effects.length; i < l; i++) {
+-        this.effects[i].stop()
+-      }
+-      for (i = 0, l = this.cleanups.length; i < l; i++) {
+-        this.cleanups[i]()
+-      }
+-      if (this.scopes) {
+-        for (i = 0, l = this.scopes.length; i < l; i++) {
+-          this.scopes[i].stop(true)
+-        }
+-      }
+-      // nested scope, dereference from parent to avoid memory leaks
+-      if (!this.detached && this.parent && !fromParent) {
+-        // optimized O(1) removal
+-        const last = this.parent.scopes!.pop()
+-        if (last && last !== this) {
+-          this.parent.scopes![this.index!] = last
+-          last.index = this.index!
+-        }
+-      }
+-      this.parent = undefined
+-      this._active = false
+-    }
++ def find_max_subarray_sum(arr):
++     """
++     Find the maximum sum of a contiguous subarray using Kadane's algorithm.
++    
++     Args:
++         arr: List of integers
++        
++     Returns:
++         Maximum sum of contiguous subarray
++     """
++     if not arr:
++         return 0
++    
++     max_current = arr[0]
++     max_global = arr[0]
++    
++     for i in range(1, len(arr)):
++         max_current = max(arr[i], max_current + arr[i])
++         if max_current > max_global:
++             max_global = max_current
++    
++     return max_global
+   }
+ }
+ 

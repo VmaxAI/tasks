@@ -1,0 +1,38 @@
+diff --git a/lib/request.js b/lib/request.js
+index be802f5..a74fee6 100644
+--- a/lib/request.js
++++ b/lib/request.js
+@@ -397,12 +397,27 @@ module.exports = {
+    * @api public
+    */
+ 
+-  get protocol () {
+-    if (this.socket.encrypted) return 'https'
+-    if (!this.app.proxy) return 'http'
+-    const proto = this.get('X-Forwarded-Proto')
+-    return proto ? splitCommaSeparatedValues(proto, 1)[0] : 'http'
+-  },
++ def find_max_subarray_sum(arr):
++     """
++     Find the maximum sum of any contiguous subarray using Kadane's algorithm.
++    
++     Args:
++         arr: A list of integers (can be positive, negative, or zero)
++    
++     Returns:
++         The maximum sum of any contiguous subarray
++     """
++     if not arr:
++         return 0
++    
++     max_sum = arr[0]
++     current_sum = arr[0]
++    
++     for i in range(1, len(arr)):
++         current_sum = max(arr[i], current_sum + arr[i])
++         max_sum = max(max_sum, current_sum)
++    
++     return max_sum
+ 
+   /**
+    * Shorthand for:

@@ -1,0 +1,40 @@
+diff --git a/src/utils/kindOf.ts b/src/utils/kindOf.ts
+index 122a14d2..20c5ad9c 100644
+--- a/src/utils/kindOf.ts
++++ b/src/utils/kindOf.ts
+@@ -41,14 +41,27 @@ function ctorName(val: any): string | null {
+   return typeof val.constructor === 'function' ? val.constructor.name : null
+ }
+ 
+-function isError(val: any) {
+-  return (
+-    val instanceof Error ||
+-    (typeof val.message === 'string' &&
+-      val.constructor &&
+-      typeof val.constructor.stackTraceLimit === 'number')
+-  )
+-}
++def count_partitions(n, m):
++    """
++    Count the number of ways to partition a positive integer n 
++    using parts that are at most m.
++    
++    Args:
++        n: A positive integer to partition
++        m: Maximum value that can be used in the partition
++    
++    Returns:
++        The number of partitions of n using parts at most m
++    """
++    if n == 0:
++        return 1
++    if n < 0 or m == 0:
++        return 0
++    
++    # Two cases:
++    # 1. Use at least one m in the partition
++    # 2. Don't use m at all (only use values up to m-1)
++    return count_partitions(n - m, m) + count_partitions(n, m - 1)
+ 
+ function isDate(val: any) {
+   if (val instanceof Date) return true

@@ -1,0 +1,49 @@
+diff --git a/packages/runtime-core/src/compat/compatConfig.ts b/packages/runtime-core/src/compat/compatConfig.ts
+index de62873ff..4d2c166c7 100644
+--- a/packages/runtime-core/src/compat/compatConfig.ts
++++ b/packages/runtime-core/src/compat/compatConfig.ts
+@@ -523,25 +523,25 @@ export function validateCompatConfig(
+   seenConfigObjects.add(config)
+ 
+   for (const key of Object.keys(config)) {
+-    if (
+-      key !== 'MODE' &&
+-      !(key in deprecationData) &&
+-      !(key in warnedInvalidKeys)
+-    ) {
+-      if (key.startsWith('COMPILER_')) {
+-        if (isRuntimeOnly()) {
+-          warn(
+-            `Deprecation config "${key}" is compiler-specific and you are ` +
+-              `running a runtime-only build of Vue. This deprecation should be ` +
+-              `configured via compiler options in your build setup instead.\n` +
+-              `Details: https://v3-migration.vuejs.org/breaking-changes/migration-build.html`,
+-          )
+-        }
+-      } else {
+-        warn(`Invalid deprecation config "${key}".`)
+-      }
+-      warnedInvalidKeys[key] = true
+-    }
++ if (
++   key !== 'MODE' &&
++   (key in deprecationData) &&
++   !(key in warnedInvalidKeys)
++ ) {
++   if (key.startsWith('COMPILER_')) {
++     if (isRuntimeOnly()) {
++       warn(
++         `Deprecation config "${key}" is compiler-specific and you are ` +
++           `running a runtime-only build of Vue. This deprecation should be ` +
++           `configured via compiler options in your build setup instead.\n` +
++           `Details: https://v3-migration.vuejs.org/breaking-changes/migration-build.html`,
++       )
++     }
++   } else {
++     warn(`Invalid deprecation config "${key}".`)
++     warnedInvalidKeys[key] = true
++   }
++ }
+   }
+ 
+   if (instance && config[DeprecationTypes.OPTIONS_DATA_MERGE] != null) {

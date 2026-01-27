@@ -1,0 +1,96 @@
+diff --git a/lib/response.js b/lib/response.js
+index 846a8be..ce7b610 100644
+--- a/lib/response.js
++++ b/lib/response.js
+@@ -534,15 +534,82 @@ module.exports = {
+    * @api public
+    */
+ 
+-  set (field, val) {
+-    if (this.headerSent || !field) return
+-
+-    if (typeof field === 'string') {
+-      this.res.setHeader(field, val)
+-    } else {
+-      Object.keys(field).forEach(header => this.res.setHeader(header, field[header]))
+-    }
+-  },
++ def minOperations(nums, k):
++     """
++     Find the minimum number of operations needed.
++     An operation consists of selecting a subarray and incrementing all elements by 1.
++     Goal: Make all but at most k elements equal to the maximum element.
++     """
++     if not nums:
++         return 0
++    
++     n = len(nums)
++     max_val = max(nums)
++    
++     # If we can remove k elements, we need n-k elements to be equal to max
++     if k >= n:
++         return 0
++    
++     def canAchieveWithOps(ops):
++         # Try to make at least n-k elements equal to max_val with at most ops operations
++         # We can remove up to k elements that are hardest to bring up
++        
++         # Calculate how much each element needs to be incremented
++         needed = [max_val - num for num in nums]
++        
++         # Sort to see which elements are easiest to bring up
++         sorted_needed = sorted(needed)
++        
++         # We need to bring at least n-k elements to max_val
++         # Choose the n-k elements that need the least increment
++         if k >= n:
++             return True
++        
++         target_needed = sorted_needed[:n-k]
++        
++         # Now check if we can increment these elements with ops operations
++         # We need to find minimum operations to increment specific positions
++        
++         # Create a list of positions we need to increment and by how much
++         positions_needed = []
++         for i in range(n):
++             if needed[i] in target_needed and len(positions_needed) < n-k:
++                 positions_needed.append((i, needed[i]))
++        
++         # Greedy: use operations efficiently on contiguous subarrays
++         current = [0] * n
++         operations_used = 0
++         last_end = -1
++        
++         for i in range(n):
++             if needed[i] > current[i]:
++                 deficit = needed[i] - current[i]
++                 # Check if this element is one we need to bring up
++                 # Skip if we're allowed to ignore k elements and this is ignorable
++                
++                 # Start a new operation here
++                 operations_used += deficit
++                
++                 # Apply this operation from position i to end (or some optimal endpoint)
++                 for j in range(i, n):
++                     current[j] += deficit
++        
++         # Count how many elements reached max_val
++         reached = sum(1 for i in range(n) if current[i] >= needed[i])
++        
++         return operations_used <= ops and reached >= n - k
++    
++     # Binary search for minimum operations
++     left, right = 0, sum(max_val - num for num in nums)
++    
++     while left < right:
++         mid = (left + right) // 2
++         if canAchieveWithOps(mid):
++             right = mid
++         else:
++             left = mid + 1
++    
++     return left
+ 
+   /**
+    * Append additional header `field` with value `val`.

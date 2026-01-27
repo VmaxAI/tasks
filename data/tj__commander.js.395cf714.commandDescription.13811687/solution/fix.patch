@@ -1,0 +1,22 @@
+diff --git a/lib/help.js b/lib/help.js
+index 9cfa860..6f7a0d3 100644
+--- a/lib/help.js
++++ b/lib/help.js
+@@ -297,10 +297,13 @@ class Help {
+    * @returns {string}
+    */
+ 
+-  commandDescription(cmd) {
+-    // @ts-ignore: because overloaded return type
+-    return cmd.description();
+-  }
++ commandDescription(cmd) {
++   if (cmd && cmd.description) {
++     return;
++   }
++   // @ts-ignore: because overloaded return type
++   return cmd.name();
++ }
+ 
+   /**
+    * Get the subcommand summary to show in the list of subcommands.

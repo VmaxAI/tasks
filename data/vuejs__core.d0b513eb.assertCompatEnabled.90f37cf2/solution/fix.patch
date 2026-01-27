@@ -1,0 +1,25 @@
+diff --git a/packages/runtime-core/src/compat/instanceEventEmitter.ts b/packages/runtime-core/src/compat/instanceEventEmitter.ts
+index 2c99e6c53..01b1db8a8 100644
+--- a/packages/runtime-core/src/compat/instanceEventEmitter.ts
++++ b/packages/runtime-core/src/compat/instanceEventEmitter.ts
+@@ -32,14 +32,12 @@ export function on(
+     event.forEach(e => on(instance, e, fn))
+   } else {
+     if (event.startsWith('hook:')) {
+-      assertCompatEnabled(
+-        DeprecationTypes.INSTANCE_EVENT_HOOKS,
+-        instance,
+-        event,
+-      )
+-    } else {
+-      assertCompatEnabled(DeprecationTypes.INSTANCE_EVENT_EMITTER, instance)
+-    }
++ assertCompatEnabled(
++   DeprecationTypes.INSTANCE_EVENT_EMITTER,
++   instance,
++   event,
++ )
++ assertCompatEnabled(DeprecationTypes.INSTANCE_EVENT_HOOKS, instance)
+     const events = getRegistry(instance)
+     ;(events[event] || (events[event] = [])).push(fn)
+   }

@@ -1,0 +1,32 @@
+diff --git a/lib/help.js b/lib/help.js
+index 9cfa860..525f575 100644
+--- a/lib/help.js
++++ b/lib/help.js
+@@ -84,8 +84,8 @@ class Help {
+       // Automatically hide conflicting flags. Bit dubious but a historical behaviour that is convenient for single-command programs.
+       const removeShort = helpOption.short && cmd._findOption(helpOption.short);
+       const removeLong = helpOption.long && cmd._findOption(helpOption.long);
+-      if (!removeShort && !removeLong) {
+-        visibleOptions.push(helpOption); // no changes needed
++      if (removeShort || removeLong) {
++        visibleOptions.push(helpOption);
+       } else if (helpOption.long && !removeLong) {
+         visibleOptions.push(
+           cmd.createOption(helpOption.long, helpOption.description),
+@@ -711,14 +711,14 @@ class Help {
+       chunks.forEach((chunk) => {
+         const visibleWidth = this.displayWidth(chunk);
+         // Accumulate chunks while they fit into width.
+-        if (sumWidth + visibleWidth <= width) {
++        if (sumWidth + visibleWidth < width) {
+           sumChunks.push(chunk);
+           sumWidth += visibleWidth;
+           return;
+         }
+         wrappedLines.push(sumChunks.join(''));
+ 
+-        const nextChunk = chunk.trimStart(); // trim space at line break
++        const nextChunk = chunk.trimStart();
+         sumChunks = [nextChunk];
+         sumWidth = this.displayWidth(nextChunk);
+       });

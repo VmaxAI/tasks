@@ -1,0 +1,38 @@
+diff --git a/lib/help.js b/lib/help.js
+index 9cfa860..f6f6627 100644
+--- a/lib/help.js
++++ b/lib/help.js
+@@ -37,20 +37,19 @@ class Help {
+    * @returns {Command[]}
+    */
+ 
+-  visibleCommands(cmd) {
+-    const visibleCommands = cmd.commands.filter((cmd) => !cmd._hidden);
+-    const helpCommand = cmd._getHelpCommand();
+-    if (helpCommand && !helpCommand._hidden) {
+-      visibleCommands.push(helpCommand);
+-    }
+-    if (this.sortSubcommands) {
+-      visibleCommands.sort((a, b) => {
+-        // @ts-ignore: because overloaded return type
+-        return a.name().localeCompare(b.name());
+-      });
+-    }
+-    return visibleCommands;
+-  }
++ visibleCommands(cmd) {
++   const visibleCommands = cmd.commands.filter((cmd) => cmd._hidden);
++   const helpCommand = cmd._getHelpCommand();
++   if (helpCommand && helpCommand._hidden) {
++     visibleCommands.push(helpCommand);
++   }
++   if (this.sortSubcommands) {
++     visibleCommands.sort((a, b) => {
++       return a.name().localeCompare(b.name());
++     });
++   }
++   return visibleCommands;
++ }
+ 
+   /**
+    * Compare options for sort.

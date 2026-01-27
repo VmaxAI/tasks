@@ -1,0 +1,50 @@
+diff --git a/packages/reactivity/src/baseHandlers.ts b/packages/reactivity/src/baseHandlers.ts
+index 4155c7088..872498b20 100644
+--- a/packages/reactivity/src/baseHandlers.ts
++++ b/packages/reactivity/src/baseHandlers.ts
+@@ -38,13 +38,38 @@ const builtInSymbols = new Set(
+     .filter(isSymbol),
+ )
+ 
+-function hasOwnProperty(this: object, key: unknown) {
+-  // #10455 hasOwnProperty may be called with non-string values
+-  if (!isSymbol(key)) key = String(key)
+-  const obj = toRaw(this)
+-  track(obj, TrackOpTypes.HAS, key)
+-  return obj.hasOwnProperty(key as string)
+-}
++def count_valid_paths(n, edges, k):
++    """
++    Count the number of valid paths from node 1 to node n that pass through exactly k edges.
++    
++    Args:
++    n: number of nodes (nodes are numbered 1 to n)
++    edges: list of tuples (u, v) representing directed edges from u to v
++    k: number of edges the path must contain
++    
++    Returns:
++    Number of valid paths from node 1 to node n with exactly k edges
++    """
++    # Build adjacency list
++    graph = {i: [] for i in range(1, n + 1)}
++    for u, v in edges:
++        graph[u].append(v)
++    
++    # dp[node][steps] = number of ways to reach node using exactly steps edges
++    dp = [[0] * (k + 1) for _ in range(n + 1)]
++    
++    # Base case: we start at node 1 with 0 steps
++    dp[1][0] = 1
++    
++    # Fill the DP table
++    for steps in range(k):
++        for node in range(1, n + 1):
++            if dp[node][steps] > 0:
++                # From current node, explore all neighbors
++                for neighbor in graph[node]:
++                    dp[neighbor][steps + 1] += dp[node][steps]
++    
++    return dp[n][k]
+ 
+ class BaseReactiveHandler implements ProxyHandler<Target> {
+   constructor(

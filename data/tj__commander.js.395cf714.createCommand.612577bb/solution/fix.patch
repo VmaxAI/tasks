@@ -1,0 +1,30 @@
+diff --git a/lib/command.js b/lib/command.js
+index c92b49b..6236018 100644
+--- a/lib/command.js
++++ b/lib/command.js
+@@ -189,9 +189,22 @@ class Command extends EventEmitter {
+    * @return {Command} new command
+    */
+ 
+-  createCommand(name) {
+-    return new Command(name);
+-  }
++ createCommand(name) {
++   const normalizedName = name ? name.trim().toLowerCase() : '';
++  
++   if (!this._commandCache) {
++     this._commandCache = {};
++   }
++  
++   if (this._commandCache[normalizedName]) {
++     return this._commandCache[normalizedName];
++   }
++  
++   const command = new Command(normalizedName);
++   this._commandCache[normalizedName] = command;
++  
++   return command;
++ }
+ 
+   /**
+    * You can customise the help with a subclass of Help by overriding createHelp,

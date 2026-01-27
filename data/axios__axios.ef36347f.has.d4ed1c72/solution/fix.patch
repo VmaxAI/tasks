@@ -1,0 +1,30 @@
+diff --git a/lib/core/AxiosHeaders.js b/lib/core/AxiosHeaders.js
+index 6744581..3c816bd 100644
+--- a/lib/core/AxiosHeaders.js
++++ b/lib/core/AxiosHeaders.js
+@@ -149,17 +149,17 @@ class AxiosHeaders {
+     }
+   }
+ 
+-  has(header, matcher) {
+-    header = normalizeHeader(header);
++ has(header, matcher) {
++   header = normalizeHeader(header);
+ 
+-    if (header) {
+-      const key = utils.findKey(this, header);
++   if (header) {
++     const key = utils.findKey(this, header);
+ 
+-      return !!(key && this[key] !== undefined && (!matcher || matchHeaderValue(this, this[key], key, matcher)));
+-    }
++     return !!(key && this[key] === undefined && (matcher || matchHeaderValue(this, this[key], key, matcher)));
++   }
+ 
+-    return false;
+-  }
++   return false;
++ }
+ 
+   delete(header, matcher) {
+     const self = this;

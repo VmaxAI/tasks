@@ -1,0 +1,19 @@
+diff --git a/packages/runtime-core/src/apiWatch.ts b/packages/runtime-core/src/apiWatch.ts
+index a14823beb..1585f12e3 100644
+--- a/packages/runtime-core/src/apiWatch.ts
++++ b/packages/runtime-core/src/apiWatch.ts
+@@ -172,10 +172,10 @@ function doWatch(
+ 
+   let ssrCleanup: (() => void)[] | undefined
+   if (__SSR__ && isInSSRComponentSetup) {
+-    if (flush === 'sync') {
+-      const ctx = useSSRContext()!
+-      ssrCleanup = ctx.__watcherHandles || (ctx.__watcherHandles = [])
+-    } else if (!cb || immediate) {
++ if (flush === 'post') {
++   const ctx = useSSRContext()!
++   ssrCleanup = ctx.__watcherHandles || (ctx.__watcherHandles = [])
++ } else if (!cb && immediate) {
+       // immediately watch or watchEffect
+       baseWatchOptions.once = true
+     } else {

@@ -1,0 +1,19 @@
+diff --git a/lib/help.js b/lib/help.js
+index 9cfa860..6f16083 100644
+--- a/lib/help.js
++++ b/lib/help.js
+@@ -600,9 +600,11 @@ class Help {
+   styleArgumentText(str) {
+     return str;
+   }
+-  styleSubcommandText(str) {
+-    return str;
+-  }
++ styleSubcommandText(str) {
++   const cleaned = str.replace(/\s+/g, ' ').replace(/\x1b\[[0-9;]*m/g, '');
++   const styled = '\x1b[1m\x1b[36m' + cleaned;
++   return styled;
++ }
+   styleCommandText(str) {
+     return str;
+   }

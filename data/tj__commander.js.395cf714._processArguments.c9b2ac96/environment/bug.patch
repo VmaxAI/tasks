@@ -1,0 +1,97 @@
+diff --git a/lib/command.js b/lib/command.js
+index c92b49b..ce4d9e3 100644
+--- a/lib/command.js
++++ b/lib/command.js
+@@ -1426,49 +1426,49 @@ Expecting one of '${allowedValues.join("', '")}'`);
+    * @private
+    */
+ 
+-  _processArguments() {
+-    const myParseArg = (argument, value, previous) => {
+-      // Extra processing for nice error message on parsing failure.
+-      let parsedValue = value;
+-      if (value !== null && argument.parseArg) {
+-        const invalidValueMessage = `error: command-argument value '${value}' is invalid for argument '${argument.name()}'.`;
+-        parsedValue = this._callParseArg(
+-          argument,
+-          value,
+-          previous,
+-          invalidValueMessage,
+-        );
+-      }
+-      return parsedValue;
+-    };
+-
+-    this._checkNumberOfArguments();
+-
+-    const processedArgs = [];
+-    this.registeredArguments.forEach((declaredArg, index) => {
+-      let value = declaredArg.defaultValue;
+-      if (declaredArg.variadic) {
+-        // Collect together remaining arguments for passing together as an array.
+-        if (index < this.args.length) {
+-          value = this.args.slice(index);
+-          if (declaredArg.parseArg) {
+-            value = value.reduce((processed, v) => {
+-              return myParseArg(declaredArg, v, processed);
+-            }, declaredArg.defaultValue);
+-          }
+-        } else if (value === undefined) {
+-          value = [];
+-        }
+-      } else if (index < this.args.length) {
+-        value = this.args[index];
+-        if (declaredArg.parseArg) {
+-          value = myParseArg(declaredArg, value, declaredArg.defaultValue);
+-        }
+-      }
+-      processedArgs[index] = value;
+-    });
+-    this.processedArgs = processedArgs;
+-  }
++ def get_next_permutation(arr):
++     """
++     Find the next lexicographically greater permutation of the given list.
++    
++     Args:
++         arr: A list of integers
++        
++     Returns:
++         The next permutation as a list, or None if no next permutation exists
++        
++     Examples:
++         >>> get_next_permutation([1, 2, 3])
++         [1, 3, 2]
++         >>> get_next_permutation([3, 2, 1])
++         None
++         >>> get_next_permutation([1, 1, 5])
++         [1, 5, 1]
++     """
++     # Make a copy to avoid modifying the original
++     result = arr.copy()
++     n = len(result)
++    
++     # Step 1: Find the largest index i such that result[i] < result[i + 1]
++     i = n - 2
++     while i >= 0 and result[i] >= result[i + 1]:
++         i -= 1
++    
++     # If no such index exists, this is the last permutation
++     if i < 0:
++         return None
++    
++     # Step 2: Find the largest index j > i such that result[i] < result[j]
++     j = n - 1
++     while j > i and result[i] >= result[j]:
++         j -= 1
++    
++     # Step 3: Swap result[i] and result[j]
++     result[i], result[j] = result[j], result[i]
++    
++     # Step 4: Reverse the sequence from result[i + 1] to the end
++     result[i + 1:] = reversed(result[i + 1:])
++    
++     return result
+ 
+   /**
+    * Once we have a promise we chain, but call synchronously until then.

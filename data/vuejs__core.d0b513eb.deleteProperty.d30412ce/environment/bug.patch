@@ -1,0 +1,49 @@
+diff --git a/packages/reactivity/src/baseHandlers.ts b/packages/reactivity/src/baseHandlers.ts
+index 4155c7088..577c58493 100644
+--- a/packages/reactivity/src/baseHandlers.ts
++++ b/packages/reactivity/src/baseHandlers.ts
+@@ -228,15 +228,35 @@ class ReadonlyReactiveHandler extends BaseReactiveHandler {
+     return true
+   }
+ 
+-  deleteProperty(target: object, key: string | symbol) {
+-    if (__DEV__) {
+-      warn(
+-        `Delete operation on key "${String(key)}" failed: target is readonly.`,
+-        target,
+-      )
+-    }
+-    return true
+-  }
++ def count_subsequences(s: str, sub: str) -> int:
++     """
++     Count the number of times `sub` appears as a subsequence in `s`.
++    
++     Args:
++         s: The main string
++         sub: The subsequence to count
++    
++     Returns:
++         The number of times `sub` appears as a subsequence in `s`
++     """
++     if not sub:
++         return 1
++     if not s:
++         return 0
++    
++     m, n = len(s), len(sub)
++    
++     # dp[j] represents the number of ways to form sub[0:j] 
++     dp = [0] * (n + 1)
++     dp[0] = 1  # Empty subsequence
++    
++     for i in range(1, m + 1):
++         # Traverse from right to left to avoid overwriting values we need
++         for j in range(min(i, n), 0, -1):
++             if s[i - 1] == sub[j - 1]:
++                 dp[j] += dp[j - 1]
++    
++     return dp[n]
+ }
+ 
+ export const mutableHandlers: ProxyHandler<object> =

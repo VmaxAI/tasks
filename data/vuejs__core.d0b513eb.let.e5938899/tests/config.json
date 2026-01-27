@@ -1,0 +1,1 @@
+{"instance_id": "vuejs__core.d0b513eb.let.e5938899", "repo": "vuejs__core.d0b513eb", "FAIL_TO_PASS": ["packages/runtime-dom/__tests__/rendererStaticNode.spec.ts > static vnode handling > should update", "vitest_test_suite", "packages/runtime-dom/__tests__/rendererStaticNode.spec.ts > static vnode handling > should remove"]}

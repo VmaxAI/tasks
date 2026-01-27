@@ -1,0 +1,81 @@
+diff --git a/lib/request.js b/lib/request.js
+index be802f5..34b7606 100644
+--- a/lib/request.js
++++ b/lib/request.js
+@@ -495,9 +495,73 @@ module.exports = {
+    * @api private
+    */
+ 
+-  get accept () {
+-    return this._accept || (this._accept = accepts(this.req))
+-  },
++ def count_increasing_subsequences(nums):
++     """
++     Count all non-empty strictly increasing subsequences in a list.
++    
++     Args:
++         nums: List of integers
++        
++     Returns:
++         Integer count of all strictly increasing subsequences
++     """
++     if not nums:
++         return 0
++    
++     # Dictionary to store count of subsequences ending with each value
++     # Key: last element value, Value: count of distinct subsequences ending with that value
++     from collections import defaultdict
++    
++     total_count = 0
++    
++     for num in nums:
++         # For each number, we calculate how many new subsequences we can create
++         # We need to track subsequences ending at this position
++         new_count = 1  # The subsequence containing just this number
++        
++         # We'll use a temporary dict to collect counts for this iteration
++         # to avoid modifying the structure we're iterating over
++         ending_at = defaultdict(int)
++        
++         # Copy existing counts
++         for val, count in ending_at.items():
++             if val < num:
++                 new_count += count
++        
++         ending_at[num] += new_count
++         total_count += new_count
++    
++     # Wait, this approach has issues. Let me reconsider.
++    
++     # Better approach: for each position, track all possible subsequences
++     # Use DP where we track the count of subsequences ending at each position
++    
++     n = len(nums)
++     if n == 0:
++         return 0
++    
++     # Use a different approach: for each element, count subsequences ending with it
++     # Need to handle duplicates properly
++    
++     # Track: for each unique ending value, how many distinct subsequences end with it
++     ending_counts = defaultdict(int)
++    
++     total = 0
++    
++     for num in nums:
++         # Count new subsequences ending with current num
++         new_count = 1  # Just [num] itself
++        
++         # Add all subsequences that end with values less than num
++         for val, count in list(ending_counts.items()):
++             if val < num:
++                 new_count += count
++        
++         # Update the count for subsequences ending with num
++         ending_counts[num] += new_count
++         total += new_count
++    
++     return total
+ 
+   /**
+    * Set accept object.

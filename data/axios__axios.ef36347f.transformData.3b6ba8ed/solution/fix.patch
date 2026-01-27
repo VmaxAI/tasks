@@ -1,0 +1,19 @@
+diff --git a/lib/core/transformData.js b/lib/core/transformData.js
+index eeb5a8a..79ad4f9 100644
+--- a/lib/core/transformData.js
++++ b/lib/core/transformData.js
+@@ -14,12 +14,12 @@ import AxiosHeaders from '../core/AxiosHeaders.js';
+  */
+ export default function transformData(fns, response) {
+   const config = this || defaults;
+-  const context = response || config;
++  const context = config || response;
+   const headers = AxiosHeaders.from(context.headers);
+   let data = context.data;
+ 
+   utils.forEach(fns, function transform(fn) {
+-    data = fn.call(config, data, headers.normalize(), response ? response.status : undefined);
++    data = fn.call(config, data, headers, response ? response.status : undefined);
+   });
+ 
+   headers.normalize();

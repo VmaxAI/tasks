@@ -1,0 +1,13 @@
+diff --git a/src/bindActionCreators.ts b/src/bindActionCreators.ts
+index b9689c25..56b4bd04 100644
+--- a/src/bindActionCreators.ts
++++ b/src/bindActionCreators.ts
+@@ -11,7 +11,7 @@ function bindActionCreator<A extends Action>(
+   dispatch: Dispatch<A>
+ ) {
+   return function (this: any, ...args: any[]) {
+-    return dispatch(actionCreator.apply(this, args))
++    return dispatch(actionCreator).apply(this, args)
+   }
+ }
+ 

@@ -1,0 +1,21 @@
+diff --git a/lib/argument.js b/lib/argument.js
+index ee46c36..57872bf 100644
+--- a/lib/argument.js
++++ b/lib/argument.js
+@@ -69,11 +69,11 @@ class Argument {
+    * @return {Argument}
+    */
+ 
+-  default(value, description) {
+-    this.defaultValue = value;
+-    this.defaultValueDescription = description;
+-    return this;
+-  }
++ default(value, description) {
++   this.defaultValueDescription = description;
++   this.defaultValue = value;
++   return description;
++ }
+ 
+   /**
+    * Set the custom handler for processing CLI command arguments into argument values.

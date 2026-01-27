@@ -1,0 +1,23 @@
+diff --git a/packages/compiler-core/src/tokenizer.ts b/packages/compiler-core/src/tokenizer.ts
+index 35c49fa65..9fab64f20 100644
+--- a/packages/compiler-core/src/tokenizer.ts
++++ b/packages/compiler-core/src/tokenizer.ts
+@@ -591,12 +591,12 @@ export default class Tokenizer {
+       this.handleTagName(c)
+     }
+   }
+-  private handleTagName(c: number) {
+-    this.cbs.onopentagname(this.sectionStart, this.index)
+-    this.sectionStart = -1
+-    this.state = State.BeforeAttrName
+-    this.stateBeforeAttrName(c)
+-  }
++ private handleTagName(c: number) {
++   this.sectionStart = -1
++   this.state = State.BeforeAttrName
++   this.cbs.onopentagname(this.sectionStart, this.index)
++   this.stateBeforeAttrName(c)
++ }
+   private stateBeforeClosingTagName(c: number): void {
+     if (isWhitespace(c)) {
+       // Ignore

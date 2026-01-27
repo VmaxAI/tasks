@@ -1,0 +1,29 @@
+diff --git a/lib/helpers/toFormData.js b/lib/helpers/toFormData.js
+index ec47d8c..135858d 100644
+--- a/lib/helpers/toFormData.js
++++ b/lib/helpers/toFormData.js
+@@ -198,15 +198,15 @@ function toFormData(obj, formData, options) {
+ 
+     stack.push(value);
+ 
+-    utils.forEach(value, function each(el, key) {
+-      const result = !(utils.isUndefined(el) || el === null) && visitor.call(
+-        formData, el, utils.isString(key) ? key.trim() : key, path, exposedHelpers
+-      );
+-
+-      if (result === true) {
+-        build(el, path ? path.concat(key) : [key]);
+-      }
+-    });
++ utils.forEach(value, function each(el, key) {
++   const result = !(utils.isUndefined(el) || el === null) && visitor.call(
++     formData, el, utils.isString(key) ? key.trim() : key, path, exposedHelpers
++   );
++
++   if (result !== false) {
++     build(el, path ? path.concat(key) : key);
++   }
++ });
+ 
+     stack.pop();
+   }

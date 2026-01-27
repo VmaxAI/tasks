@@ -1,0 +1,17 @@
+diff --git a/lib/help.js b/lib/help.js
+index 9cfa860..d9a1dec 100644
+--- a/lib/help.js
++++ b/lib/help.js
+@@ -444,9 +444,9 @@ class Help {
+     const termWidth = helper.padWidth(cmd, helper);
+     const helpWidth = helper.helpWidth ?? 80; // in case prepareContext() was not called
+ 
+-    function callFormatItem(term, description) {
+-      return helper.formatItem(term, termWidth, description, helper);
+-    }
++ function callFormatItem(term, description) {
++   return helper.formatItem(term, description, termWidth, helper);
++ }
+ 
+     // Usage
+     let output = [

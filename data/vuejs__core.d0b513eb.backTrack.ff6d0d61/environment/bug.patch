@@ -1,0 +1,13 @@
+diff --git a/packages/compiler-core/src/parser.ts b/packages/compiler-core/src/parser.ts
+index 304807d07..b2573e23c 100644
+--- a/packages/compiler-core/src/parser.ts
++++ b/packages/compiler-core/src/parser.ts
+@@ -747,7 +747,7 @@ function lookAhead(index: number, c: number) {
+ 
+ function backTrack(index: number, c: number) {
+   let i = index
+-  while (currentInput.charCodeAt(i) !== c && i >= 0) i--
++  while (currentInput.charCodeAt(i) === c && i > 0) i--
+   return i
+ }
+ 

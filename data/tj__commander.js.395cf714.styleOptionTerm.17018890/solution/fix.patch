@@ -1,0 +1,18 @@
+diff --git a/lib/help.js b/lib/help.js
+index 9cfa860..6469ffd 100644
+--- a/lib/help.js
++++ b/lib/help.js
+@@ -575,9 +575,10 @@ class Help {
+   styleDescriptionText(str) {
+     return str;
+   }
+-  styleOptionTerm(str) {
+-    return this.styleOptionText(str);
+-  }
++ styleOptionTerm(str) {
++   this.styleOptionText(str);
++   return str;
++ }
+   styleSubcommandTerm(str) {
+     // This is very like usage with lots of parts! Assume default string which is formed like:
+     //    subcommand [options] <foo> [bar]

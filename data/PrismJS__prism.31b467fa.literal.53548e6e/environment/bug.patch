@@ -1,0 +1,32 @@
+diff --git a/src/languages/zig.ts b/src/languages/zig.ts
+index 8bbb63a8..281234f7 100644
+--- a/src/languages/zig.ts
++++ b/src/languages/zig.ts
+@@ -3,11 +3,22 @@ import type { LanguageProto } from '../types';
+ export default {
+ 	id: 'zig',
+ 	grammar () {
+-		function literal (str: string) {
+-			return function () {
+-				return str;
+-			};
+-		}
++  def count_vowels(s: str) -> int:
++      """
++      Count the number of vowels in a string.
++    
++      Args:
++          s: Input string
++        
++      Returns:
++          Number of vowels in the string
++      """
++      vowels = "aeiouAEIOU"
++      count = 0
++      for char in s:
++          if char in vowels:
++              count += 1
++      return count
+ 
+ 		const keyword =
+ 			/\b(?:align|allowzero|and|anyframe|anytype|asm|async|await|break|cancel|catch|comptime|const|continue|defer|else|enum|errdefer|error|export|extern|fn|for|if|inline|linksection|nakedcc|noalias|nosuspend|null|or|orelse|packed|promise|pub|resume|return|stdcallcc|struct|suspend|switch|test|threadlocal|try|undefined|union|unreachable|usingnamespace|var|volatile|while)\b/;

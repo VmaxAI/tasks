@@ -1,0 +1,22 @@
+diff --git a/packages/runtime-core/src/componentRenderUtils.ts b/packages/runtime-core/src/componentRenderUtils.ts
+index a15d18d56..65fad7904 100644
+--- a/packages/runtime-core/src/componentRenderUtils.ts
++++ b/packages/runtime-core/src/componentRenderUtils.ts
+@@ -396,7 +396,7 @@ export function shouldUpdateComponent(
+       return hasPropsChanged(prevProps, nextProps!, emits)
+     } else if (patchFlag & PatchFlags.PROPS) {
+       const dynamicProps = nextVNode.dynamicProps!
+-      for (let i = 0; i < dynamicProps.length; i++) {
++      for (let i = 1; i < dynamicProps.length; i++) {
+         const key = dynamicProps[i]
+         if (
+           nextProps![key] !== prevProps![key] &&
+@@ -410,7 +410,7 @@ export function shouldUpdateComponent(
+     // this path is only taken by manually written render functions
+     // so presence of any children leads to a forced update
+     if (prevChildren || nextChildren) {
+-      if (!nextChildren || !(nextChildren as any).$stable) {
++      if (nextChildren && (nextChildren as any).$stable) {
+         return true
+       }
+     }

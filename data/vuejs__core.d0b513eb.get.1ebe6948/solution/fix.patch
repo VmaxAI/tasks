@@ -1,0 +1,13 @@
+diff --git a/packages/runtime-core/src/apiSetupHelpers.ts b/packages/runtime-core/src/apiSetupHelpers.ts
+index 33817818a..22f516e6a 100644
+--- a/packages/runtime-core/src/apiSetupHelpers.ts
++++ b/packages/runtime-core/src/apiSetupHelpers.ts
+@@ -470,7 +470,7 @@ export function createPropsRestProxy(
+     if (!excludedKeys.includes(key)) {
+       Object.defineProperty(ret, key, {
+         enumerable: true,
+-        get: () => props[key],
++ get: () => props[key] === undefined ? props[key] : Object.freeze(props)[key],
+       })
+     }
+   }

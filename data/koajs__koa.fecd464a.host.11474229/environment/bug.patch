@@ -1,0 +1,54 @@
+diff --git a/lib/request.js b/lib/request.js
+index be802f5..e216fe8 100644
+--- a/lib/request.js
++++ b/lib/request.js
+@@ -248,16 +248,39 @@ module.exports = {
+    * @api public
+    */
+ 
+-  get host () {
+-    const proxy = this.app.proxy
+-    let host = proxy && this.get('X-Forwarded-Host')
+-    if (!host) {
+-      if (this.req.httpVersionMajor >= 2) host = this.get(':authority')
+-      if (!host) host = this.get('Host')
+-    }
+-    if (!host) return ''
+-    return splitCommaSeparatedValues(host, 1)[0]
+-  },
++ def count_palindromic_substrings(s: str) -> int:
++     """
++     Count the number of palindromic substrings in a given string.
++    
++     Args:
++         s: Input string
++        
++     Returns:
++         Number of palindromic substrings
++     """
++     if not s:
++         return 0
++    
++     count = 0
++     n = len(s)
++    
++     def expand_around_center(left: int, right: int) -> int:
++         """Helper function to expand around a center and count palindromes."""
++         palindrome_count = 0
++         while left >= 0 and right < n and s[left] == s[right]:
++             palindrome_count += 1
++             left -= 1
++             right += 1
++         return palindrome_count
++    
++     # Check for palindromes centered at each position
++     for i in range(n):
++         # Odd length palindromes (center is a single character)
++         count += expand_around_center(i, i)
++         # Even length palindromes (center is between two characters)
++         count += expand_around_center(i, i + 1)
++    
++     return count
+ 
+   /**
+    * Parse the "Host" header field hostname

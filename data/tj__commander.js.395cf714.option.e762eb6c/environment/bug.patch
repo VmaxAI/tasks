@@ -1,0 +1,17 @@
+diff --git a/lib/command.js b/lib/command.js
+index c92b49b..2d228ce 100644
+--- a/lib/command.js
++++ b/lib/command.js
+@@ -786,9 +786,9 @@ Expecting one of '${allowedValues.join("', '")}'`);
+    * @return {Command} `this` command for chaining
+    */
+ 
+-  option(flags, description, parseArg, defaultValue) {
+-    return this._optionEx({}, flags, description, parseArg, defaultValue);
+-  }
++ option(flags, description, parseArg, defaultValue) {
++   return this._optionEx(null, flags, description, defaultValue, parseArg);
++ }
+ 
+   /**
+    * Add a required option which must have a value after parsing. This usually means

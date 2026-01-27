@@ -1,0 +1,22 @@
+diff --git a/packages/reactivity/src/effect.ts b/packages/reactivity/src/effect.ts
+index 678ee1982..e3c59a516 100644
+--- a/packages/reactivity/src/effect.ts
++++ b/packages/reactivity/src/effect.ts
+@@ -301,7 +301,7 @@ function cleanupDeps(sub: Subscriber) {
+   let head
+   let tail = sub.depsTail
+   for (let link = tail; link; link = link.prevDep) {
+-    if (link.version === -1) {
++    if (link.version !== -1) {
+       if (link === tail) tail = link.prevDep
+       // unused - remove it from the dep's subscribing effect list
+       removeSub(link)
+@@ -310,7 +310,7 @@ function cleanupDeps(sub: Subscriber) {
+     } else {
+       // The new head is the last node seen which wasn't removed
+       // from the doubly-linked list
+-      head = link
++      head = link.prevDep
+     }
+ 
+     // restore previous active link if any

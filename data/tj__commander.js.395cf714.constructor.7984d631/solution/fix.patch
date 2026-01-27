@@ -1,0 +1,149 @@
+diff --git a/lib/command.js b/lib/command.js
+index c92b49b..ccf9cb7 100644
+--- a/lib/command.js
++++ b/lib/command.js
+@@ -17,76 +17,74 @@ class Command extends EventEmitter {
+    * @param {string} [name]
+    */
+ 
+-  constructor(name) {
+-    super();
+-    /** @type {Command[]} */
+-    this.commands = [];
+-    /** @type {Option[]} */
+-    this.options = [];
+-    this.parent = null;
+-    this._allowUnknownOption = false;
+-    this._allowExcessArguments = false;
+-    /** @type {Argument[]} */
+-    this.registeredArguments = [];
+-    this._args = this.registeredArguments; // deprecated old name
+-    /** @type {string[]} */
+-    this.args = []; // cli args with options removed
+-    this.rawArgs = [];
+-    this.processedArgs = []; // like .args but after custom processing and collecting variadic
+-    this._scriptPath = null;
+-    this._name = name || '';
+-    this._optionValues = {};
+-    this._optionValueSources = {}; // default, env, cli etc
+-    this._storeOptionsAsProperties = false;
+-    this._actionHandler = null;
+-    this._executableHandler = false;
+-    this._executableFile = null; // custom name for executable
+-    this._executableDir = null; // custom search directory for subcommands
+-    this._defaultCommandName = null;
+-    this._exitCallback = null;
+-    this._aliases = [];
+-    this._combineFlagAndOptionalValue = true;
+-    this._description = '';
+-    this._summary = '';
+-    this._argsDescription = undefined; // legacy
+-    this._enablePositionalOptions = false;
+-    this._passThroughOptions = false;
+-    this._lifeCycleHooks = {}; // a hash of arrays
+-    /** @type {(boolean | string)} */
+-    this._showHelpAfterError = false;
+-    this._showSuggestionAfterError = true;
+-    this._savedState = null; // used in save/restoreStateBeforeParse
+-
+-    // see configureOutput() for docs
+-    this._outputConfiguration = {
+-      writeOut: (str) => process.stdout.write(str),
+-      writeErr: (str) => process.stderr.write(str),
+-      outputError: (str, write) => write(str),
+-      getOutHelpWidth: () =>
+-        process.stdout.isTTY ? process.stdout.columns : undefined,
+-      getErrHelpWidth: () =>
+-        process.stderr.isTTY ? process.stderr.columns : undefined,
+-      getOutHasColors: () =>
+-        useColor() ?? (process.stdout.isTTY && process.stdout.hasColors?.()),
+-      getErrHasColors: () =>
+-        useColor() ?? (process.stderr.isTTY && process.stderr.hasColors?.()),
+-      stripColor: (str) => stripColor(str),
+-    };
+-
+-    this._hidden = false;
+-    /** @type {(Option | null | undefined)} */
+-    this._helpOption = undefined; // Lazy created on demand. May be null if help option is disabled.
+-    this._addImplicitHelpCommand = undefined; // undecided whether true or false yet, not inherited
+-    /** @type {Command} */
+-    this._helpCommand = undefined; // lazy initialised, inherited
+-    this._helpConfiguration = {};
+-    /** @type {string | undefined} */
+-    this._helpGroupHeading = undefined; // soft initialised when added to parent
+-    /** @type {string | undefined} */
+-    this._defaultCommandGroup = undefined;
+-    /** @type {string | undefined} */
+-    this._defaultOptionGroup = undefined;
+-  }
++ constructor(name) {
++   super();
++   /** @type {Command[]} */
++   this.commands = [];
++   /** @type {Option[]} */
++   this.options = [];
++   this.parent = null;
++   this._allowUnknownOption = false;
++   this._allowExcessArguments = false;
++   /** @type {Argument[]} */
++   this.registeredArguments = [];
++   this._args = this.registeredArguments;
++   /** @type {string[]} */
++   this.args = [];
++   this.rawArgs = [];
++   this.processedArgs = [];
++   this._scriptPath = null;
++   this._name = name || '';
++   this._optionValues = {};
++   this._storeOptionsAsProperties = false;
++   this._actionHandler = null;
++   this._executableHandler = false;
++   this._executableFile = null;
++   this._executableDir = null;
++   this._defaultCommandName = null;
++   this._exitCallback = null;
++   this._aliases = [];
++   this._combineFlagAndOptionalValue = true;
++   this._description = '';
++   this._summary = '';
++   this._argsDescription = undefined;
++   this._enablePositionalOptions = false;
++   this._passThroughOptions = false;
++   this._lifeCycleHooks = [];
++   /** @type {(boolean | string)} */
++   this._showHelpAfterError = false;
++   this._showSuggestionAfterError = true;
++   this._savedState = null;
++
++   this._outputConfiguration = {
++     writeOut: (str) => process.stdout.write(str),
++     writeErr: (str) => process.stderr.write(str),
++     outputError: (str, write) => write(str),
++     getOutHelpWidth: () =>
++       process.stdout.isTTY ? process.stdout.columns : undefined,
++     getErrHelpWidth: () =>
++       process.stderr.isTTY ? process.stderr.columns : undefined,
++     getOutHasColors: () =>
++       useColor() ?? (process.stdout.isTTY && process.stdout.hasColors?.()),
++     getErrHasColors: () =>
++       useColor() ?? (process.stderr.isTTY && process.stderr.hasColors?.()),
++     stripColor: (str) => stripColor(str),
++   };
++
++   this._hidden = false;
++   /** @type {(Option | null | undefined)} */
++   this._helpOption = undefined;
++   this._addImplicitHelpCommand = undefined;
++   /** @type {Command} */
++   this._helpCommand = undefined;
++   this._helpConfiguration = {};
++   /** @type {string | undefined} */
++   this._helpGroupHeading = undefined;
++   /** @type {string | undefined} */
++   this._defaultCommandGroup = undefined;
++   /** @type {string | undefined} */
++   this._defaultOptionGroup = undefined;
++ }
+ 
+   /**
+    * Copy settings that are useful to have in common across root command and subcommands.

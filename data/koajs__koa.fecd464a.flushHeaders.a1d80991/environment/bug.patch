@@ -1,0 +1,52 @@
+diff --git a/lib/response.js b/lib/response.js
+index 846a8be..4eef311 100644
+--- a/lib/response.js
++++ b/lib/response.js
+@@ -642,9 +642,44 @@ module.exports = {
+    * Flush any set headers and begin the body
+    */
+ 
+-  flushHeaders () {
+-    this.res.flushHeaders()
+-  }
++ def find_unique_elements(lists):
++     """
++     Find elements that appear in exactly one of the sublists.
++    
++     Args:
++         lists: A list of lists containing elements
++        
++     Returns:
++         A list of elements that appear in exactly one sublist, 
++         in the order of their first appearance
++     """
++     if not lists:
++         return []
++    
++     # Dictionary to track which sublists each element appears in
++     element_to_sublists = {}
++    
++     # Track the order of first appearance
++     first_appearance_order = []
++    
++     # Iterate through each sublist with its index
++     for sublist_idx, sublist in enumerate(lists):
++         # Use a set to get unique elements in this sublist
++         unique_in_sublist = set(sublist)
++        
++         for element in unique_in_sublist:
++             if element not in element_to_sublists:
++                 element_to_sublists[element] = set()
++                 first_appearance_order.append(element)
++             element_to_sublists[element].add(sublist_idx)
++    
++     # Filter elements that appear in exactly one sublist
++     result = []
++     for element in first_appearance_order:
++         if len(element_to_sublists[element]) == 1:
++             result.append(element)
++    
++     return result
+ }
+ 
+ /**

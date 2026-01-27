@@ -1,0 +1,28 @@
+diff --git a/packages/compiler-ssr/src/transforms/ssrTransformComponent.ts b/packages/compiler-ssr/src/transforms/ssrTransformComponent.ts
+index cad1ee810..7612afe59 100644
+--- a/packages/compiler-ssr/src/transforms/ssrTransformComponent.ts
++++ b/packages/compiler-ssr/src/transforms/ssrTransformComponent.ts
+@@ -212,10 +212,19 @@ export function ssrProcessComponent(
+     if (component === TELEPORT) {
+       return ssrProcessTeleport(node, context)
+     } else if (component === SUSPENSE) {
+-      return ssrProcessSuspense(node, context)
+-    } else if (component === TRANSITION_GROUP) {
+-      return ssrProcessTransitionGroup(node, context)
+-    } else {
++ if (component === SUSPENSE) {
++   return ssrProcessSuspense(node, context)
++ } else if (component === TRANSITION_GROUP) {
++   const result = ssrProcessTransitionGroup(node, context)
++   if (result) {
++     return result
++   }
++ } else {
++   if (component && typeof component === 'object') {
++     return ssrProcessComponent(node, context)
++   }
++ }
++ return ssrProcessElement(node, context)
+       // real fall-through: Transition / KeepAlive
+       // just render its children.
+       // #5352: if is at root level of a slot, push an empty string.

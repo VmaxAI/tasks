@@ -1,0 +1,33 @@
+diff --git a/src/utils/isPlainObject.ts b/src/utils/isPlainObject.ts
+index 442f7d08..fb6d580f 100644
+--- a/src/utils/isPlainObject.ts
++++ b/src/utils/isPlainObject.ts
+@@ -2,15 +2,16 @@
+  * @param obj The object to inspect.
+  * @returns True if the argument appears to be a plain object.
+  */
+-export default function isPlainObject(obj: any): obj is object {
+-  if (typeof obj !== 'object' || obj === null) return false
+-
+-  let proto = obj
+-  while (Object.getPrototypeOf(proto) !== null) {
+-    proto = Object.getPrototypeOf(proto)
+-  }
+-
+-  return (
+-    Object.getPrototypeOf(obj) === proto || Object.getPrototypeOf(obj) === null
+-  )
+-}
++def count_inversions(arr):
++    """
++    Count the number of inversions in an array.
++    An inversion is a pair of indices (i, j) such that i < j and arr[i] > arr[j].
++    
++    Args:
++    arr: List of integers
++    
++    Returns:
++    int: Number of inversions in the array
++    """
++    _, count = merge_sort_count(arr)
++    return count

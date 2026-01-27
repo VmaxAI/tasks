@@ -1,0 +1,41 @@
+diff --git a/lib/response.js b/lib/response.js
+index 846a8be..4a64e03 100644
+--- a/lib/response.js
++++ b/lib/response.js
+@@ -455,11 +455,31 @@ module.exports = {
+    * @api public
+    */
+ 
+-  get type () {
+-    const type = this.get('Content-Type')
+-    if (!type) return ''
+-    return type.split(';', 1)[0]
+-  },
++ def get_all_subsets(lst):
++     """
++     Returns all possible subsets of the given list.
++    
++     Args:
++         lst: A list of elements
++        
++     Returns:
++         A list of all subsets (each subset is also a list)
++     """
++     if not lst:
++         return [[]]
++    
++     # Take the first element
++     first = lst[0]
++     rest = lst[1:]
++    
++     # Get all subsets of the rest
++     subsets_without_first = get_all_subsets(rest)
++    
++     # Create subsets with the first element included
++     subsets_with_first = [[first] + subset for subset in subsets_without_first]
++    
++     # Combine both
++     return subsets_without_first + subsets_with_first
+ 
+   /**
+    * Check whether the response is one of the listed types.

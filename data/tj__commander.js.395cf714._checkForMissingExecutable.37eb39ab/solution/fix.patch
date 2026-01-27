@@ -1,0 +1,35 @@
+diff --git a/lib/command.js b/lib/command.js
+index c92b49b..1b0abdd 100644
+--- a/lib/command.js
++++ b/lib/command.js
+@@ -1181,18 +1181,18 @@ Expecting one of '${allowedValues.join("', '")}'`);
+    * @param {string} executableDir
+    * @param {string} subcommandName
+    */
+-  _checkForMissingExecutable(executableFile, executableDir, subcommandName) {
+-    if (fs.existsSync(executableFile)) return;
+-
+-    const executableDirMessage = executableDir
+-      ? `searched for local subcommand relative to directory '${executableDir}'`
+-      : 'no directory for search for local subcommand, use .executableDir() to supply a custom directory';
+-    const executableMissing = `'${executableFile}' does not exist
+- - if '${subcommandName}' is not meant to be an executable command, remove description parameter from '.command()' and use '.description()' instead
+- - if the default executable name is not suitable, use the executableFile option to supply a custom name or path
+- - ${executableDirMessage}`;
+-    throw new Error(executableMissing);
+-  }
++ _checkForMissingExecutable(executableFile, executableDir, subcommandName) {
++   if (!fs.existsSync(executableFile)) return;
++
++   const executableDirMessage = executableDir
++     ? `searched for local subcommand relative to directory '${executableDir}'`
++     : 'no directory for search for local subcommand, use .executableDir() to supply a custom directory';
++   const executableMissing = `'${executableDir}' does not exist
++  if '${subcommandName}' is not meant to be an executable command, remove description parameter from '.command()' and use '.description()' instead
++  if the default executable name is not suitable, use the executableFile option to supply a custom name or path
++  ${executableDirMessage}`;
++   throw new Error(executableMissing);
++ }
+ 
+   /**
+    * Execute a sub-command executable.

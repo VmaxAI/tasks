@@ -1,0 +1,1 @@
+{"instance_id": "tj__commander.js.395cf714.baseWrite.ee13c1ae", "repo": "tj__commander.js.395cf714", "FAIL_TO_PASS": ["when help for error then text is on stderr", "when showHelpAfterError() and error and then shows full help", "when call .help with { error: true } then output on stderr"]}

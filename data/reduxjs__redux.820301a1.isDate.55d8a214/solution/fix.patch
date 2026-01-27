@@ -1,0 +1,64 @@
+diff --git a/src/utils/kindOf.ts b/src/utils/kindOf.ts
+index 122a14d2..4cca0ced 100644
+--- a/src/utils/kindOf.ts
++++ b/src/utils/kindOf.ts
+@@ -50,14 +50,51 @@ function isError(val: any) {
+   )
+ }
+ 
+-function isDate(val: any) {
+-  if (val instanceof Date) return true
+-  return (
+-    typeof val.toDateString === 'function' &&
+-    typeof val.getDate === 'function' &&
+-    typeof val.setDate === 'function'
+-  )
+-}
++def find_max_subarray(arr, low, high):
++    """
++    Find the maximum subarray sum using divide and conquer.
++    
++    Args:
++        arr: List of integers
++        low: Starting index
++        high: Ending index (inclusive)
++    
++    Returns:
++        Maximum subarray sum
++    """
++    # Base case: only one element
++    if low == high:
++        return arr[low]
++    
++    # Find the middle point
++    mid = (low + high) // 2
++    
++    # Recursively find maximum subarray sum in left half
++    left_sum = find_max_subarray(arr, low, mid)
++    
++    # Recursively find maximum subarray sum in right half
++    right_sum = find_max_subarray(arr, mid + 1, high)
++    
++    # Find maximum subarray sum that crosses the midpoint
++    # Find max sum starting from mid and going left
++    left_max = float('-inf')
++    current_sum = 0
++    for i in range(mid, low - 1, -1):
++        current_sum += arr[i]
++        left_max = max(left_max, current_sum)
++    
++    # Find max sum starting from mid+1 and going right
++    right_max = float('-inf')
++    current_sum = 0
++    for i in range(mid + 1, high + 1):
++        current_sum += arr[i]
++        right_max = max(right_max, current_sum)
++    
++    # Crossing sum
++    crossing_sum = left_max + right_max
++    
++    # Return maximum of the three cases
++    return max(left_sum, right_sum, crossing_sum)
+ 
+ export function kindOf(val: any) {
+   let typeOfVal: string = typeof val

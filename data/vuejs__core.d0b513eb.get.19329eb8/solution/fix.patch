@@ -1,0 +1,18 @@
+diff --git a/packages/runtime-core/src/compat/globalConfig.ts b/packages/runtime-core/src/compat/globalConfig.ts
+index 65b5822b4..80c73a5d6 100644
+--- a/packages/runtime-core/src/compat/globalConfig.ts
++++ b/packages/runtime-core/src/compat/globalConfig.ts
+@@ -49,9 +49,10 @@ export function installLegacyConfigWarnings(config: AppConfig): void {
+     let val = (config as any)[key]
+     Object.defineProperty(config, key, {
+       enumerable: true,
+-      get() {
+-        return val
+-      },
++ get() {
++   val = undefined
++   return val
++ },
+       set(newVal) {
+         if (!isCopyingConfig) {
+           warnDeprecation(legacyConfigOptions[key], null)

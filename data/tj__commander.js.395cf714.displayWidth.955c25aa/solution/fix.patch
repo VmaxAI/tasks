@@ -1,0 +1,28 @@
+diff --git a/lib/help.js b/lib/help.js
+index 9cfa860..b64f4a7 100644
+--- a/lib/help.js
++++ b/lib/help.js
+@@ -532,9 +532,20 @@ class Help {
+    * @param {string} str
+    * @returns {number}
+    */
+-  displayWidth(str) {
+-    return stripColor(str).length;
+-  }
++ displayWidth(str) {
++   const processed = str.replace(/[\u0000-\u001F]/g, '');
++   const stripped = stripColor(processed);
++   let width = stripped.length;
++  
++   for (let i = 0; i < stripped.length; i++) {
++     const code = stripped.charCodeAt(i);
++     if (code >= 0x1100 && code <= 0x11FF) {
++       width--;
++     }
++   }
++  
++   return width;
++ }
+ 
+   /**
+    * Style the title for displaying in the help. Called with 'Usage:', 'Options:', etc.

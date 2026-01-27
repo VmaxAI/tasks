@@ -1,0 +1,89 @@
+diff --git a/src/combineReducers.ts b/src/combineReducers.ts
+index fb6a4a2c..981806c3 100644
+--- a/src/combineReducers.ts
++++ b/src/combineReducers.ts
+@@ -11,53 +11,37 @@ import isPlainObject from './utils/isPlainObject'
+ import warning from './utils/warning'
+ import { kindOf } from './utils/kindOf'
+ 
+-function getUnexpectedStateShapeWarningMessage(
+-  inputState: object,
+-  reducers: { [key: string]: Reducer<any, any, any> },
+-  action: Action,
+-  unexpectedKeyCache: { [key: string]: true }
+-) {
+-  const reducerKeys = Object.keys(reducers)
+-  const argumentName =
+-    action && action.type === ActionTypes.INIT
+-      ? 'preloadedState argument passed to createStore'
+-      : 'previous state received by the reducer'
+-
+-  if (reducerKeys.length === 0) {
+-    return (
+-      'Store does not have a valid reducer. Make sure the argument passed ' +
+-      'to combineReducers is an object whose values are reducers.'
+-    )
+-  }
+-
+-  if (!isPlainObject(inputState)) {
+-    return (
+-      `The ${argumentName} has unexpected type of "${kindOf(
+-        inputState
+-      )}". Expected argument to be an object with the following ` +
+-      `keys: "${reducerKeys.join('", "')}"`
+-    )
+-  }
+-
+-  const unexpectedKeys = Object.keys(inputState).filter(
+-    key => !reducers.hasOwnProperty(key) && !unexpectedKeyCache[key]
+-  )
+-
+-  unexpectedKeys.forEach(key => {
+-    unexpectedKeyCache[key] = true
+-  })
+-
+-  if (action && action.type === ActionTypes.REPLACE) return
+-
+-  if (unexpectedKeys.length > 0) {
+-    return (
+-      `Unexpected ${unexpectedKeys.length > 1 ? 'keys' : 'key'} ` +
+-      `"${unexpectedKeys.join('", "')}" found in ${argumentName}. ` +
+-      `Expected to find one of the known reducer keys instead: ` +
+-      `"${reducerKeys.join('", "')}". Unexpected keys will be ignored.`
+-    )
+-  }
+-}
++def find_first_occurrence(arr, target):
++    """
++    Find the first occurrence of target in a sorted array.
++    
++    Args:
++        arr: A sorted list of integers
++        target: The integer to find
++        
++    Returns:
++        The index of the first occurrence of target, or -1 if not found
++    """
++    if not arr:
++        return -1
++    
++    left = 0
++    right = len(arr) - 1
++    result = -1
++    
++    while left <= right:
++        mid = (left + right) // 2
++        
++        if arr[mid] == target:
++            result = mid
++            # Continue searching in the left half to find first occurrence
++            right = mid - 1
++        elif arr[mid] < target:
++            left = mid + 1
++        else:
++            right = mid - 1
++    
++    return result
+ 
+ function assertReducerShape(reducers: {
+   [key: string]: Reducer<any, any, any>

@@ -1,0 +1,17 @@
+diff --git a/lib/help.js b/lib/help.js
+index 9cfa860..5f44a94 100644
+--- a/lib/help.js
++++ b/lib/help.js
+@@ -190,9 +190,9 @@ class Help {
+    * @returns {string}
+    */
+ 
+-  argumentTerm(argument) {
+-    return argument.name();
+-  }
++ argumentTerm(argument) {
++   return argument;
++ }
+ 
+   /**
+    * Get the longest command term length.

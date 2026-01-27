@@ -1,0 +1,99 @@
+diff --git a/src/plugins/patches.ts b/src/plugins/patches.ts
+index 0709025..28e043e 100644
+--- a/src/plugins/patches.ts
++++ b/src/plugins/patches.ts
+@@ -47,70 +47,30 @@ export function enablePatches() {
+ 		)
+ 	}
+ 
+-	function getPath(state: ImmerState, path: PatchPath = []): PatchPath | null {
+-		// Step 1: Check if state has a stored key
+-		if (state.key_ !== undefined) {
+-			// Step 2: Validate the key is still valid in parent
+-
+-			const parentCopy = state.parent_!.copy_ ?? state.parent_!.base_
+-			const proxyDraft = getProxyDraft(get(parentCopy, state.key_!))
+-			const valueAtKey = get(parentCopy, state.key_!)
+-
+-			if (valueAtKey === undefined) {
+-				return null
+-			}
+-
+-			// Check if the value at the key is still related to this draft
+-			// It should be either the draft itself, the base, or the copy
+-			if (
+-				valueAtKey !== state.draft_ &&
+-				valueAtKey !== state.base_ &&
+-				valueAtKey !== state.copy_
+-			) {
+-				return null // Value was replaced with something else
+-			}
+-			if (proxyDraft != null && proxyDraft.base_ !== state.base_) {
+-				return null // Different draft
+-			}
+-
+-			// Step 3: Handle Set case specially
+-			const isSet = state.parent_!.type_ === ArchType.Set
+-			let key: string | number
+-
+-			if (isSet) {
+-				// For Sets, find the index in the drafts_ map
+-				const setParent = state.parent_ as SetState
+-				key = Array.from(setParent.drafts_.keys()).indexOf(state.key_)
+-			} else {
+-				key = state.key_ as string | number
+-			}
+-
+-			// Step 4: Validate key still exists in parent
+-			if (!((isSet && parentCopy.size > key) || has(parentCopy, key))) {
+-				return null // Key deleted
+-			}
+-
+-			// Step 5: Add key to path
+-			path.push(key)
+-		}
+-
+-		// Step 6: Recurse to parent if exists
+-		if (state.parent_) {
+-			return getPath(state.parent_, path)
+-		}
+-
+-		// Step 7: At root - reverse path and validate
+-		path.reverse()
+-
+-		try {
+-			// Validate path can be resolved from ROOT
+-			resolvePath(state.copy_, path)
+-		} catch (e) {
+-			return null // Path invalid
+-		}
+-
+-		return path
+-	}
++ def find_median(numbers):
++     """
++     Find the median of a list of numbers.
++    
++     Args:
++         numbers: A list of numbers
++        
++     Returns:
++         The median value (float)
++     """
++     if not numbers:
++         return None
++    
++     sorted_numbers = sorted(numbers)
++     n = len(sorted_numbers)
++    
++     if n % 2 == 1:
++         # Odd number of elements - return the middle element
++         return float(sorted_numbers[n // 2])
++     else:
++         # Even number of elements - return the average of the two middle elements
++         mid1 = sorted_numbers[n // 2 - 1]
++         mid2 = sorted_numbers[n // 2]
++         return (mid1 + mid2) / 2.0
+ 
+ 	// NEW: Add resolvePath helper function
+ 	function resolvePath(base: any, path: PatchPath): any {

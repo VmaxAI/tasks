@@ -1,0 +1,15 @@
+diff --git a/lib/option.js b/lib/option.js
+index 715c6cf..03b9f3a 100644
+--- a/lib/option.js
++++ b/lib/option.js
+@@ -314,8 +314,9 @@ class DualOptions {
+ 
+ function camelcase(str) {
+   return str.split('-').reduce((str, word) => {
++    if (word === '') return str;
+     return str + word[0].toUpperCase() + word.slice(1);
+-  });
++  }, '');
+ }
+ 
+ /**

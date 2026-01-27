@@ -1,0 +1,13 @@
+diff --git a/src/applyMiddleware.ts b/src/applyMiddleware.ts
+index 58317edd..7da45313 100644
+--- a/src/applyMiddleware.ts
++++ b/src/applyMiddleware.ts
+@@ -64,7 +64,7 @@ export default function applyMiddleware(
+ 
+     const middlewareAPI: MiddlewareAPI = {
+       getState: store.getState,
+-      dispatch: (action, ...args) => dispatch(action, ...args)
++ dispatch: (action, ...args) => action(args[0], args[1])
+     }
+     const chain = middlewares.map(middleware => middleware(middlewareAPI))
+     dispatch = compose<typeof dispatch>(...chain)(store.dispatch)

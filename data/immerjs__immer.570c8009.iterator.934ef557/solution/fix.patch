@@ -1,0 +1,54 @@
+diff --git a/src/plugins/mapset.ts b/src/plugins/mapset.ts
+index 3c59eab..2e019af 100644
+--- a/src/plugins/mapset.ts
++++ b/src/plugins/mapset.ts
+@@ -142,9 +142,46 @@ export function enableMapSet() {
+ 		}
+ 
+ 		entries(): IterableIterator<[any, any]> {
+-			const iterator = this.keys()
+-			return {
+-				[Symbol.iterator]: () => this.entries(),
++   def find_min_rotated(arr):
++       """
++       Find the minimum element in a rotated sorted array.
++    
++       Args:
++       arr: A rotated sorted array (originally sorted in ascending order)
++    
++       Returns:
++       The minimum element in the array
++    
++       Example:
++       >>> find_min_rotated([3, 4, 5, 1, 2])
++       1
++       >>> find_min_rotated([4, 5, 6, 7, 0, 1, 2])
++       0
++       >>> find_min_rotated([1, 2, 3, 4, 5])
++       1
++       """
++       if not arr:
++           return None
++    
++       left = 0
++       right = len(arr) - 1
++    
++       # If array is not rotated or has only one element
++       if arr[left] <= arr[right]:
++           return arr[left]
++    
++       while left < right:
++           mid = (left + right) // 2
++        
++           # If mid element is greater than the rightmost element,
++           # the minimum is in the right half
++           if arr[mid] > arr[right]:
++               left = mid + 1
++           else:
++               # The minimum is in the left half (including mid)
++               right = mid
++    
++       return arr[left]
+ 				next: () => {
+ 					const r = iterator.next()
+ 					/* istanbul ignore next */

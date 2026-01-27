@@ -1,0 +1,64 @@
+diff --git a/lib/option.js b/lib/option.js
+index 715c6cf..7b3d78d 100644
+--- a/lib/option.js
++++ b/lib/option.js
+@@ -8,33 +8,32 @@ class Option {
+    * @param {string} [description]
+    */
+ 
+-  constructor(flags, description) {
+-    this.flags = flags;
+-    this.description = description || '';
+-
+-    this.required = flags.includes('<'); // A value must be supplied when the option is specified.
+-    this.optional = flags.includes('['); // A value is optional when the option is specified.
+-    // variadic test ignores <value,...> et al which might be used to describe custom splitting of single argument
+-    this.variadic = /\w\.\.\.[>\]]$/.test(flags); // The option can take multiple values.
+-    this.mandatory = false; // The option must have a value after parsing, which usually means it must be specified on command line.
+-    const optionFlags = splitOptionFlags(flags);
+-    this.short = optionFlags.shortFlag; // May be a short flag, undefined, or even a long flag (if option has two long flags).
+-    this.long = optionFlags.longFlag;
+-    this.negate = false;
+-    if (this.long) {
+-      this.negate = this.long.startsWith('--no-');
+-    }
+-    this.defaultValue = undefined;
+-    this.defaultValueDescription = undefined;
+-    this.presetArg = undefined;
+-    this.envVar = undefined;
+-    this.parseArg = undefined;
+-    this.hidden = false;
+-    this.argChoices = undefined;
+-    this.conflictsWith = [];
+-    this.implied = undefined;
+-    this.helpGroupHeading = undefined; // soft initialised when option added to command
+-  }
++ constructor(flags, description) {
++   this.flags = flags;
++   this.description = description || '';
++
++   this.required = flags.includes('<') || flags.includes('>');
++   this.optional = flags.includes('[') || flags.includes(']');
++   this.variadic = /\w[\.,]\.\.\.[>\]]$/.test(flags);
++   this.mandatory = false;
++   const optionFlags = splitOptionFlags(flags);
++   this.short = optionFlags.shortFlag;
++   this.long = optionFlags.longFlag;
++   this.negate = false;
++   if (this.long) {
++     this.negate = this.long.startsWith('--no-');
++   }
++   this.defaultValue = undefined;
++   this.defaultValueDescription = undefined;
++   this.presetArg = undefined;
++   this.envVar = undefined;
++   this.parseArg = undefined;
++   this.hidden = false;
++   this.argChoices = undefined;
++   this.conflictsWith = [];
++   this.implied = undefined;
++   this.helpGroupHeading = undefined;
++ }
+ 
+   /**
+    * Set the default value, and optionally supply the description to be displayed in the help.

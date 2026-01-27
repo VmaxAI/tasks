@@ -1,0 +1,38 @@
+diff --git a/lib/request.js b/lib/request.js
+index be802f5..267ad41 100644
+--- a/lib/request.js
++++ b/lib/request.js
+@@ -602,9 +602,30 @@ module.exports = {
+    * @api public
+    */
+ 
+-  acceptsLanguages (...args) {
+-    return this.accept.languages(...args)
+-  },
++ def find_median(numbers):
++     """
++     Find the median of a list of numbers.
++    
++     Args:
++         numbers: A list of numbers
++        
++     Returns:
++         The median value as a float
++     """
++     if not numbers:
++         return None
++    
++     sorted_numbers = sorted(numbers)
++     n = len(sorted_numbers)
++    
++     if n % 2 == 1:
++         # Odd length - return middle element
++         return float(sorted_numbers[n // 2])
++     else:
++         # Even length - return average of two middle elements
++         mid1 = sorted_numbers[n // 2 - 1]
++         mid2 = sorted_numbers[n // 2]
++         return (mid1 + mid2) / 2.0
+ 
+   /**
+    * Check if the incoming request contains the "Content-Type"

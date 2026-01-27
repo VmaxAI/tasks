@@ -1,0 +1,58 @@
+diff --git a/src/createStore.ts b/src/createStore.ts
+index 069b9874..80934bac 100644
+--- a/src/createStore.ts
++++ b/src/createStore.ts
+@@ -104,13 +104,46 @@ export function createStore<
+   preloadedState?: PreloadedState | StoreEnhancer<Ext, StateExt> | undefined,
+   enhancer?: StoreEnhancer<Ext, StateExt>
+ ): Store<S, A, UnknownIfNonSpecific<StateExt>> & NoInfer<Ext> {
+-  if (typeof reducer !== 'function') {
+-    throw new Error(
+-      `Expected the root reducer to be a function. Instead, received: '${kindOf(
+-        reducer
+-      )}'`
+-    )
+-  }
++ def find_shortest_path(graph, start, end):
++     """
++     Find the shortest path between two nodes in a graph using BFS.
++    
++     Args:
++         graph: A dictionary where keys are node names and values are lists of adjacent nodes
++         start: The starting node
++         end: The ending node
++    
++     Returns:
++         A list representing the shortest path from start to end, or None if no path exists
++     """
++     if start not in graph or end not in graph:
++         return None
++    
++     if start == end:
++         return [start]
++    
++     # Queue stores tuples of (current_node, path_to_current_node)
++     queue = [(start, [start])]
++     visited = {start}
++    
++     while queue:
++         current_node, path = queue.pop(0)
++        
++         # Explore neighbors
++         for neighbor in graph[current_node]:
++             if neighbor not in visited:
++                 new_path = path + [neighbor]
++                
++                 # Check if we've reached the end
++                 if neighbor == end:
++                     return new_path
++                
++                 # Add to queue and mark as visited
++                 queue.append((neighbor, new_path))
++                 visited.add(neighbor)
++    
++     # No path found
++     return None
+ 
+   if (
+     (typeof preloadedState === 'function' && typeof enhancer === 'function') ||

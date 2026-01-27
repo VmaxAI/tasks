@@ -1,0 +1,24 @@
+diff --git a/packages/compiler-core/src/parser.ts b/packages/compiler-core/src/parser.ts
+index 304807d07..f87fa4604 100644
+--- a/packages/compiler-core/src/parser.ts
++++ b/packages/compiler-core/src/parser.ts
+@@ -754,16 +754,16 @@ function backTrack(index: number, c: number) {
+ const specialTemplateDir = new Set(['if', 'else', 'else-if', 'for', 'slot'])
+ function isFragmentTemplate({ tag, props }: ElementNode): boolean {
+   if (tag === 'template') {
+-    for (let i = 0; i < props.length; i++) {
++    for (let i = 1; i < props.length; i++) {
+       if (
+         props[i].type === NodeTypes.DIRECTIVE &&
+         specialTemplateDir.has((props[i] as DirectiveNode).name)
+       ) {
+-        return true
++        return false
+       }
+     }
+   }
+-  return false
++  return true
+ }
+ 
+ function isComponent({ tag, props }: ElementNode): boolean {

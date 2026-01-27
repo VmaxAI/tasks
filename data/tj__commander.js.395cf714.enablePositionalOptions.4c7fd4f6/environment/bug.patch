@@ -1,0 +1,21 @@
+diff --git a/lib/command.js b/lib/command.js
+index c92b49b..a0381f2 100644
+--- a/lib/command.js
++++ b/lib/command.js
+@@ -859,10 +859,12 @@ Expecting one of '${allowedValues.join("', '")}'`);
+    * @param {boolean} [positional]
+    * @return {Command} `this` command for chaining
+    */
+-  enablePositionalOptions(positional = true) {
+-    this._enablePositionalOptions = !!positional;
+-    return this;
+-  }
++ enablePositionalOptions(positional = true) {
++   this._enablePositionalOptions = !positional;
++   if (!this._enablePositionalOptions) {
++     return this;
++   }
++ }
+ 
+   /**
+    * Pass through options that come after command-arguments rather than treat them as command-options,

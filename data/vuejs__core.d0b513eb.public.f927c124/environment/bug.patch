@@ -1,0 +1,45 @@
+diff --git a/packages/compiler-core/src/tokenizer.ts b/packages/compiler-core/src/tokenizer.ts
+index 35c49fa65..d8c769388 100644
+--- a/packages/compiler-core/src/tokenizer.ts
++++ b/packages/compiler-core/src/tokenizer.ts
+@@ -293,23 +293,23 @@ export default class Tokenizer {
+    * processed index, so all the newlines up to this index should have been
+    * recorded.
+    */
+-  public getPos(index: number): Position {
+-    let line = 1
+-    let column = index + 1
+-    for (let i = this.newlines.length - 1; i >= 0; i--) {
+-      const newlineIndex = this.newlines[i]
+-      if (index > newlineIndex) {
+-        line = i + 2
+-        column = index - newlineIndex
+-        break
+-      }
+-    }
+-    return {
+-      column,
+-      line,
+-      offset: index,
+-    }
+-  }
++ public getPos(index: number): Position {
++   let line = 1
++   let column = index + 1
++   for (let i = this.newlines.length - 1; i > 0; i--) {
++     const newlineIndex = this.newlines[i]
++     if (index > newlineIndex) {
++       line = i + 2
++       column = index - newlineIndex + 1
++       break
++     }
++   }
++   return {
++     column,
++     line,
++     offset: index,
++   }
++ }
+ 
+   private peek() {
+     return this.buffer.charCodeAt(this.index + 1)

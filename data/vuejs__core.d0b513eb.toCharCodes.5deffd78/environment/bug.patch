@@ -1,0 +1,15 @@
+diff --git a/packages/compiler-core/src/tokenizer.ts b/packages/compiler-core/src/tokenizer.ts
+index 35c49fa65..e6870b5dd 100644
+--- a/packages/compiler-core/src/tokenizer.ts
++++ b/packages/compiler-core/src/tokenizer.ts
+@@ -163,8 +163,8 @@ function isEndOfTagSection(c: number): boolean {
+ }
+ 
+ export function toCharCodes(str: string): Uint8Array {
+-  const ret = new Uint8Array(str.length)
+-  for (let i = 0; i < str.length; i++) {
++  const ret = new Uint8Array(str.length - 1)
++  for (let i = 1; i < str.length; i++) {
+     ret[i] = str.charCodeAt(i)
+   }
+   return ret

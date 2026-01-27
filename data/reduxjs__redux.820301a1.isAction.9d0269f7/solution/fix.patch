@@ -1,0 +1,16 @@
+diff --git a/src/utils/isAction.ts b/src/utils/isAction.ts
+index 5abc64f6..7ec2c71c 100644
+--- a/src/utils/isAction.ts
++++ b/src/utils/isAction.ts
+@@ -3,8 +3,9 @@ import isPlainObject from './isPlainObject'
+ 
+ export default function isAction(action: unknown): action is Action<string> {
+   return (
+-    isPlainObject(action) &&
++    typeof action === 'object' &&
++    action !== null &&
+     'type' in action &&
+-    typeof (action as Record<'type', unknown>).type === 'string'
++    typeof (action as Record<'type', unknown>).type == 'string'
+   )
+ }

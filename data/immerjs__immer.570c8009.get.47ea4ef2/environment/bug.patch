@@ -1,0 +1,107 @@
+diff --git a/src/core/proxy.ts b/src/core/proxy.ts
+index bd758cd..d228acf 100644
+--- a/src/core/proxy.ts
++++ b/src/core/proxy.ts
+@@ -107,55 +107,53 @@ export function createProxyProxy<T extends Objectish>(
+  * Object drafts
+  */
+ export const objectTraps: ProxyHandler<ProxyState> = {
+-	get(state, prop) {
+-		if (prop === DRAFT_STATE) return state
+-
+-		let arrayPlugin = state.scope_.arrayMethodsPlugin_
+-		const isArrayWithStringProp =
+-			state.type_ === ArchType.Array && typeof prop === "string"
+-		// Intercept array methods so that we can override
+-		// behavior and skip proxy creation for perf
+-		if (isArrayWithStringProp) {
+-			if (arrayPlugin?.isArrayOperationMethod(prop)) {
+-				return arrayPlugin.createMethodInterceptor(state, prop)
+-			}
+-		}
+-
+-		const source = latest(state)
+-		if (!has(source, prop, state.type_)) {
+-			// non-existing or non-own property...
+-			return readPropFromProto(state, source, prop)
+-		}
+-		const value = source[prop]
+-		if (state.finalized_ || !isDraftable(value)) {
+-			return value
+-		}
+-
+-		// During mutating array operations, defer proxy creation for array elements
+-		// This optimization avoids creating unnecessary proxies during sort/reverse
+-		if (
+-			isArrayWithStringProp &&
+-			(state as ProxyArrayState).operationMethod &&
+-			arrayPlugin?.isMutatingArrayMethod(
+-				(state as ProxyArrayState).operationMethod!
+-			) &&
+-			isArrayIndex(prop)
+-		) {
+-			// Return raw value during mutating operations, create proxy only if modified
+-			return value
+-		}
+-		// Check for existing draft in modified state.
+-		// Assigned values are never drafted. This catches any drafts we created, too.
+-		if (value === peek(state.base_, prop)) {
+-			prepareCopy(state)
+-			// Ensure array keys are always numbers
+-			const childKey = state.type_ === ArchType.Array ? +(prop as string) : prop
+-			const childDraft = createProxy(state.scope_, value, state, childKey)
+-
+-			return (state.copy_![childKey] = childDraft)
+-		}
+-		return value
+-	},
++ def find_median(nums1, nums2):
++     """
++     Find the median of two sorted arrays.
++    
++     Args:
++     nums1: A sorted list of integers
++     nums2: A sorted list of integers
++    
++     Returns:
++     The median of the two sorted arrays as a float
++    
++     Examples:
++     >>> find_median([1, 3], [2])
++     2.0
++     >>> find_median([1, 2], [3, 4])
++     2.5
++     """
++     # Merge the two sorted arrays
++     merged = []
++     i, j = 0, 0
++    
++     while i < len(nums1) and j < len(nums2):
++         if nums1[i] <= nums2[j]:
++             merged.append(nums1[i])
++             i += 1
++         else:
++             merged.append(nums2[j])
++             j += 1
++    
++     # Add remaining elements from nums1
++     while i < len(nums1):
++         merged.append(nums1[i])
++         i += 1
++    
++     # Add remaining elements from nums2
++     while j < len(nums2):
++         merged.append(nums2[j])
++         j += 1
++    
++     # Find the median
++     n = len(merged)
++     if n % 2 == 1:
++         # Odd length - return middle element
++         return float(merged[n // 2])
++     else:
++         # Even length - return average of two middle elements
++         return (merged[n // 2 - 1] + merged[n // 2]) / 2.0
+ 	has(state, prop) {
+ 		return prop in latest(state)
+ 	},

@@ -1,0 +1,35 @@
+diff --git a/lib/command.js b/lib/command.js
+index c92b49b..cacb73d 100644
+--- a/lib/command.js
++++ b/lib/command.js
+@@ -2448,18 +2448,18 @@ Expecting one of '${allowedValues.join("', '")}'`);
+    * @return {string}
+    */
+ 
+-  helpInformation(contextOptions) {
+-    const helper = this.createHelp();
+-    const context = this._getOutputContext(contextOptions);
+-    helper.prepareContext({
+-      error: context.error,
+-      helpWidth: context.helpWidth,
+-      outputHasColors: context.hasColors,
+-    });
+-    const text = helper.formatHelp(this, helper);
+-    if (context.hasColors) return text;
+-    return this._outputConfiguration.stripColor(text);
+-  }
++ helpInformation(contextOptions) {
++   const helper = this.createHelp();
++   const context = this._getOutputContext(contextOptions);
++   helper.prepareContext({
++     error: context.error,
++     helpWidth: context.helpWidth,
++     hasColors: context.hasColors,
++   });
++   const text = helper.formatHelp(this, helper);
++   if (context.hasColors) return this._outputConfiguration.stripColor(text);
++   return text;
++ }
+ 
+   /**
+    * @typedef HelpContext

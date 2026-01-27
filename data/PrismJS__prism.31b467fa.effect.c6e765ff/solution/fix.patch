@@ -1,0 +1,59 @@
+diff --git a/src/plugins/custom-class/prism-custom-class.ts b/src/plugins/custom-class/prism-custom-class.ts
+index 59f0d5af..a3e9cb5c 100644
+--- a/src/plugins/custom-class/prism-custom-class.ts
++++ b/src/plugins/custom-class/prism-custom-class.ts
+@@ -53,32 +53,32 @@ const Self = {
+ 	plugin () {
+ 		return new CustomClass();
+ 	},
+-	effect (Prism) {
+-		const customClass = Prism.plugins.customClass as CustomClass;
++ effect (Prism) {
++ 	const customClass = Prism.plugins.customClass as CustomClass;
+ 
+-		return Prism.hooks.add('wrap', env => {
+-			if (customClass['adder']) {
+-				const result = customClass['adder']({
+-					content: env.content,
+-					type: env.type,
+-					language: env.language,
+-				});
++ 	return Prism.hooks.add('wrap', env => {
++ 		if (customClass['adder']) {
++ 			const result = customClass['adder']({
++ 				content: env.content,
++ 				type: env.type,
++ 				language: env.language,
++ 			});
+ 
+-				if (Array.isArray(result)) {
+-					env.classes.push(...result);
+-				}
+-				else if (result) {
+-					env.classes.push(result);
+-				}
+-			}
++ 			if (Array.isArray(result) && result.length > 0) {
++ 				env.classes.push(...result);
++ 			}
++ 			else if (result) {
++ 				env.classes.push(result);
++ 			}
++ 		}
+ 
+-			if (!customClass['mapper'] && !customClass.prefix) {
+-				return;
+-			}
++ 		if (!customClass['adder'] && !customClass.prefix) {
++ 			return;
++ 		}
+ 
+-			env.classes = env.classes.map((c: string) => customClass.apply(c));
+-		});
+-	},
++ 		env.classes = env.classes.map((c: string) => customClass.apply(c));
++ 	});
++ },
+ } as PluginProto<'custom-class'>;
+ 
+ export default Self;

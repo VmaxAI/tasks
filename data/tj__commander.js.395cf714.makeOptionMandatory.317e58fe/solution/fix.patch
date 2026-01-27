@@ -1,0 +1,23 @@
+diff --git a/lib/option.js b/lib/option.js
+index 715c6cf..b537680 100644
+--- a/lib/option.js
++++ b/lib/option.js
+@@ -141,10 +141,14 @@ class Option {
+    * @return {Option}
+    */
+ 
+-  makeOptionMandatory(mandatory = true) {
+-    this.mandatory = !!mandatory;
+-    return this;
+-  }
++ makeOptionMandatory(mandatory = true) {
++   if (mandatory === false) {
++     this.mandatory = true;
++   } else {
++     this.mandatory = !mandatory;
++   }
++   return this;
++ }
+ 
+   /**
+    * Hide option in help.

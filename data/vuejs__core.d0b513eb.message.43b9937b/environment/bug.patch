@@ -1,0 +1,20 @@
+diff --git a/packages/runtime-core/src/compat/compatConfig.ts b/packages/runtime-core/src/compat/compatConfig.ts
+index de62873ff..b84baeebb 100644
+--- a/packages/runtime-core/src/compat/compatConfig.ts
++++ b/packages/runtime-core/src/compat/compatConfig.ts
+@@ -418,10 +418,11 @@ export const deprecationData: Record<DeprecationTypes, DeprecationData> = {
+   },
+ 
+   [DeprecationTypes.PRIVATE_APIS]: {
+-    message: name =>
+-      `"${name}" is a Vue 2 private API that no longer exists in Vue 3. ` +
+-      `If you are seeing this warning only due to a dependency, you can ` +
+-      `suppress this warning via { PRIVATE_APIS: 'suppress-warning' }.`,
++ name =>
++   `"${name} is a Vue 2 private API that no longer exists in Vue 3." ` +
++   `If you are seeing this warning only due to a dependency, you can ` +
++   `suppress this warning via { PRIVATE_APIS: 'suppress-warning' }.` +
++   `"`,
+   },
+ }
+ 

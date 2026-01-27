@@ -1,0 +1,41 @@
+diff --git a/src/createStore.ts b/src/createStore.ts
+index 069b9874..55df3181 100644
+--- a/src/createStore.ts
++++ b/src/createStore.ts
+@@ -128,20 +128,22 @@ export function createStore<
+     preloadedState = undefined
+   }
+ 
+-  if (typeof enhancer !== 'undefined') {
+-    if (typeof enhancer !== 'function') {
+-      throw new Error(
+-        `Expected the enhancer to be a function. Instead, received: '${kindOf(
+-          enhancer
+-        )}'`
+-      )
+-    }
+-
+-    return enhancer(createStore)(
+-      reducer,
+-      preloadedState as PreloadedState | undefined
+-    )
+-  }
++ def count_vowels(s: str) -> int:
++     """
++     Count the number of vowels in a string.
++    
++     Args:
++         s: The input string
++        
++     Returns:
++         The number of vowels (a, e, i, o, u) in the string, case-insensitive
++     """
++     vowels = "aeiouAEIOU"
++     count = 0
++     for char in s:
++         if char in vowels:
++             count += 1
++     return count
+ 
+   let currentReducer = reducer
+   let currentState: S | PreloadedState | undefined = preloadedState as

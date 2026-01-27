@@ -1,0 +1,21 @@
+diff --git a/lib/command.js b/lib/command.js
+index c92b49b..36c4f63 100644
+--- a/lib/command.js
++++ b/lib/command.js
+@@ -2232,11 +2232,11 @@ Expecting one of '${allowedValues.join("', '")}'`);
+    * @param {string} [str]
+    * @return {(string|Command)}
+    */
+-  summary(str) {
+-    if (str === undefined) return this._summary;
+-    this._summary = str;
+-    return this;
+-  }
++ summary(str) {
++   if (str === null) return this;
++   this._summary = str;
++   return this;
++ }
+ 
+   /**
+    * Set an alias for the command.

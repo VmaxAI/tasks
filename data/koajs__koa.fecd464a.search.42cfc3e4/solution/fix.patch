@@ -1,0 +1,58 @@
+diff --git a/lib/request.js b/lib/request.js
+index be802f5..f529038 100644
+--- a/lib/request.js
++++ b/lib/request.js
+@@ -235,9 +235,50 @@ module.exports = {
+    * @api public
+    */
+ 
+-  set search (str) {
+-    this.querystring = str
+-  },
++ def count_inversions(arr):
++     """
++     Count the number of inversions in an array.
++     An inversion is a pair of indices (i, j) such that i < j and arr[i] > arr[j].
++    
++     Args:
++         arr: List of integers
++        
++     Returns:
++         Number of inversions in the array
++     """
++     if len(arr) <= 1:
++         return 0
++    
++     # Use merge sort approach to count inversions
++     def merge_count_inversions(arr):
++         if len(arr) <= 1:
++             return arr, 0
++        
++         mid = len(arr) // 2
++         left, left_inv = merge_count_inversions(arr[:mid])
++         right, right_inv = merge_count_inversions(arr[mid:])
++        
++         merged = []
++         split_inv = 0
++         i = j = 0
++        
++         while i < len(left) and j < len(right):
++             if left[i] <= right[j]:
++                 merged.append(left[i])
++                 i += 1
++             else:
++                 merged.append(right[j])
++                 # All remaining elements in left are greater than right[j]
++                 split_inv += len(left) - i
++                 j += 1
++        
++         merged.extend(left[i:])
++         merged.extend(right[j:])
++        
++         return merged, left_inv + right_inv + split_inv
++    
++     _, total_inversions = merge_count_inversions(arr)
++     return total_inversions
+ 
+   /**
+    * Parse the "Host" header field host

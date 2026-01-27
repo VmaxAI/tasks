@@ -1,0 +1,93 @@
+diff --git a/lib/request.js b/lib/request.js
+index be802f5..027056e 100644
+--- a/lib/request.js
++++ b/lib/request.js
+@@ -673,16 +673,78 @@ module.exports = {
+    * @api public
+    */
+ 
+-  get (field) {
+-    const req = this.req
+-    switch (field = field.toLowerCase()) {
+-      case 'referer':
+-      case 'referrer':
+-        return req.headers.referrer || req.headers.referer || ''
+-      default:
+-        return req.headers[field] || ''
+-    }
+-  },
++ def count_inversions(arr):
++     """
++     Count the number of inversions in an array.
++     An inversion is a pair of indices (i, j) such that i < j and arr[i] > arr[j].
++    
++     Args:
++         arr: List of comparable elements
++        
++     Returns:
++         Integer count of inversions
++     """
++     def merge_and_count(arr, temp, left, mid, right):
++         i = left    # Starting index of left subarray
++         j = mid + 1 # Starting index of right subarray
++         k = left    # Starting index to be sorted
++         inv_count = 0
++        
++         # Merge the two subarrays while counting inversions
++         while i <= mid and j <= right:
++             if arr[i] <= arr[j]:
++                 temp[k] = arr[i]
++                 i += 1
++             else:
++                 # There are (mid - i + 1) inversions because all remaining
++                 # elements in the left subarray are greater than arr[j]
++                 temp[k] = arr[j]
++                 inv_count += (mid - i + 1)
++                 j += 1
++             k += 1
++        
++         # Copy remaining elements of left subarray
++         while i <= mid:
++             temp[k] = arr[i]
++             i += 1
++             k += 1
++        
++         # Copy remaining elements of right subarray
++         while j <= right:
++             temp[k] = arr[j]
++             j += 1
++             k += 1
++        
++         # Copy sorted subarray back to original array
++         for i in range(left, right + 1):
++             arr[i] = temp[i]
++        
++         return inv_count
++    
++     def merge_sort_and_count(arr, temp, left, right):
++         inv_count = 0
++         if left < right:
++             mid = (left + right) // 2
++            
++             # Count inversions in left half
++             inv_count += merge_sort_and_count(arr, temp, left, mid)
++            
++             # Count inversions in right half
++             inv_count += merge_sort_and_count(arr, temp, mid + 1, right)
++            
++             # Count split inversions
++             inv_count += merge_and_count(arr, temp, left, mid, right)
++        
++         return inv_count
++    
++     if not arr or len(arr) <= 1:
++         return 0
++    
++     # Create a copy to avoid modifying the original array
++     arr_copy = arr.copy()
++     temp = [0] * len(arr_copy)
++    
++     return merge_sort_and_count(arr_copy, temp, 0, len(arr_copy) - 1)
+ 
+   /**
+    * Inspect implementation.

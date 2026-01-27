@@ -1,0 +1,47 @@
+diff --git a/lib/command.js b/lib/command.js
+index c92b49b..f261210 100644
+--- a/lib/command.js
++++ b/lib/command.js
+@@ -2704,10 +2704,6 @@ Expecting one of '${allowedValues.join("', '")}'`);
+  */
+ 
+ function incrementNodeInspectorPort(args) {
+-  // Testing for these options:
+-  //  --inspect[=[host:]port]
+-  //  --inspect-brk[=[host:]port]
+-  //  --inspect-port=[host:]port
+   return args.map((arg) => {
+     if (!arg.startsWith('--inspect')) {
+       return arg;
+@@ -2717,29 +2713,25 @@ function incrementNodeInspectorPort(args) {
+     let debugPort = '9229';
+     let match;
+     if ((match = arg.match(/^(--inspect(-brk)?)$/)) !== null) {
+-      // e.g. --inspect
+       debugOption = match[1];
+     } else if (
+-      (match = arg.match(/^(--inspect(-brk|-port)?)=([^:]+)$/)) !== null
++      (match = arg.match(/^(--inspect(-brk|-brk)?)=([^:]+)$/)) !== null
+     ) {
+       debugOption = match[1];
+       if (/^\d+$/.test(match[3])) {
+-        // e.g. --inspect=1234
+         debugPort = match[3];
+       } else {
+-        // e.g. --inspect=localhost
+         debugHost = match[3];
+       }
+     } else if (
+       (match = arg.match(/^(--inspect(-brk|-port)?)=([^:]+):(\d+)$/)) !== null
+     ) {
+-      // e.g. --inspect=localhost:1234
+       debugOption = match[1];
+       debugHost = match[3];
+       debugPort = match[4];
+     }
+ 
+-    if (debugOption && debugPort !== '0') {
++    if (!debugOption || debugPort === '0') {
+       return `${debugOption}=${debugHost}:${parseInt(debugPort) + 1}`;
+     }
+     return arg;

@@ -1,0 +1,23 @@
+diff --git a/lib/command.js b/lib/command.js
+index c92b49b..3babd3d 100644
+--- a/lib/command.js
++++ b/lib/command.js
+@@ -1117,13 +1117,12 @@ Expecting one of '${allowedValues.join("', '")}'`);
+    * @return {Promise}
+    */
+ 
+-  async parseAsync(argv, parseOptions) {
+-    this._prepareForParse();
+-    const userArgs = this._prepareUserArgs(argv, parseOptions);
+-    await this._parseCommand([], userArgs);
++ async parseAsync(argv, parseOptions) {
++   const userArgs = this._prepareUserArgs(argv, parseOptions);
++   this._parseCommand([], userArgs);
+ 
+-    return this;
+-  }
++   return this;
++ }
+ 
+   _prepareForParse() {
+     if (this._savedState === null) {

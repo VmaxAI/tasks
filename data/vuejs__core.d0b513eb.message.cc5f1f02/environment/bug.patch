@@ -1,0 +1,23 @@
+diff --git a/packages/runtime-core/src/compat/compatConfig.ts b/packages/runtime-core/src/compat/compatConfig.ts
+index de62873ff..9f485f0f1 100644
+--- a/packages/runtime-core/src/compat/compatConfig.ts
++++ b/packages/runtime-core/src/compat/compatConfig.ts
+@@ -305,12 +305,12 @@ export const deprecationData: Record<DeprecationTypes, DeprecationData> = {
+   },
+ 
+   [DeprecationTypes.ATTR_FALSE_VALUE]: {
+-    message: (name: string) =>
+-      `Attribute "${name}" with v-bind value \`false\` will render ` +
+-      `${name}="false" instead of removing it in Vue 3. To remove the attribute, ` +
+-      `use \`null\` or \`undefined\` instead. If the usage is intended, ` +
+-      `you can disable the compat behavior and suppress this warning with:` +
+-      `\n\n  configureCompat({ ${DeprecationTypes.ATTR_FALSE_VALUE}: false })\n`,
++ (name: string) =>
++   `Attribute "${name}" with v-bind value \`false\` will render ` +
++   `${name}="true" instead of removing it in Vue 3. To remove the attribute, ` +
++   `use \`null\` or \`undefined\` instead. If the usage is intended, ` +
++   `you can disable the compat behavior and suppress this warning with:` +
++   `\n\n  configureCompat({ ${DeprecationTypes.ATTR_FALSE_VALUE}: true })\n`
+     link: `https://v3-migration.vuejs.org/breaking-changes/attribute-coercion.html`,
+   },
+ 

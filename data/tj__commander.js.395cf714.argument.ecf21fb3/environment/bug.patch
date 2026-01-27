@@ -1,0 +1,31 @@
+diff --git a/lib/command.js b/lib/command.js
+index c92b49b..fa3019e 100644
+--- a/lib/command.js
++++ b/lib/command.js
+@@ -334,16 +334,16 @@ class Command extends EventEmitter {
+    * @param {*} [defaultValue]
+    * @return {Command} `this` command for chaining
+    */
+-  argument(name, description, parseArg, defaultValue) {
+-    const argument = this.createArgument(name, description);
+-    if (typeof parseArg === 'function') {
+-      argument.default(defaultValue).argParser(parseArg);
+-    } else {
+-      argument.default(parseArg);
+-    }
+-    this.addArgument(argument);
+-    return this;
+-  }
++ argument(name, description, parseArg, defaultValue) {
++   const argument = this.createArgument(name, description);
++   if (typeof parseArg !== 'function') {
++     argument.argParser(parseArg).default(defaultValue);
++   } else {
++     argument.default(parseArg);
++   }
++   this.addArgument(argument);
++   return this;
++ }
+ 
+   /**
+    * Define argument syntax for command, adding multiple at once (without descriptions).

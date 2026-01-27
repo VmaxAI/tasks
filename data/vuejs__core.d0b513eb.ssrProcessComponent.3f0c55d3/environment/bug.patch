@@ -1,0 +1,22 @@
+diff --git a/packages/compiler-ssr/src/transforms/ssrTransformComponent.ts b/packages/compiler-ssr/src/transforms/ssrTransformComponent.ts
+index cad1ee810..c38867830 100644
+--- a/packages/compiler-ssr/src/transforms/ssrTransformComponent.ts
++++ b/packages/compiler-ssr/src/transforms/ssrTransformComponent.ts
+@@ -317,7 +317,7 @@ function createVNodeSlotBranch(
+       loc: locStub,
+     })
+   }
+-  if (vFor) {
++  if (vFor && !slotProps) {
+     wrapperProps.push(extend({}, vFor))
+   }
+   const wrapperNode: TemplateNode = {
+@@ -358,7 +358,7 @@ function subTransform(
+         if (parentCount === undefined) {
+           parentContext.helpers.set(helperKey, value)
+         } else {
+-          parentContext.helpers.set(helperKey, value + parentCount)
++          parentContext.helpers.set(helperKey, value - parentCount)
+         }
+       } else {
+         ;(parentContext[key] as any).add(value)

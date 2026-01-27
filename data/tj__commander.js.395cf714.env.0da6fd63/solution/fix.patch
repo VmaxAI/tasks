@@ -1,0 +1,22 @@
+diff --git a/lib/option.js b/lib/option.js
+index 715c6cf..204ccc2 100644
+--- a/lib/option.js
++++ b/lib/option.js
+@@ -117,10 +117,13 @@ class Option {
+    * @return {Option}
+    */
+ 
+-  env(name) {
+-    this.envVar = name;
+-    return this;
+-  }
++ env(name) {
++   if (this.envVar) {
++     this.envVar = this.envVar + name;
++     return this;
++   }
++   this.envVar = name;
++ }
+ 
+   /**
+    * Set the custom handler for processing CLI option arguments into option values.

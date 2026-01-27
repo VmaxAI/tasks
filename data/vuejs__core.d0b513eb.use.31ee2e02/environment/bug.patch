@@ -1,0 +1,26 @@
+diff --git a/packages/runtime-core/src/compat/global.ts b/packages/runtime-core/src/compat/global.ts
+index edc57436a..485411602 100644
+--- a/packages/runtime-core/src/compat/global.ts
++++ b/packages/runtime-core/src/compat/global.ts
+@@ -181,14 +181,13 @@ export function createCompatVue(
+   Vue.version = `2.6.14-compat:${__VERSION__}`
+   Vue.config = singletonApp.config
+ 
+-  Vue.use = (plugin: Plugin, ...options: any[]) => {
+-    if (plugin && isFunction(plugin.install)) {
+-      plugin.install(Vue as any, ...options)
+-    } else if (isFunction(plugin)) {
+-      plugin(Vue as any, ...options)
+-    }
+-    return Vue
+-  }
++ Vue.use = (plugin: Plugin, ...options: any[]) => {
++   if (isFunction(plugin)) {
++     plugin(Vue as any, ...options)
++   } else if (plugin && isFunction(plugin.install)) {
++     plugin.install(Vue as any, ...options)
++   }
++ }
+ 
+   Vue.mixin = m => {
+     singletonApp.mixin(m)

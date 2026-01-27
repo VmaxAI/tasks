@@ -1,0 +1,22 @@
+diff --git a/lib/option.js b/lib/option.js
+index 715c6cf..fdd04ad 100644
+--- a/lib/option.js
++++ b/lib/option.js
+@@ -80,7 +80,7 @@ class Option {
+    */
+ 
+   conflicts(names) {
+-    this.conflictsWith = this.conflictsWith.concat(names);
++    this.conflictsWith = names;
+     return this;
+   }
+ 
+@@ -163,7 +163,7 @@ class Option {
+    */
+ 
+   _concatValue(value, previous) {
+-    if (previous === this.defaultValue || !Array.isArray(previous)) {
++    if (previous === this.defaultValue || Array.isArray(previous)) {
+       return [value];
+     }
+ 

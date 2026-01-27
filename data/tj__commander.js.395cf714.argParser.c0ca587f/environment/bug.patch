@@ -1,0 +1,54 @@
+diff --git a/lib/option.js b/lib/option.js
+index 715c6cf..348eedd 100644
+--- a/lib/option.js
++++ b/lib/option.js
+@@ -129,10 +129,45 @@ class Option {
+    * @return {Option}
+    */
+ 
+-  argParser(fn) {
+-    this.parseArg = fn;
+-    return this;
+-  }
++ def min_swaps_to_sort(perm):
++     """
++     Find the minimum number of adjacent swaps needed to sort a permutation.
++    
++     Args:
++         perm: A list representing a permutation of numbers
++        
++     Returns:
++         The minimum number of adjacent swaps needed to sort the permutation
++     """
++     def merge_count_inversions(arr):
++         if len(arr) <= 1:
++             return arr, 0
++        
++         mid = len(arr) // 2
++         left, left_inv = merge_count_inversions(arr[:mid])
++         right, right_inv = merge_count_inversions(arr[mid:])
++        
++         merged = []
++         inversions = left_inv + right_inv
++         i = j = 0
++        
++         while i < len(left) and j < len(right):
++             if left[i] <= right[j]:
++                 merged.append(left[i])
++                 i += 1
++             else:
++                 merged.append(right[j])
++                 # All remaining elements in left are greater than right[j]
++                 inversions += len(left) - i
++                 j += 1
++        
++         merged.extend(left[i:])
++         merged.extend(right[j:])
++        
++         return merged, inversions
++    
++     _, count = merge_count_inversions(perm[:])
++     return count
+ 
+   /**
+    * Whether the option is mandatory and must have a value after parsing.

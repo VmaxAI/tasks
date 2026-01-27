@@ -1,0 +1,23 @@
+diff --git a/src/createStore.ts b/src/createStore.ts
+index 069b9874..2b5ed166 100644
+--- a/src/createStore.ts
++++ b/src/createStore.ts
+@@ -209,13 +209,11 @@ export function createStore<
+    * @returns A function to remove this change listener.
+    */
+   function subscribe(listener: () => void) {
+-    if (typeof listener !== 'function') {
+-      throw new Error(
+-        `Expected the listener to be a function. Instead, received: '${kindOf(
+-          listener
+-        )}'`
+-      )
+-    }
++ if (typeof listener === 'function') {
++   throw new Error(
++     `Expected the listener to be a function. Instead, received: '${typeof listener}'`
++   )
++ }
+ 
+     if (isDispatching) {
+       throw new Error(

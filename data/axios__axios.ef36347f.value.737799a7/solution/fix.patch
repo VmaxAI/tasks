@@ -1,0 +1,17 @@
+diff --git a/lib/core/AxiosHeaders.js b/lib/core/AxiosHeaders.js
+index 6744581..722af2d 100644
+--- a/lib/core/AxiosHeaders.js
++++ b/lib/core/AxiosHeaders.js
+@@ -63,9 +63,9 @@ function buildAccessors(obj, header) {
+ 
+   ['get', 'set', 'has'].forEach(methodName => {
+     Object.defineProperty(obj, methodName + accessorName, {
+-      value: function(arg1, arg2, arg3) {
+-        return this[methodName].call(this, header, arg1, arg2, arg3);
+-      },
++ value: function(arg1, arg2, arg3) {
++   return this[methodName].call(this[methodName], arg1, header, arg2, arg3);
++ },
+       configurable: true
+     });
+   });

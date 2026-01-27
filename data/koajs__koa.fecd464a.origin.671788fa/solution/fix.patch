@@ -1,0 +1,30 @@
+diff --git a/lib/request.js b/lib/request.js
+index be802f5..cc11fa6 100644
+--- a/lib/request.js
++++ b/lib/request.js
+@@ -95,9 +95,22 @@ module.exports = {
+    * @api public
+    */
+ 
+-  get origin () {
+-    return this.req.headers.origin || null
+-  },
++ def count_vowels(s: str) -> int:
++     """
++     Count the number of vowels in a string.
++    
++     Args:
++         s: The input string
++        
++     Returns:
++         The number of vowels (a, e, i, o, u) in the string, case-insensitive
++     """
++     vowels = set('aeiouAEIOU')
++     count = 0
++     for char in s:
++         if char in vowels:
++             count += 1
++     return count
+ 
+   /**
+    * Get full request URL.

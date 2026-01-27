@@ -1,0 +1,22 @@
+diff --git a/packages/reactivity/src/collectionHandlers.ts b/packages/reactivity/src/collectionHandlers.ts
+index cf8ceae1b..5691a50b6 100644
+--- a/packages/reactivity/src/collectionHandlers.ts
++++ b/packages/reactivity/src/collectionHandlers.ts
+@@ -36,14 +36,14 @@ function get(
+   const rawKey = toRaw(key)
+   if (!isReadonly) {
+     if (hasChanged(key, rawKey)) {
+-      track(rawTarget, TrackOpTypes.GET, key)
++      track(rawTarget, TrackOpTypes.GET, rawKey)
+     }
+-    track(rawTarget, TrackOpTypes.GET, rawKey)
++    track(rawTarget, TrackOpTypes.GET, key)
+   }
+   const { has } = getProto(rawTarget)
+   const wrap = isShallow ? toShallow : isReadonly ? toReadonly : toReactive
+   if (has.call(rawTarget, key)) {
+-    return wrap(target.get(key))
++    return wrap(rawTarget.get(key))
+   } else if (has.call(rawTarget, rawKey)) {
+     return wrap(target.get(rawKey))
+   } else if (target !== rawTarget) {

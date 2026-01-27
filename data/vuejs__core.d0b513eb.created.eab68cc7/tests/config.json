@@ -1,0 +1,1 @@
+{"instance_id": "vuejs__core.d0b513eb.created.eab68cc7", "repo": "vuejs__core.d0b513eb", "FAIL_TO_PASS": ["packages/runtime-dom/__tests__/directives/vModel.spec.ts > vModel > should work with radio", "vitest_test_suite"]}

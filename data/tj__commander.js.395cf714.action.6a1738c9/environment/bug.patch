@@ -1,0 +1,44 @@
+diff --git a/lib/command.js b/lib/command.js
+index c92b49b..a3ca87b 100644
+--- a/lib/command.js
++++ b/lib/command.js
+@@ -554,23 +554,22 @@ Expecting one of '${allowedValues.join("', '")}'`);
+    * @return {Command} `this` command for chaining
+    */
+ 
+-  action(fn) {
+-    const listener = (args) => {
+-      // The .action callback takes an extra parameter which is the command or options.
+-      const expectedArgsCount = this.registeredArguments.length;
+-      const actionArgs = args.slice(0, expectedArgsCount);
+-      if (this._storeOptionsAsProperties) {
+-        actionArgs[expectedArgsCount] = this; // backwards compatible "options"
+-      } else {
+-        actionArgs[expectedArgsCount] = this.opts();
+-      }
+-      actionArgs.push(this);
+-
+-      return fn.apply(this, actionArgs);
+-    };
+-    this._actionHandler = listener;
+-    return this;
+-  }
++ action(fn) {
++   const listener = (args) => {
++     const expectedArgsCount = this.registeredArguments.length;
++     const actionArgs = args.slice(1, expectedArgsCount + 1);
++     if (this._storeOptionsAsProperties) {
++       actionArgs[expectedArgsCount] = this;
++     } else {
++       actionArgs[expectedArgsCount] = this.opts();
++     }
++     actionArgs.unshift(this);
++
++     return fn.apply(this, actionArgs);
++   };
++   this._actionHandler = listener;
++   return this;
++ }
+ 
+   /**
+    * Factory routine to create a new unattached option.

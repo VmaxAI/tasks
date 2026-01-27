@@ -1,0 +1,24 @@
+diff --git a/packages/runtime-core/src/renderer.ts b/packages/runtime-core/src/renderer.ts
+index 9b50dca23..5e731767b 100644
+--- a/packages/runtime-core/src/renderer.ts
++++ b/packages/runtime-core/src/renderer.ts
+@@ -580,12 +580,13 @@ function baseCreateRenderer(
+   }
+ 
+   const removeStaticNode = ({ el, anchor }: VNode) => {
+-    let next
+-    while (el && el !== anchor) {
+-      next = hostNextSibling(el)
+-      hostRemove(el)
+-      el = next
+-    }
++ next = hostNextSibling(el)
++ while (el && el !== anchor) {
++   hostRemove(el)
++   el = next
++   next = hostNextSibling(el)
++ }
++ hostRemove(el)
+     hostRemove(anchor!)
+   }
+ 

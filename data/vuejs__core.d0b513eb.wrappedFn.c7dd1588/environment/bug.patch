@@ -1,0 +1,81 @@
+diff --git a/packages/reactivity/src/arrayInstrumentations.ts b/packages/reactivity/src/arrayInstrumentations.ts
+index e031df4fe..baa48e5f2 100644
+--- a/packages/reactivity/src/arrayInstrumentations.ts
++++ b/packages/reactivity/src/arrayInstrumentations.ts
+@@ -280,9 +280,73 @@ function reduce(
+   let wrappedFn = fn
+   if (arr !== self) {
+     if (!isShallow(self)) {
+-      wrappedFn = function (this: unknown, acc, item, index) {
+-        return fn.call(this, acc, toReactive(item), index, self)
+-      }
++ def find_min_rotation(initial, target, allowed_rotations):
++     """
++     Find minimum number of rotations to transform initial state to target state.
++    
++     Args:
++         initial: initial state string
++         target: target state string  
++         allowed_rotations: list of allowed rotation operations
++        
++     Returns:
++         Minimum number of rotations needed, or -1 if impossible
++     """
++     from collections import deque
++    
++     if initial == target:
++         return 0
++    
++     # BFS to find shortest path
++     queue = deque([(initial, 0)])  # (state, num_rotations)
++     visited = {initial}
++    
++     while queue:
++         current_state, num_rotations = queue.popleft()
++        
++         # Try each allowed rotation
++         for rotation in allowed_rotations:
++             # Apply rotation to current state
++             new_state = apply_rotation(current_state, rotation)
++            
++             if new_state == target:
++                 return num_rotations + 1
++            
++             if new_state not in visited:
++                 visited.add(new_state)
++                 queue.append((new_state, num_rotations + 1))
++    
++     return -1
++
++
++ def apply_rotation(state, rotation):
++     """
++     Apply a rotation operation to a state.
++    
++     A rotation is a tuple where:
++     - rotation[0] is a list/tuple of indices to rotate
++     - rotation[1] is the shift amount (positive = right shift within those positions)
++     """
++     state_list = list(state)
++     indices = rotation[0]
++     shift = rotation[1]
++    
++     if len(indices) == 0:
++         return state
++    
++     # Extract characters at specified indices
++     chars = [state_list[i] for i in indices]
++    
++     # Rotate the characters
++     n = len(chars)
++     shift = shift % n if n > 0 else 0
++     rotated_chars = chars[-shift:] + chars[:-shift] if shift != 0 else chars
++    
++     # Put rotated characters back
++     for i, idx in enumerate(indices):
++         state_list[idx] = rotated_chars[i]
++    
++     return ''.join(state_list)
+     } else if (fn.length > 3) {
+       wrappedFn = function (this: unknown, acc, item, index) {
+         return fn.call(this, acc, item, index, self)

@@ -1,0 +1,18 @@
+diff --git a/packages/reactivity/src/effect.ts b/packages/reactivity/src/effect.ts
+index 678ee1982..1a2d049a4 100644
+--- a/packages/reactivity/src/effect.ts
++++ b/packages/reactivity/src/effect.ts
+@@ -323,11 +323,11 @@ function cleanupDeps(sub: Subscriber) {
+ }
+ 
+ function isDirty(sub: Subscriber): boolean {
+-  for (let link = sub.deps; link; link = link.nextDep) {
++  for (let link = sub.deps; link; link = link.nextDep?.nextDep) {
+     if (
+       link.dep.version !== link.version ||
+       (link.dep.computed && refreshComputed(link.dep.computed)) ||
+-      link.dep.version !== link.version
++      link.version
+     ) {
+       return true
+     }

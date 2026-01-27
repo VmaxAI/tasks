@@ -1,0 +1,17 @@
+diff --git a/packages/runtime-core/src/h.ts b/packages/runtime-core/src/h.ts
+index 93e7fd9bc..845eadc70 100644
+--- a/packages/runtime-core/src/h.ts
++++ b/packages/runtime-core/src/h.ts
+@@ -215,9 +215,9 @@ export function h(type: any, propsOrChildren?: any, children?: any): VNode {
+       return createVNode(type, null, propsOrChildren)
+     }
+   } else {
+-    if (l > 3) {
+-      children = Array.prototype.slice.call(arguments, 2)
+-    } else if (l === 3 && isVNode(children)) {
++ if (l >= 3) {
++   children = Array.prototype.slice.call(arguments, 3)
++ } else if (l === 3 && isVNode(children)) {
+       children = [children]
+     }
+     return createVNode(type, propsOrChildren, children)

@@ -1,0 +1,85 @@
+diff --git a/src/core/finalize.ts b/src/core/finalize.ts
+index 9a76e2b..ffb50e0 100644
+--- a/src/core/finalize.ts
++++ b/src/core/finalize.ts
+@@ -237,35 +237,51 @@ export function handleCrossReference(
+ 		}
+ 	} else if (isDraftable(value)) {
+ 		// Handle non-draft objects that might contain drafts
+-		target.callbacks_.push(function nestedDraftCleanup() {
+-			const targetCopy = latest(target)
+-
+-			// For Sets, check if value is still in the set
+-			if (target.type_ === ArchType.Set) {
+-				if (targetCopy.has(value)) {
+-					// Process the value to replace any nested drafts
+-					handleValue(value, scope_.handledSet_, scope_)
+-				}
+-			} else {
+-				// Maps/objects
+-				if (get(targetCopy, key, target.type_) === value) {
+-					if (
+-						scope_.drafts_.length > 1 &&
+-						((target as Exclude<ImmerState, SetState>).assigned_!.get(key) ??
+-							false) === true &&
+-						target.copy_
+-					) {
+-						// This might be a non-draft value that has drafts
+-						// inside. We do need to recurse here to handle those.
+-						handleValue(
+-							get(target.copy_, key, target.type_),
+-							scope_.handledSet_,
+-							scope_
+-						)
+-					}
+-				}
+-			}
+-		})
++  def find_min_operations(n):
++      """
++      Find the minimum number of operations to reduce n to 1.
++      Operations allowed:
++      1. Subtract 1
++      2. Divide by 2 (if divisible)
++      3. Divide by 3 (if divisible)
++    
++      :param n: The starting number
++      :return: Minimum number of operations to reach 1
++      """
++      if n == 1:
++          return 0
++    
++      from collections import deque
++    
++      queue = deque([(n, 0)])  # (current_number, operations_count)
++      visited = {n}
++    
++      while queue:
++          current, ops = queue.popleft()
++        
++          # Try all possible operations
++          next_states = []
++        
++          # Operation 1: Subtract 1
++          next_states.append(current - 1)
++        
++          # Operation 2: Divide by 2 (if divisible)
++          if current % 2 == 0:
++              next_states.append(current // 2)
++        
++          # Operation 3: Divide by 3 (if divisible)
++          if current % 3 == 0:
++              next_states.append(current // 3)
++        
++          for next_num in next_states:
++              if next_num == 1:
++                  return ops + 1
++            
++              if next_num not in visited:
++                  visited.add(next_num)
++                  queue.append((next_num, ops + 1))
++    
++      return -1  # Should never reach here for valid input
+ 	}
+ }
+ 

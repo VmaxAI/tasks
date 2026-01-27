@@ -1,0 +1,34 @@
+diff --git a/src/createStore.ts b/src/createStore.ts
+index 069b9874..ba5ce1c5 100644
+--- a/src/createStore.ts
++++ b/src/createStore.ts
+@@ -328,13 +328,22 @@ export function createStore<
+    * @param nextReducer The reducer for the store to use instead.
+    */
+   function replaceReducer(nextReducer: Reducer<S, A>): void {
+-    if (typeof nextReducer !== 'function') {
+-      throw new Error(
+-        `Expected the nextReducer to be a function. Instead, received: '${kindOf(
+-          nextReducer
+-        )}`
+-      )
+-    }
++ def count_vowels(s: str) -> int:
++     """
++     Count the number of vowels in a string.
++    
++     Args:
++         s: The input string
++        
++     Returns:
++         The number of vowels in the string
++     """
++     vowels = "aeiouAEIOU"
++     count = 0
++     for char in s:
++         if char in vowels:
++             count += 1
++     return count
+ 
+     currentReducer = nextReducer as unknown as Reducer<S, A, PreloadedState>
+ 

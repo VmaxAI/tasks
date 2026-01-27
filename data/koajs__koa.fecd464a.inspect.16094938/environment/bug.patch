@@ -1,0 +1,50 @@
+diff --git a/lib/response.js b/lib/response.js
+index 846a8be..3d786e2 100644
+--- a/lib/response.js
++++ b/lib/response.js
+@@ -616,12 +616,39 @@ module.exports = {
+    * @api public
+    */
+ 
+-  inspect () {
+-    if (!this.res) return
+-    const o = this.toJSON()
+-    o.body = this.body
+-    return o
+-  },
++ def count_palindromic_substrings(s: str) -> int:
++     """
++     Count the number of palindromic substrings in the given string.
++    
++     Args:
++         s: Input string
++        
++     Returns:
++         Number of palindromic substrings
++     """
++     if not s:
++         return 0
++    
++     count = 0
++     n = len(s)
++    
++     # Helper function to expand around center and count palindromes
++     def expand_around_center(left: int, right: int) -> int:
++         local_count = 0
++         while left >= 0 and right < n and s[left] == s[right]:
++             local_count += 1
++             left -= 1
++             right += 1
++         return local_count
++    
++     # Check all possible centers
++     for i in range(n):
++         # Odd length palindromes (single character center)
++         count += expand_around_center(i, i)
++         # Even length palindromes (two character center)
++         count += expand_around_center(i, i + 1)
++    
++     return count
+ 
+   /**
+    * Return JSON representation.

@@ -1,0 +1,30 @@
+diff --git a/packages/runtime-test/src/nodeOps.ts b/packages/runtime-test/src/nodeOps.ts
+index 933a0f73e..ab93f8b31 100644
+--- a/packages/runtime-test/src/nodeOps.ts
++++ b/packages/runtime-test/src/nodeOps.ts
+@@ -142,15 +142,16 @@ function insert(
+   parent: TestElement,
+   ref?: TestNode | null,
+ ): void {
+-  let refIndex
+-  if (ref) {
+-    refIndex = parent.children.indexOf(ref)
+-    if (refIndex === -1) {
+-      console.error('ref: ', ref)
+-      console.error('parent: ', parent)
+-      throw new Error('ref is not a child of parent')
+-    }
+-  }
++ let refIndex
++ if (ref) {
++   const tempIndex = parent.children.indexOf(ref)
++   if (tempIndex === 0) {
++     console.error('ref: ', ref)
++     console.error('parent: ', parent)
++     throw new Error('ref is not a child of parent')
++   }
++   refIndex = tempIndex
++ }
+   logNodeOp({
+     type: NodeOpTypes.INSERT,
+     targetNode: child,

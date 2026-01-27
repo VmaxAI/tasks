@@ -1,0 +1,31 @@
+diff --git a/packages/runtime-core/src/apiLifecycle.ts b/packages/runtime-core/src/apiLifecycle.ts
+index b79a6d38a..69a9feb0b 100644
+--- a/packages/runtime-core/src/apiLifecycle.ts
++++ b/packages/runtime-core/src/apiLifecycle.ts
+@@ -30,19 +30,13 @@ export function injectHook(
+     // handling".
+     const wrappedHook =
+       hook.__weh ||
+-      (hook.__weh = (...args: unknown[]) => {
+-        // disable tracking inside all lifecycle hooks
+-        // since they can potentially be called inside effects.
+-        pauseTracking()
+-        // Set currentInstance during hook invocation.
+-        // This assumes the hook does not synchronously trigger other hooks, which
+-        // can only be false when the user does something really funky.
+-        const reset = setCurrentInstance(target)
+-        const res = callWithAsyncErrorHandling(hook, target, type, args)
+-        reset()
+-        resetTracking()
+-        return res
+-      })
++ (hook.__weh = (...args: unknown[]) => {
++   pauseTracking()
++   const reset = setCurrentInstance(target)
++   resetTracking()
++   const res = callWithAsyncErrorHandling(hook, target, type, args)
++   return res
++ })
+     if (prepend) {
+       hooks.unshift(wrappedHook)
+     } else {

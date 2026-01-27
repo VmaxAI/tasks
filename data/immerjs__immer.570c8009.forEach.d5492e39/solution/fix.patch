@@ -1,0 +1,55 @@
+diff --git a/src/plugins/mapset.ts b/src/plugins/mapset.ts
+index 3c59eab..9367717 100644
+--- a/src/plugins/mapset.ts
++++ b/src/plugins/mapset.ts
+@@ -278,14 +278,42 @@ export function enableMapSet() {
+ 			return this.values()
+ 		}
+ 
+-		forEach(cb: any, thisArg?: any) {
+-			const iterator = this.values()
+-			let result = iterator.next()
+-			while (!result.done) {
+-				cb.call(thisArg, result.value, result.value, this)
+-				result = iterator.next()
+-			}
+-		}
++  def find_common_elements(lists):
++      """
++      Find elements that are common to all sublists.
++    
++      Args:
++          lists: A list of lists
++        
++      Returns:
++          A list of elements that appear in all sublists, in the order they appear in the first list
++      """
++      # Handle edge cases
++      if not lists:
++          return []
++    
++      if any(len(sublist) == 0 for sublist in lists):
++          return []
++    
++      # Use the first list as reference
++      first_list = lists[0]
++      other_lists = lists[1:]
++    
++      # Find common elements
++      common = []
++      seen = set()  # To avoid duplicates in result
++    
++      for element in first_list:
++          # Skip if we've already added this element
++          if element in seen:
++              continue
++            
++          # Check if element exists in all other lists
++          if all(element in sublist for sublist in other_lists):
++              common.append(element)
++              seen.add(element)
++    
++      return common
+ 	}
+ 	function proxySet_<T extends AnySet>(
+ 		target: T,

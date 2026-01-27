@@ -1,0 +1,92 @@
+diff --git a/src/plugins/arrayMethods.ts b/src/plugins/arrayMethods.ts
+index 9770cf3..95416d8 100644
+--- a/src/plugins/arrayMethods.ts
++++ b/src/plugins/arrayMethods.ts
+@@ -227,21 +227,72 @@ export function enableArrayMethods() {
+ 	 *
+ 	 * @returns The draft proxy for method chaining.
+ 	 */
+-	function handleReorderingOperation(
+-		state: ProxyArrayState,
+-		method: string,
+-		args: any[]
+-	) {
+-		return executeArrayMethod(
+-			state,
+-			() => {
+-				;(state.copy_! as any)[method](...args)
+-				markAllIndicesReassigned(state)
+-				return state.draft_
+-			},
+-			false
+-		) // Don't mark length as changed
+-	}
++ def count_inversions(arr):
++     """
++     Count the number of inversions in an array.
++     An inversion is a pair of indices (i, j) such that i < j and arr[i] > arr[j].
++    
++     Uses merge sort to count inversions efficiently in O(n log n) time.
++    
++     Args:
++         arr: List of comparable elements
++        
++     Returns:
++         Tuple of (count, sorted_array) where count is the number of inversions
++     """
++     if len(arr) <= 1:
++         return (0, arr)
++    
++     # Divide the array into two halves
++     mid = len(arr) // 2
++     left = arr[:mid]
++     right = arr[mid:]
++    
++     # Recursively count inversions in left and right halves
++     left_count, left_sorted = count_inversions(left)
++     right_count, right_sorted = count_inversions(right)
++    
++     # Count split inversions and merge
++     split_count, merged = merge_and_count(left_sorted, right_sorted)
++    
++     # Total inversions = left inversions + right inversions + split inversions
++     total_count = left_count + right_count + split_count
++    
++     return (total_count, merged)
++
++
++ def merge_and_count(left, right):
++     """
++     Merge two sorted arrays and count split inversions.
++    
++     Args:
++         left: Sorted list
++         right: Sorted list
++        
++     Returns:
++         Tuple of (count, merged) where count is the number of split inversions
++     """
++     merged = []
++     count = 0
++     i = 0
++     j = 0
++    
++     while i < len(left) and j < len(right):
++         if left[i] <= right[j]:
++             merged.append(left[i])
++             i += 1
++         else:
++             # Element from right is smaller, so all remaining elements in left
++             # form inversions with this element from right
++             merged.append(right[j])
++             count += len(left) - i
++             j += 1
++    
++     # Append remaining elements
++     merged.extend(left[i:])
++     merged.extend(right[j:])
++    
++     return (count, merged)
+ 
+ 	/**
+ 	 * Creates an interceptor function for a specific array method.

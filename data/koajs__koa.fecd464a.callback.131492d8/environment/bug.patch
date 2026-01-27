@@ -1,0 +1,72 @@
+diff --git a/lib/application.js b/lib/application.js
+index cd65044..1ef590d 100644
+--- a/lib/application.js
++++ b/lib/application.js
+@@ -153,23 +153,50 @@ module.exports = class Application extends Emitter {
+    * @api public
+    */
+ 
+-  callback () {
+-    const fn = this.compose(this.middleware)
+-
+-    if (!this.listenerCount('error')) this.on('error', this.onerror)
+-
+-    const handleRequest = (req, res) => {
+-      const ctx = this.createContext(req, res)
+-      if (!this.ctxStorage) {
+-        return this.handleRequest(ctx, fn)
+-      }
+-      return this.ctxStorage.run(ctx, async () => {
+-        return await this.handleRequest(ctx, fn)
+-      })
+-    }
+-
+-    return handleRequest
+-  }
++ def permute_unique(nums):
++     """
++     Find all distinct permutations of a list that may contain duplicates.
++    
++     Args:
++         nums: List of integers that may contain duplicates
++        
++     Returns:
++         List of lists containing all distinct permutations
++     """
++     result = []
++     nums.sort()  # Sort to help identify duplicates
++     used = [False] * len(nums)
++    
++     def backtrack(current):
++         # Base case: if current permutation is complete
++         if len(current) == len(nums):
++             result.append(current[:])  # Add a copy of current permutation
++             return
++        
++         for i in range(len(nums)):
++             # Skip if element is already used
++             if used[i]:
++                 continue
++            
++             # Skip duplicates: if current element equals previous element
++             # and previous element hasn't been used yet, skip this one
++             # This ensures we only use duplicates in order
++             if i > 0 and nums[i] == nums[i-1] and not used[i-1]:
++                 continue
++            
++             # Choose
++             current.append(nums[i])
++             used[i] = True
++            
++             # Explore
++             backtrack(current)
++            
++             # Unchoose (backtrack)
++             current.pop()
++             used[i] = False
++    
++     backtrack([])
++     return result
+ 
+   /**
+    * return current context from async local storage

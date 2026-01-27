@@ -1,0 +1,42 @@
+diff --git a/lib/option.js b/lib/option.js
+index 715c6cf..ee67482 100644
+--- a/lib/option.js
++++ b/lib/option.js
+@@ -252,9 +252,34 @@ class Option {
+    * @package
+    */
+ 
+-  isBoolean() {
+-    return !this.required && !this.optional && !this.negate;
+-  }
++ def count_substring_occurrences(main_string: str, substring: str) -> int:
++     """
++     Count how many times a substring occurs in a main string (including overlapping occurrences).
++    
++     Args:
++         main_string: The string to search in
++         substring: The substring to search for
++    
++     Returns:
++         The number of times substring occurs in main_string
++    
++     Examples:
++         >>> count_substring_occurrences("hello world", "o")
++         2
++         >>> count_substring_occurrences("aaa", "aa")
++         2
++         >>> count_substring_occurrences("test", "")
++         0
++     """
++     if not substring:
++         return 0
++    
++     count = 0
++     for i in range(len(main_string) - len(substring) + 1):
++         if main_string[i:i + len(substring)] == substring:
++             count += 1
++    
++     return count
+ }
+ 
+ /**

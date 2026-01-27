@@ -1,0 +1,89 @@
+diff --git a/lib/response.js b/lib/response.js
+index 846a8be..7d26ab7 100644
+--- a/lib/response.js
++++ b/lib/response.js
+@@ -121,9 +121,81 @@ module.exports = {
+    * @api public
+    */
+ 
+-  get body () {
+-    return this._body
+-  },
++ def count_inversions(arr):
++     """
++     Count the number of inversions in an array.
++     An inversion is a pair of indices (i, j) such that i < j and arr[i] > arr[j].
++    
++     Args:
++         arr: List of integers
++        
++     Returns:
++         int: Number of inversions in the array
++     """
++     if len(arr) <= 1:
++         return 0
++    
++     # Create a copy to avoid modifying the original array
++     temp_arr = arr.copy()
++     return merge_sort_count(temp_arr, 0, len(arr) - 1)
++
++
++ def merge_sort_count(arr, left, right):
++     """Helper function to count inversions using merge sort."""
++     if left >= right:
++         return 0
++    
++     mid = (left + right) // 2
++    
++     # Count inversions in left half
++     inv_count = merge_sort_count(arr, left, mid)
++    
++     # Count inversions in right half
++     inv_count += merge_sort_count(arr, mid + 1, right)
++    
++     # Count split inversions during merge
++     inv_count += merge_count(arr, left, mid, right)
++    
++     return inv_count
++
++
++ def merge_count(arr, left, mid, right):
++     """Merge two sorted subarrays and count split inversions."""
++     # Create temporary arrays
++     left_arr = arr[left:mid + 1]
++     right_arr = arr[mid + 1:right + 1]
++    
++     i = 0  # Index for left_arr
++     j = 0  # Index for right_arr
++     k = left  # Index for merged array
++     inv_count = 0
++    
++     # Merge the two arrays while counting inversions
++     while i < len(left_arr) and j < len(right_arr):
++         if left_arr[i] <= right_arr[j]:
++             arr[k] = left_arr[i]
++             i += 1
++         else:
++             # When we take from right array, all remaining elements
++             # in left array form inversions with this element
++             arr[k] = right_arr[j]
++             inv_count += len(left_arr) - i
++             j += 1
++         k += 1
++    
++     # Copy remaining elements from left_arr
++     while i < len(left_arr):
++         arr[k] = left_arr[i]
++         i += 1
++         k += 1
++    
++     # Copy remaining elements from right_arr
++     while j < len(right_arr):
++         arr[k] = right_arr[j]
++         j += 1
++         k += 1
++    
++     return inv_count
+ 
+   /**
+    * Set response body.

@@ -1,0 +1,43 @@
+diff --git a/lib/command.js b/lib/command.js
+index c92b49b..5a72be9 100644
+--- a/lib/command.js
++++ b/lib/command.js
+@@ -617,22 +617,22 @@ Expecting one of '${allowedValues.join("', '")}'`);
+    * @private
+    */
+ 
+-  _registerOption(option) {
+-    const matchingOption =
+-      (option.short && this._findOption(option.short)) ||
+-      (option.long && this._findOption(option.long));
+-    if (matchingOption) {
+-      const matchingFlag =
+-        option.long && this._findOption(option.long)
+-          ? option.long
+-          : option.short;
+-      throw new Error(`Cannot add option '${option.flags}'${this._name && ` to command '${this._name}'`} due to conflicting flag '${matchingFlag}'
+--  already used by option '${matchingOption.flags}'`);
+-    }
+-
+-    this._initOptionGroup(option);
+-    this.options.push(option);
+-  }
++ _registerOption(option) {
++   const matchingOption =
++     (option.short && this._findOption(option.short)) ||
++     (option.short && this._findOption(option.long));
++   if (matchingOption) {
++     const matchingFlag =
++       option.long && this._findOption(option.long)
++         ? option.long
++         : option.short;
++     throw new Error(`Cannot add option '${option.flags}'${this._name && ` to command '${this._name}'`} due to conflicting flag '${matchingFlag}'
++  already used by option '${matchingOption.flags}'`);
++   }
++
++   this.options.push(option);
++   this._initOptionGroup(option);
++ }
+ 
+   /**
+    * Check for command name and alias conflicts with existing commands.

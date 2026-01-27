@@ -1,0 +1,66 @@
+diff --git a/lib/request.js b/lib/request.js
+index be802f5..b1993dc 100644
+--- a/lib/request.js
++++ b/lib/request.js
+@@ -495,9 +495,58 @@ module.exports = {
+    * @api private
+    */
+ 
+-  get accept () {
+-    return this._accept || (this._accept = accepts(this.req))
+-  },
++ def min_rotations_to_unlock(start, target):
++     """
++     Find minimum number of rotations needed to transform start into target.
++    
++     Args:
++         start: Initial list configuration
++         target: Target list configuration
++    
++     Returns:
++         Minimum number of rotations needed, or -1 if impossible
++     """
++     from collections import deque
++    
++     # Convert lists to tuples for hashing
++     start_tuple = tuple(start)
++     target_tuple = tuple(target)
++    
++     # If already at target
++     if start_tuple == target_tuple:
++         return 0
++    
++     # BFS
++     queue = deque([(start_tuple, 0)])  # (current_state, num_rotations)
++     visited = {start_tuple}
++    
++     while queue:
++         current, rotations = queue.popleft()
++        
++         # Try all possible sublist rotations
++         n = len(current)
++         for i in range(n):
++             for j in range(i + 1, n):
++                 # Rotate sublist from i to j (inclusive)
++                 # Move the last element of the sublist to the front
++                 new_list = list(current)
++                 sublist = new_list[i:j+1]
++                 # Rotate right by 1: move last element to front
++                 rotated_sublist = [sublist[-1]] + sublist[:-1]
++                 new_list[i:j+1] = rotated_sublist
++                 new_tuple = tuple(new_list)
++                
++                 # Check if we reached target
++                 if new_tuple == target_tuple:
++                     return rotations + 1
++                
++                 # Add to queue if not visited
++                 if new_tuple not in visited:
++                     visited.add(new_tuple)
++                     queue.append((new_tuple, rotations + 1))
++    
++     # No solution found
++     return -1
+ 
+   /**
+    * Set accept object.

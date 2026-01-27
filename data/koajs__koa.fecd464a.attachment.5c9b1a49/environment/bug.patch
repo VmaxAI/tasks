@@ -1,0 +1,34 @@
+diff --git a/lib/response.js b/lib/response.js
+index 846a8be..42c27f3 100644
+--- a/lib/response.js
++++ b/lib/response.js
+@@ -360,12 +360,23 @@ module.exports = {
+    * @api public
+    */
+ 
+-  attachment (filename, options) {
+-    if (filename && !this.has('Content-Type')) {
+-      this.type = extname(filename)
+-    }
+-    this.set('Content-Disposition', contentDisposition(filename, options))
+-  },
++ def count_vowels(s: str) -> int:
++     """
++     Count the number of vowels in a string.
++     Vowels are: a, e, i, o, u (case insensitive)
++    
++     Args:
++         s: Input string
++        
++     Returns:
++         Number of vowels in the string
++     """
++     vowels = set('aeiouAEIOU')
++     count = 0
++     for char in s:
++         if char in vowels:
++             count += 1
++     return count
+ 
+   /**
+    * Set Content-Type response header with `type` through `mime.lookup()`

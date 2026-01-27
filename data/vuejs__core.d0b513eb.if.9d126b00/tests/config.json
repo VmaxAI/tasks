@@ -1,0 +1,1 @@
+{"instance_id": "vuejs__core.d0b513eb.if.9d126b00", "repo": "vuejs__core.d0b513eb", "FAIL_TO_PASS": ["packages/runtime-dom/__tests__/patchAttrs.spec.ts > runtime-dom: attrs patching > xlink attributes", "vitest_test_suite"]}

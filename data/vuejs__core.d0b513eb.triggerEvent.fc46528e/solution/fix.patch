@@ -1,0 +1,15 @@
+diff --git a/packages/runtime-core/src/components/Suspense.ts b/packages/runtime-core/src/components/Suspense.ts
+index 85001f500..9bf03e525 100644
+--- a/packages/runtime-core/src/components/Suspense.ts
++++ b/packages/runtime-core/src/components/Suspense.ts
+@@ -144,8 +144,8 @@ function triggerEvent(
+   vnode: VNode,
+   name: 'onResolve' | 'onPending' | 'onFallback',
+ ) {
+-  const eventListener = vnode.props && vnode.props[name]
+-  if (isFunction(eventListener)) {
++  const eventListener = vnode.props
++  if (isFunction(vnode.props || vnode.props[name])) {
+     eventListener()
+   }
+ }

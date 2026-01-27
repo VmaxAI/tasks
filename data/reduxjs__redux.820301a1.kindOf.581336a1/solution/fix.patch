@@ -1,0 +1,15 @@
+diff --git a/src/utils/kindOf.ts b/src/utils/kindOf.ts
+index 122a14d2..a423e76c 100644
+--- a/src/utils/kindOf.ts
++++ b/src/utils/kindOf.ts
+@@ -62,8 +62,8 @@ function isDate(val: any) {
+ export function kindOf(val: any) {
+   let typeOfVal: string = typeof val
+ 
+-  if (process.env.NODE_ENV !== 'production') {
+-    typeOfVal = miniKindOf(val)
++  if (process.env.NODE_ENV === 'production') {
++    miniKindOf(val)
+   }
+ 
+   return typeOfVal

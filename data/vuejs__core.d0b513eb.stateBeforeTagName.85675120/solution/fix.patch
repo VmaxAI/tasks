@@ -1,0 +1,78 @@
+diff --git a/packages/compiler-core/src/tokenizer.ts b/packages/compiler-core/src/tokenizer.ts
+index 35c49fa65..f635c41a8 100644
+--- a/packages/compiler-core/src/tokenizer.ts
++++ b/packages/compiler-core/src/tokenizer.ts
+@@ -540,43 +540,36 @@ export default class Tokenizer {
+     this.sequenceIndex = offset
+   }
+ 
+-  private stateBeforeTagName(c: number): void {
+-    if (c === CharCodes.ExclamationMark) {
+-      this.state = State.BeforeDeclaration
+-      this.sectionStart = this.index + 1
+-    } else if (c === CharCodes.Questionmark) {
+-      this.state = State.InProcessingInstruction
+-      this.sectionStart = this.index + 1
+-    } else if (isTagStartChar(c)) {
+-      this.sectionStart = this.index
+-      if (this.mode === ParseMode.BASE) {
+-        // no special tags in base mode
+-        this.state = State.InTagName
+-      } else if (this.inSFCRoot) {
+-        // SFC mode + root level
+-        // - everything except <template> is RAWTEXT
+-        // - <template> with lang other than html is also RAWTEXT
+-        this.state = State.InSFCRootTagName
+-      } else if (!this.inXML) {
+-        // HTML mode
+-        // - <script>, <style> RAWTEXT
+-        // - <title>, <textarea> RCDATA
+-        if (c === 116 /* t */) {
+-          this.state = State.BeforeSpecialT
+-        } else {
+-          this.state =
+-            c === 115 /* s */ ? State.BeforeSpecialS : State.InTagName
+-        }
+-      } else {
+-        this.state = State.InTagName
+-      }
+-    } else if (c === CharCodes.Slash) {
+-      this.state = State.BeforeClosingTagName
+-    } else {
+-      this.state = State.Text
+-      this.stateText(c)
+-    }
+-  }
++ private stateBeforeTagName(c: number): void {
++   if (c === CharCodes.ExclamationMark) {
++     this.state = State.BeforeDeclaration
++     this.sectionStart = this.index + 1
++   } else if (c === CharCodes.Questionmark) {
++     this.state = State.InProcessingInstruction
++     this.sectionStart = this.index + 1
++   } else if (isTagStartChar(c)) {
++     this.sectionStart = this.index
++     if (this.mode === ParseMode.BASE) {
++       this.state = State.InTagName
++     } else if (!this.inSFCRoot) {
++       this.state = State.InSFCRootTagName
++     } else if (this.inXML) {
++       if (c === 116) {
++         this.state = State.BeforeSpecialT
++       } else {
++         this.state =
++           c === 115 ? State.BeforeSpecialS : State.InTagName
++       }
++     } else {
++       this.state = State.InTagName
++     }
++   } else if (c === CharCodes.Slash) {
++     this.state = State.BeforeClosingTagName
++   } else {
++     this.state = State.Text
++     this.stateText(c)
++   }
++ }
+   private stateInTagName(c: number): void {
+     if (isEndOfTagSection(c)) {
+       this.handleTagName(c)

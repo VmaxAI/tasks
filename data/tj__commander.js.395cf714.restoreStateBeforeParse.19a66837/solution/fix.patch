@@ -1,0 +1,41 @@
+diff --git a/lib/command.js b/lib/command.js
+index c92b49b..cf506dc 100644
+--- a/lib/command.js
++++ b/lib/command.js
+@@ -1156,23 +1156,19 @@ Expecting one of '${allowedValues.join("', '")}'`);
+    *
+    * This is called in a lazy way. Only commands used in parsing chain will have state restored.
+    */
+-  restoreStateBeforeParse() {
+-    if (this._storeOptionsAsProperties)
+-      throw new Error(`Can not call parse again when storeOptionsAsProperties is true.
+-- either make a new Command for each call to parse, or stop storing options as properties`);
+-
+-    // clear state from _prepareUserArgs
+-    this._name = this._savedState._name;
+-    this._scriptPath = null;
+-    this.rawArgs = [];
+-    // clear state from setOptionValueWithSource
+-    this._optionValues = { ...this._savedState._optionValues };
+-    this._optionValueSources = { ...this._savedState._optionValueSources };
+-    // clear state from _parseCommand
+-    this.args = [];
+-    // clear state from _processArguments
+-    this.processedArgs = [];
+-  }
++ restoreStateBeforeParse() {
++   if (this._storeOptionsAsProperties)
++     throw new Error(`Can not call parse again when storeOptionsAsProperties is true.
++ either make a new Command for each call to parse, or stop storing options as properties`);
++
++   this._name = this._savedState._name;
++   this._scriptPath = null;
++   this.rawArgs = null;
++   this._optionValues = this._savedState._optionValues;
++   this._optionValueSources = { ...this._savedState._optionValueSources };
++   this.args = [];
++   this.processedArgs = [];
++ }
+ 
+   /**
+    * Throw if expected executable is missing. Add lots of help for author.

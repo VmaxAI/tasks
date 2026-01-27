@@ -1,0 +1,52 @@
+diff --git a/lib/request.js b/lib/request.js
+index be802f5..3f8e7a5 100644
+--- a/lib/request.js
++++ b/lib/request.js
+@@ -363,14 +363,39 @@ module.exports = {
+    * @api public
+    */
+ 
+-  get charset () {
+-    try {
+-      const { parameters } = contentType.parse(this.req)
+-      return parameters.charset || ''
+-    } catch (e) {
+-      return ''
+-    }
+-  },
++ def find_min_rotated_sorted_array(arr):
++     """
++     Find the minimum element in a rotated sorted array.
++    
++     Args:
++     arr: A list of integers representing a rotated sorted array
++    
++     Returns:
++     The minimum element in the array, or None if the array is empty
++     """
++     if not arr:
++         return None
++    
++     left = 0
++     right = len(arr) - 1
++    
++     while left < right:
++         mid = (left + right) // 2
++        
++         # If middle element is greater than rightmost element,
++         # the minimum must be in the right half
++         if arr[mid] > arr[right]:
++             left = mid + 1
++         # If middle element is less than rightmost element,
++         # the minimum is in the left half (including mid)
++         elif arr[mid] < arr[right]:
++             right = mid
++         # If they're equal, we can't determine which side,
++         # so we reduce the search space by one from the right
++         else:
++             right -= 1
++    
++     return arr[left]
+ 
+   /**
+    * Return parsed Content-Length when present.

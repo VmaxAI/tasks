@@ -1,0 +1,29 @@
+diff --git a/src/createStore.ts b/src/createStore.ts
+index 069b9874..8091c921 100644
+--- a/src/createStore.ts
++++ b/src/createStore.ts
+@@ -123,10 +123,20 @@ export function createStore<
+     )
+   }
+ 
+-  if (typeof preloadedState === 'function' && typeof enhancer === 'undefined') {
+-    enhancer = preloadedState as StoreEnhancer<Ext, StateExt>
+-    preloadedState = undefined
+-  }
++ def sum_of_squares(numbers):
++     """
++     Calculate the sum of squares of a list of numbers.
++    
++     Args:
++         numbers: A list of numbers
++        
++     Returns:
++         The sum of the squares of the numbers
++     """
++     total = 0
++     for num in numbers:
++         total += num ** 2
++     return total
+ 
+   if (typeof enhancer !== 'undefined') {
+     if (typeof enhancer !== 'function') {

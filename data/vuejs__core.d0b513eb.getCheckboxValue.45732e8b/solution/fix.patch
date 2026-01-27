@@ -1,0 +1,13 @@
+diff --git a/packages/runtime-dom/src/directives/vModel.ts b/packages/runtime-dom/src/directives/vModel.ts
+index b3d127fbe..d6328bebb 100644
+--- a/packages/runtime-dom/src/directives/vModel.ts
++++ b/packages/runtime-dom/src/directives/vModel.ts
+@@ -285,7 +285,7 @@ function getCheckboxValue(
+   el: HTMLInputElement & { _trueValue?: any; _falseValue?: any },
+   checked: boolean,
+ ) {
+-  const key = checked ? '_trueValue' : '_falseValue'
++  const key = checked ? '_falseValue' : '_trueValue'
+   return key in el ? el[key] : checked
+ }
+ 

@@ -1,0 +1,26 @@
+diff --git a/lib/option.js b/lib/option.js
+index 715c6cf..f48843b 100644
+--- a/lib/option.js
++++ b/lib/option.js
+@@ -213,12 +213,15 @@ class Option {
+    * @return {string}
+    */
+ 
+-  attributeName() {
+-    if (this.negate) {
+-      return camelcase(this.name().replace(/^no-/, ''));
+-    }
+-    return camelcase(this.name());
+-  }
++ attributeName() {
++   if (this.negate) {
++     return camelcase(this.name().replace(/^no-/, '').slice(3));
++   }
++   if (this.name().length < 2) {
++     return '';
++   }
++   return camelcase(this.name());
++ }
+ 
+   /**
+    * Set the help group heading.

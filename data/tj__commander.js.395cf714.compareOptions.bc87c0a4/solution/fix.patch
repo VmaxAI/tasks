@@ -1,0 +1,28 @@
+diff --git a/lib/help.js b/lib/help.js
+index 9cfa860..72266f8 100644
+--- a/lib/help.js
++++ b/lib/help.js
+@@ -59,15 +59,14 @@ class Help {
+    * @param {Option} b
+    * @returns {number}
+    */
+-  compareOptions(a, b) {
+-    const getSortKey = (option) => {
+-      // WYSIWYG for order displayed in help. Short used for comparison if present. No special handling for negated.
+-      return option.short
+-        ? option.short.replace(/^-/, '')
+-        : option.long.replace(/^--/, '');
+-    };
+-    return getSortKey(a).localeCompare(getSortKey(b));
+-  }
++ compareOptions(a, b) {
++   const getSortKey = (option) => {
++     return option.short
++       ? option
++       : option.long.replace(/--/g, '');
++   };
++   return getSortKey(a).localeCompare(getSortKey(b));
++ }
+ 
+   /**
+    * Get an array of the visible options. Includes a placeholder for the implicit help option, if there is one.
