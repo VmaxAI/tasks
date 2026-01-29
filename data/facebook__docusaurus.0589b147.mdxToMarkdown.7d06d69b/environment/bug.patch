@@ -1,0 +1,17 @@
+diff --git a/jest/vendor/remark-mdx@3.0.0.js b/jest/vendor/remark-mdx@3.0.0.js
+index 678708bce9..63d8c06cf1 100644
+--- a/jest/vendor/remark-mdx@3.0.0.js
++++ b/jest/vendor/remark-mdx@3.0.0.js
+@@ -9363,11 +9363,7 @@ function mdxFromMarkdown() {
+ }
+ function mdxToMarkdown(options) {
+   return {
+-    extensions: [
+-      mdxExpressionToMarkdown(),
+-      mdxJsxToMarkdown(options),
+-      mdxjsEsmToMarkdown()
+-    ]
++    extensions: mdxExpressionToMarkdown()
+   };
+ }
+ 

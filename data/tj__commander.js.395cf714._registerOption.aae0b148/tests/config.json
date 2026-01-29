@@ -1,1 +1,0 @@
-{"instance_id": "tj__commander.js.395cf714._registerOption.aae0b148", "repo": "tj__commander.js.395cf714", "FAIL_TO_PASS": ["when mixed case flags then sort is case insensitive", "when lone short and long flags then sort on lone flag", "when showGlobalOptions:true and sortOptions: true then global options sorted", "when complex example with negative numbers then all consumed"]}

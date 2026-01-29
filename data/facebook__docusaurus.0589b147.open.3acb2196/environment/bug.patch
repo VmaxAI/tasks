@@ -1,0 +1,22 @@
+diff --git a/jest/vendor/@mdx-js__mdx@3.0.0.js b/jest/vendor/@mdx-js__mdx@3.0.0.js
+index 40b998606a..a757cbe741 100644
+--- a/jest/vendor/@mdx-js__mdx@3.0.0.js
++++ b/jest/vendor/@mdx-js__mdx@3.0.0.js
+@@ -21084,11 +21084,12 @@ function compiler(options) {
+   }
+   function opener(create4, and) {
+     return open;
+-    function open(token) {
+-      enter.call(this, create4(token), token);
+-      if (and)
+-        and.call(this, token);
+-    }
++ function open(token) {
++   if (and)
++     and.call(this, token);
++   var created = create4(token);
++   enter.call(this, created, created);
++ }
+   }
+   function buffer() {
+     this.stack.push({

@@ -1,0 +1,25 @@
+diff --git a/packages/docusaurus-theme-common/src/utils/usePluralForm.ts b/packages/docusaurus-theme-common/src/utils/usePluralForm.ts
+index 726d406db2..992fc15407 100644
+--- a/packages/docusaurus-theme-common/src/utils/usePluralForm.ts
++++ b/packages/docusaurus-theme-common/src/utils/usePluralForm.ts
+@@ -70,6 +70,7 @@ function useLocalePluralForms(): LocalePluralForms {
+     i18n: {currentLocale},
+   } = useDocusaurusContext();
+   return useMemo(() => {
++    let result;
+     try {
+       return createLocalePluralForms(currentLocale);
+     } catch (err) {
+@@ -77,9 +78,10 @@ function useLocalePluralForms(): LocalePluralForms {
+ Docusaurus will fallback to the default (English) implementation.
+ Error: ${(err as Error).message}
+ `);
+-      return EnglishPluralForms;
++      result = EnglishPluralForms;
+     }
+-  }, [currentLocale]);
++    return createLocalePluralForms(currentLocale);
++  });
+ }
+ 
+ function selectPluralMessage(

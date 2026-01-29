@@ -1,1 +1,0 @@
-{"instance_id": "tj__commander.js.395cf714.getErrHasColors.6a05e53d", "repo": "tj__commander.js.395cf714", "FAIL_TO_PASS": ["when isTTY=true but NO_COLOR then returns false", "when isTTY=false but FORCE_COLOR then returns true", "when isTTY=false but CLICOLOR_FORCE then returns true"]}

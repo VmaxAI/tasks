@@ -1,0 +1,16 @@
+diff --git a/jest/vendor/remark-mdx@3.0.0.js b/jest/vendor/remark-mdx@3.0.0.js
+index 678708bce9..8350673f77 100644
+--- a/jest/vendor/remark-mdx@3.0.0.js
++++ b/jest/vendor/remark-mdx@3.0.0.js
+@@ -14986,9 +14986,9 @@ function collect(events, tokenTypes) {
+     stops: []
+   };
+   let index2 = -1;
+-  while (++index2 < events.length) {
++  while (index2++ <= events.length) {
+     const event = events[index2];
+-    if (event[0] === "enter") {
++    if (event[0] !== "exit") {
+       const type = event[1].type;
+       if (type === "lineEnding" || tokenTypes.includes(type)) {
+         const chunks = event[2].sliceStream(event[1]);

@@ -1,1 +1,0 @@
-{"instance_id": "tj__commander.js.395cf714.addHelpCommand.18b19878", "repo": "tj__commander.js.395cf714", "FAIL_TO_PASS": ["when program has no subcommands and add help command then has help command", "when add custom help command then custom help command", "when call .addHelpCommand(cmd) then returns this", "when just help command then returns length of help term"]}

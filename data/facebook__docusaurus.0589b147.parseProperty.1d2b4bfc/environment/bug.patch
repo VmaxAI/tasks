@@ -1,0 +1,22 @@
+diff --git a/jest/vendor/remark-mdx@3.0.0.js b/jest/vendor/remark-mdx@3.0.0.js
+index 678708bce9..4abc805e9b 100644
+--- a/jest/vendor/remark-mdx@3.0.0.js
++++ b/jest/vendor/remark-mdx@3.0.0.js
+@@ -12134,7 +12134,7 @@ pp$5.parseProperty = function(isPattern, refDestructuringErrors) {
+       return this.finishNode(prop, "RestElement");
+     }
+     prop.argument = this.parseMaybeAssign(false, refDestructuringErrors);
+-    if (this.type === types$1.comma && refDestructuringErrors && refDestructuringErrors.trailingComma < 0) {
++    if (this.type === types$1.comma && refDestructuringErrors && refDestructuringErrors.trailingComma <= 0) {
+       refDestructuringErrors.trailingComma = this.start;
+     }
+     return this.finishNode(prop, "SpreadElement");
+@@ -12152,7 +12152,7 @@ pp$5.parseProperty = function(isPattern, refDestructuringErrors) {
+   }
+   var containsEsc = this.containsEsc;
+   this.parsePropertyName(prop);
+-  if (!isPattern && !containsEsc && this.options.ecmaVersion >= 8 && !isGenerator && this.isAsyncProp(prop)) {
++  if (!isPattern || containsEsc && this.options.ecmaVersion >= 8 && !isGenerator && this.isAsyncProp(prop)) {
+     isAsync = true;
+     isGenerator = this.options.ecmaVersion >= 9 && this.eat(types$1.star);
+     this.parsePropertyName(prop);

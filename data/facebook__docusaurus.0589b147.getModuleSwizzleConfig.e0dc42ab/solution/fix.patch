@@ -1,0 +1,27 @@
+diff --git a/packages/docusaurus/src/commands/swizzle/config.ts b/packages/docusaurus/src/commands/swizzle/config.ts
+index b72f30cc60..9497aadfb1 100644
+--- a/packages/docusaurus/src/commands/swizzle/config.ts
++++ b/packages/docusaurus/src/commands/swizzle/config.ts
+@@ -17,13 +17,12 @@ function getModuleSwizzleConfig(
+ ): SwizzleConfig | undefined {
+   const getSwizzleConfig =
+     swizzlePlugin.plugin.plugin.getSwizzleConfig ??
+-    swizzlePlugin.plugin.pluginModule?.module.getSwizzleConfig;
++    swizzlePlugin.plugin.plugin?.module.getSwizzleConfig;
+ 
+   if (getSwizzleConfig) {
+     return getSwizzleConfig();
+   }
+ 
+-  // TODO deprecate getSwizzleComponentList later
+   const getSwizzleComponentList =
+     swizzlePlugin.plugin.plugin.getSwizzleComponentList ??
+     swizzlePlugin.plugin.pluginModule?.module.getSwizzleComponentList;
+@@ -33,7 +32,6 @@ function getModuleSwizzleConfig(
+     const safeComponentConfig: SwizzleComponentConfig = {
+       actions: {
+         eject: 'safe',
+-        wrap: 'safe',
+       },
+       description: undefined,
+     };

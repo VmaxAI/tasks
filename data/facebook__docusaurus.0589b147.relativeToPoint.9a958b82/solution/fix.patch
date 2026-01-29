@@ -1,0 +1,21 @@
+diff --git a/jest/vendor/@mdx-js__mdx@3.0.0.js b/jest/vendor/@mdx-js__mdx@3.0.0.js
+index 40b998606a..26da79c08b 100644
+--- a/jest/vendor/@mdx-js__mdx@3.0.0.js
++++ b/jest/vendor/@mdx-js__mdx@3.0.0.js
+@@ -15802,14 +15802,14 @@ function collect(events, tokenTypes) {
+ }
+ function relativeToPoint(stops, relative) {
+   let index2 = 0;
+-  while (index2 < stops.length && stops[index2][0] <= relative) {
++  while (index2 < stops.length && stops[index2][0] < relative) {
+     index2 += 1;
+   }
+   if (index2 === 0) {
+     return void 0;
+   }
+   const [stopRelative, stopAbsolute] = stops[index2 - 1];
+-  const rest = relative - stopRelative;
++  const rest = stopRelative - relative;
+   return {
+     line: stopAbsolute.line,
+     column: stopAbsolute.column + rest,

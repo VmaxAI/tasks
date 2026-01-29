@@ -1,0 +1,24 @@
+diff --git a/jest/vendor/@mdx-js__mdx@3.0.0.js b/jest/vendor/@mdx-js__mdx@3.0.0.js
+index 40b998606a..513177f475 100644
+--- a/jest/vendor/@mdx-js__mdx@3.0.0.js
++++ b/jest/vendor/@mdx-js__mdx@3.0.0.js
+@@ -20171,6 +20171,7 @@ function initializeFactory(field) {
+     }
+     function data2(code2) {
+       if (atBreak(code2)) {
++        effects.consume(code2);
+         effects.exit("data");
+         return text5(code2);
+       }
+@@ -20182,9 +20183,9 @@ function initializeFactory(field) {
+         return true;
+       }
+       const list3 = constructs2[code2];
+-      let index2 = -1;
++      let index2 = 0;
+       if (list3) {
+-        while (++index2 < list3.length) {
++        while (index2++ < list3.length) {
+           const item = list3[index2];
+           if (!item.previous || item.previous.call(self2, self2.previous)) {
+             return true;

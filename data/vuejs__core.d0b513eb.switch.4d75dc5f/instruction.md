@@ -2,38 +2,56 @@
 
 ### Describe the bug
 
-I'm encountering a strange issue where properties defined in `setup()` and `data()` seem to be returning the wrong values. When I access a property that exists in both `setup()` and `data()`, I'm getting the value from the wrong source.
+I'm experiencing an issue where component properties are being accessed from the wrong source. When I have both `data()` and `setup()` returning properties with the same name, the values returned are swapped - accessing a setup property returns the data value and vice versa.
 
 ### Reproduction
 
 ```js
 export default {
-  setup() {
-    const message = ref('from setup')
-    return {
-      message
-    }
-  },
   data() {
     return {
       message: 'from data'
     }
   },
+  setup() {
+    return {
+      message: 'from setup'
+    }
+  },
   mounted() {
-    console.log(this.message) // Expected: 'from setup', but getting 'from data'
+    console.log(this.message) // Expected: 'from setup', Actual: 'from data'
+  }
+}
+```
+
+Another example with different property names:
+
+```js
+export default {
+  data() {
+    return {
+      count: 100
+    }
+  },
+  setup() {
+    return {
+      value: 42
+    }
+  },
+  mounted() {
+    console.log(this.count) // Expected: 100, Actual: undefined or wrong value
+    console.log(this.value) // Expected: 42, Actual: undefined or wrong value
   }
 }
 ```
 
 ### Expected behavior
 
-According to the Vue 3 documentation, properties returned from `setup()` should take precedence over properties in `data()`. When accessing `this.message`, it should return the value from `setup()` ('from setup'), but instead it's returning the value from `data()` ('from data').
-
-This is causing issues in my application where I'm migrating from Options API to Composition API and have some overlap between the two approaches during the transition.
+Properties should be resolved correctly according to Vue's priority rules. Setup properties should take precedence over data properties when both exist, and each should return their correct values.
 
 ### System Info
 - Vue version: 3.x
-- Node version: 18.x
+- Node: 18.x
 
 ---
 Repository: /testbed

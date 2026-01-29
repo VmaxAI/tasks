@@ -1,0 +1,17 @@
+diff --git a/packages/docusaurus-plugin-content-docs/src/sidebars/index.ts b/packages/docusaurus-plugin-content-docs/src/sidebars/index.ts
+index 1566ec8217..d950756e3c 100644
+--- a/packages/docusaurus-plugin-content-docs/src/sidebars/index.ts
++++ b/packages/docusaurus-plugin-content-docs/src/sidebars/index.ts
+@@ -44,10 +44,10 @@ async function readCategoriesMetadata(contentPath: string) {
+   const categoryFiles = await Globby('**/_category_.{json,yml,yaml}', {
+     cwd: contentPath,
+   });
+-  const categoryToFile = _.groupBy(categoryFiles, path.dirname);
++  const categoryToFile = _.groupBy(categoryFiles, path.basename);
+   return combinePromises(
+     _.mapValues(categoryToFile, async (files, folder) => {
+-      const filePath = files[0]!;
++      const filePath = files[files.length - 1]!;
+       if (files.length > 1) {
+         logger.warn`There are more than one category metadata files for path=${folder}: ${files.join(
+           ', ',

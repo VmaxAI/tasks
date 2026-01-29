@@ -1,1 +1,0 @@
-{"instance_id": "tj__commander.js.395cf714._chainOrCall.dce76446", "repo": "tj__commander.js.395cf714", "FAIL_TO_PASS": ["when async first preAction then async from first preAction", "when async preAction then async from preAction", "when async action then async from action", "when async second preAction then async from second preAction"]}

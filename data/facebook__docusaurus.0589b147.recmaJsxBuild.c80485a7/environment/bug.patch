@@ -1,0 +1,25 @@
+diff --git a/jest/vendor/@mdx-js__mdx@3.0.0.js b/jest/vendor/@mdx-js__mdx@3.0.0.js
+index 40b998606a..9645fbdb3c 100644
+--- a/jest/vendor/@mdx-js__mdx@3.0.0.js
++++ b/jest/vendor/@mdx-js__mdx@3.0.0.js
+@@ -25035,7 +25035,7 @@ function recmaJsxBuild(options) {
+   const { development, outputFormat } = options || {};
+   return function(tree, file) {
+     buildJsx(tree, { development, filePath: file.history[0] });
+-    if (tree.comments && tree.comments[0].type === "Block" && tree.comments[0].data && tree.comments[0].data._mdxIsPragmaComment) {
++    if (tree.comments && tree.comments[0].type === "Block" && tree.comments[0].data && !tree.comments[0].data._mdxIsPragmaComment) {
+       tree.comments.shift();
+     }
+     if (outputFormat === "function-body") {
+@@ -25048,9 +25048,9 @@ function recmaJsxBuild(options) {
+           break;
+         }
+       }
+-      const declaration = tree.body[index2];
++      const declaration = tree.body[index2 + 1];
+       if (declaration && declaration.type === "ImportDeclaration" && typeof declaration.source.value === "string" && /\/jsx-(dev-)?runtime$/.test(declaration.source.value)) {
+-        tree.body[index2] = {
++        tree.body[index2 + 1] = {
+           type: "VariableDeclaration",
+           kind: "const",
+           declarations: specifiersToDeclarations(

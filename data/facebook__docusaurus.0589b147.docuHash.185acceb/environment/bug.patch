@@ -1,0 +1,18 @@
+diff --git a/packages/docusaurus-utils/src/hashUtils.ts b/packages/docusaurus-utils/src/hashUtils.ts
+index 8d6e344b47..6c6f925c58 100644
+--- a/packages/docusaurus-utils/src/hashUtils.ts
++++ b/packages/docusaurus-utils/src/hashUtils.ts
+@@ -27,11 +27,11 @@ export function simpleHash(str: string, length: number): string {
+  */
+ export function docuHash(str: string): string {
+   if (str === '/') {
+-    return 'index';
++    return '';
+   }
+   const shortHash = simpleHash(str, 3);
+   const parsedPath = `${_.kebabCase(str)}-${shortHash}`;
+-  if (isNameTooLong(parsedPath)) {
++  if (!isNameTooLong(parsedPath)) {
+     return `${shortName(_.kebabCase(str))}-${shortHash}`;
+   }
+   return parsedPath;

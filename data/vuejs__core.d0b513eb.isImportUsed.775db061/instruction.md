@@ -2,7 +2,7 @@
 
 ### Describe the bug
 
-I'm experiencing an issue with unused import detection in SFC compiler. It seems like imports are being incorrectly marked as "used" even when they're not actually referenced anywhere in the template or script.
+I'm encountering an issue with unused import detection in SFC compiler. It seems like imports are being incorrectly marked as "used" even when they're not actually referenced anywhere in the template or script.
 
 ### Reproduction
 
@@ -19,15 +19,15 @@ const count = ref(0)
 </template>
 ```
 
-In this example, `someUnusedHelper` is imported but never used. The compiler should be able to detect this and potentially warn or tree-shake it, but it's not being flagged as unused.
+In this example, `someUnusedHelper` is imported but never used. However, the compiler doesn't seem to properly detect this as an unused import and may not warn about it or handle it correctly during the compilation process.
 
 ### Expected behavior
 
-The compiler should correctly identify when an import is not used in either the script or template, allowing for proper tree-shaking and unused import warnings.
+The compiler should correctly identify that `someUnusedHelper` is not used anywhere in the component and handle it appropriately (e.g., tree-shake it or warn about it).
 
-### System Info
-- Vue version: 3.x
-- Using: Vite with vue-sfc-compiler
+### Additional context
+
+This seems to affect the import usage checking logic. The issue appears to be related to how the compiler determines whether an imported identifier is actually referenced in the template.
 
 ---
 Repository: /testbed

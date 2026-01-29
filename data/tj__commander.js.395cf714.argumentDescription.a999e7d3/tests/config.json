@@ -1,1 +1,0 @@
-{"instance_id": "tj__commander.js.395cf714.argumentDescription.a999e7d3", "repo": "tj__commander.js.395cf714", "FAIL_TO_PASS": ["when an argument has default value and no description then still return default value", "styleArgumentDescription", "when argument has description then return description", "styleDescriptionText"]}

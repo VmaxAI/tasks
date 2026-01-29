@@ -1,1 +1,0 @@
-{"instance_id": "tj__commander.js.395cf714.useColor.0048521a", "repo": "tj__commander.js.395cf714", "FAIL_TO_PASS": ["when CLICOLOR_FORCE empty then returns true", "when NO_COLOR empty then returns undefined"]}

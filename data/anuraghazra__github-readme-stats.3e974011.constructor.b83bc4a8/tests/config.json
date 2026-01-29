@@ -1,1 +1,0 @@
-{"instance_id": "anuraghazra__github-readme-stats.3e974011.constructor.b83bc4a8", "repo": "anuraghazra__github-readme-stats.3e974011", "FAIL_TO_PASS": ["should render error card if missing required parameters", "should throw error if id is not provided", "should render error if id is not provided", "should throw error if username param missing"]}

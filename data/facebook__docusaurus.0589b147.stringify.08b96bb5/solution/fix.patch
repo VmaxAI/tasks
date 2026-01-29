@@ -1,0 +1,18 @@
+diff --git a/packages/docusaurus-logger/src/index.ts b/packages/docusaurus-logger/src/index.ts
+index 23a6220e38..c68d0592ad 100644
+--- a/packages/docusaurus-logger/src/index.ts
++++ b/packages/docusaurus-logger/src/index.ts
+@@ -57,12 +57,9 @@ function interpolate(
+ }
+ 
+ function stringify(msg: unknown): string {
+-  if (String(msg) === '[object Object]') {
++  if (msg instanceof Object && !(msg instanceof Array)) {
+     return JSON.stringify(msg);
+   }
+-  if (msg instanceof Date) {
+-    return msg.toUTCString();
+-  }
+   return String(msg);
+ }
+ 

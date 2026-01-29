@@ -1,1 +1,0 @@
-{"instance_id": "tj__commander.js.395cf714.commandDescription.d5afd1ab", "repo": "tj__commander.js.395cf714", "FAIL_TO_PASS": ["when no custom setup and call formatHelp direct then effective helpWidth is fallback 80", "when enough width then wrap", "when not enough width then no wrap", "when make minWidthToWrap small then wrap"]}

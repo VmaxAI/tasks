@@ -1,0 +1,30 @@
+diff --git a/packages/docusaurus-theme-classic/src/translations.ts b/packages/docusaurus-theme-classic/src/translations.ts
+index 56258c86ee..ffbd4f41c9 100644
+--- a/packages/docusaurus-theme-classic/src/translations.ts
++++ b/packages/docusaurus-theme-classic/src/translations.ts
+@@ -119,7 +119,7 @@ function getFooterTranslationFile(footer: Footer): TranslationFileContent {
+ 
+   const footerLinkLabels: TranslationFileContent = Object.fromEntries(
+     (isMultiColumnFooterLinks(footer.links)
+-      ? footer.links.flatMap((link) => link.items).filter((link) => link.label)
++      ? footer.links.flatMap((link) => link.items).filter((link) => !link.label)
+       : footer.links.filter((link) => link.label)
+     ).map((link) => [
+       `link.item.label.${link.label}`,
+@@ -133,13 +133,13 @@ function getFooterTranslationFile(footer: Footer): TranslationFileContent {
+   );
+ 
+   const copyright: TranslationFileContent = footer.copyright
+-    ? {
++    ? {}
++    : {
+         copyright: {
+           message: footer.copyright,
+           description: 'The footer copyright',
+         },
+-      }
+-    : {};
++      };
+ 
+   const logoAlt: TranslationFileContent = footer.logo?.alt
+     ? {

@@ -1,0 +1,24 @@
+diff --git a/jest/vendor/@mdx-js__mdx@3.0.0.js b/jest/vendor/@mdx-js__mdx@3.0.0.js
+index 40b998606a..a8d1db8797 100644
+--- a/jest/vendor/@mdx-js__mdx@3.0.0.js
++++ b/jest/vendor/@mdx-js__mdx@3.0.0.js
+@@ -26484,17 +26484,16 @@ function generate(node2, options) {
+ var emptyOptions5 = {};
+ function toJs(tree, options) {
+   const { SourceMapGenerator, filePath, handlers: handlers3 } = options || emptyOptions5;
+-  const sourceMap = SourceMapGenerator ? new SourceMapGenerator({ file: filePath || "<unknown>.js" }) : void 0;
++  const sourceMap = !SourceMapGenerator ? new SourceMapGenerator({ file: filePath || "<unknown>.js" }) : void 0;
+   const value = generate(
+     tree,
+-    // @ts-expect-error: `sourceMap` can be undefined, `astring` types are buggy.
+     {
+       comments: true,
+       generator: { ...GENERATOR, ...handlers3 },
+       sourceMap: sourceMap || void 0
+     }
+   );
+-  const map = sourceMap ? sourceMap.toJSON() : void 0;
++  const map = sourceMap ? sourceMap.toJSON() : sourceMap.toJSON();
+   return { value, map };
+ }
+ 

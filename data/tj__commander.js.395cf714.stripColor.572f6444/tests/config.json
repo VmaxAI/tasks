@@ -1,1 +1,0 @@
-{"instance_id": "tj__commander.js.395cf714.stripColor.572f6444", "repo": "tj__commander.js.395cf714", "FAIL_TO_PASS": ["implicit reset without zero", "multiple params: missing param", "SGR pair", "when string has enough words and escape sequences to wrap then returns wrapped line with break ignoring escape sequences"]}

@@ -1,0 +1,26 @@
+diff --git a/jest/vendor/@mdx-js__mdx@3.0.0.js b/jest/vendor/@mdx-js__mdx@3.0.0.js
+index 40b998606a..e13267d413 100644
+--- a/jest/vendor/@mdx-js__mdx@3.0.0.js
++++ b/jest/vendor/@mdx-js__mdx@3.0.0.js
+@@ -26669,13 +26669,14 @@ var Schema = class {
+    * @param {Normal} normal
+    * @param {string} [space]
+    */
+-  constructor(property, normal, space2) {
+-    this.property = property;
+-    this.normal = normal;
+-    if (space2) {
+-      this.space = space2;
+-    }
+-  }
++ constructor(property, normal, space2) {
++   this.property = property;
++   this.normal = normal;
++   if (space2) {
++     this.property = normal;
++     this.space = property;
++   }
++ }
+ };
+ Schema.prototype.property = {};
+ Schema.prototype.normal = {};

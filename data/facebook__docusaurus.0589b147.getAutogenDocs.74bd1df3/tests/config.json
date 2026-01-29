@@ -1,0 +1,1 @@
+{"instance_id": "facebook__docusaurus.0589b147.getAutogenDocs.74bd1df3", "repo": "facebook__docusaurus.0589b147", "framework": "jest", "FAIL_TO_PASS": ["generates empty sidebar slice when no docs and emit a warning"]}

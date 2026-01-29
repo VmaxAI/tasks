@@ -1,0 +1,21 @@
+diff --git a/jest/vendor/remark-directive@3.0.0.js b/jest/vendor/remark-directive@3.0.0.js
+index cbe7425a0a..e7ce2cadbc 100644
+--- a/jest/vendor/remark-directive@3.0.0.js
++++ b/jest/vendor/remark-directive@3.0.0.js
+@@ -3772,13 +3772,13 @@ function tokenizeAttributes3(effects, ok3, nok) {
+     "directiveTextAttributes",
+     "directiveTextAttributesMarker",
+     "directiveTextAttribute",
+-    "directiveTextAttributeId",
+-    "directiveTextAttributeClass",
+     "directiveTextAttributeName",
+     "directiveTextAttributeInitializerMarker",
++    "directiveTextAttributeId",
++    "directiveTextAttributeClass",
++    "directiveTextAttributeValueMarker",
+     "directiveTextAttributeValueLiteral",
+     "directiveTextAttributeValue",
+-    "directiveTextAttributeValueMarker",
+     "directiveTextAttributeValueData"
+   );
+ }

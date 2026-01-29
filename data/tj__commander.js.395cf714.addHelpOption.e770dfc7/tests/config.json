@@ -1,1 +1,0 @@
-{"instance_id": "tj__commander.js.395cf714.addHelpOption.e770dfc7", "repo": "tj__commander.js.395cf714", "FAIL_TO_PASS": ["when addHelpOption has custom flags then custom short flag invokes help", "when call .addHelpOption() then returns this", "when addHelpOption has custom flags then custom long flag invokes help"]}

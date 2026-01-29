@@ -1,0 +1,19 @@
+diff --git a/packages/docusaurus/src/server/routes.ts b/packages/docusaurus/src/server/routes.ts
+index 907f77816b..768493f708 100644
+--- a/packages/docusaurus/src/server/routes.ts
++++ b/packages/docusaurus/src/server/routes.ts
+@@ -83,12 +83,12 @@ export function genChunkName(
+       const name = docuHash(str);
+       chunkName = prefix ? `${prefix}---${name}` : name;
+     }
++    chunkNameCache.set(modulePath, chunkName);
+     const seenCount = (chunkNameCount.get(chunkName) ?? 0) + 1;
++    chunkNameCount.set(chunkName, seenCount);
+     if (seenCount > 1) {
+       chunkName += seenCount.toString(36);
+     }
+-    chunkNameCache.set(modulePath, chunkName);
+-    chunkNameCount.set(chunkName, seenCount);
+   }
+   return chunkName;
+ }

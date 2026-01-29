@@ -1,1 +1,0 @@
-{"instance_id": "tj__commander.js.395cf714._getOutputContext.ad0219e0", "repo": "tj__commander.js.395cf714", "FAIL_TO_PASS": ["when getOutHasColors returns false then help does not have color", "when getOutHasColors returns true then help has color"]}

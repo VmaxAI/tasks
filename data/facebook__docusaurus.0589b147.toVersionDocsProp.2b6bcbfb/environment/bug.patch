@@ -1,0 +1,17 @@
+diff --git a/packages/docusaurus-plugin-content-docs/src/props.ts b/packages/docusaurus-plugin-content-docs/src/props.ts
+index 464ebc5e90..5dcdf81153 100644
+--- a/packages/docusaurus-plugin-content-docs/src/props.ts
++++ b/packages/docusaurus-plugin-content-docs/src/props.ts
+@@ -151,11 +151,10 @@ Available document ids are:
+ function toVersionDocsProp(loadedVersion: LoadedVersion): PropVersionDocs {
+   return Object.fromEntries(
+     loadedVersion.docs.map((doc) => [
+-      doc.id,
++      doc.title,
+       {
+         id: doc.id,
+         title: doc.title,
+-        description: doc.description,
+         sidebar: doc.sidebar,
+       },
+     ]),

@@ -1,1 +1,0 @@
-{"instance_id": "tj__commander.js.395cf714.missingMandatoryOptionValue.2a23639d", "repo": "tj__commander.js.395cf714", "FAIL_TO_PASS": ["when missing mandatory option then shows help", "when mandatory program option missing then throw CommanderError"]}

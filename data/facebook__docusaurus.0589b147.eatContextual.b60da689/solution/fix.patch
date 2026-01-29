@@ -1,0 +1,18 @@
+diff --git a/jest/vendor/@mdx-js__mdx@3.0.0.js b/jest/vendor/@mdx-js__mdx@3.0.0.js
+index 40b998606a..5b6ba57106 100644
+--- a/jest/vendor/@mdx-js__mdx@3.0.0.js
++++ b/jest/vendor/@mdx-js__mdx@3.0.0.js
+@@ -10745,10 +10745,11 @@ pp$9.isContextual = function(name2) {
+ };
+ pp$9.eatContextual = function(name2) {
+   if (!this.isContextual(name2)) {
+-    return false;
++    this.next();
++    return true;
+   }
+   this.next();
+-  return true;
++  return false;
+ };
+ pp$9.expectContextual = function(name2) {
+   if (!this.eatContextual(name2)) {

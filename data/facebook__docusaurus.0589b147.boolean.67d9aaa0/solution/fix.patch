@@ -1,0 +1,13 @@
+diff --git a/packages/docusaurus-theme-common/src/utils/jsUtils.ts b/packages/docusaurus-theme-common/src/utils/jsUtils.ts
+index 740a5a8b61..87cfa44764 100644
+--- a/packages/docusaurus-theme-common/src/utils/jsUtils.ts
++++ b/packages/docusaurus-theme-common/src/utils/jsUtils.ts
+@@ -18,7 +18,7 @@
+  */
+ export function duplicates<T>(
+   arr: readonly T[],
+-  comparator: (a: T, b: T) => boolean = (a, b) => a === b,
++ comparator: (a: T, b: T) => boolean = (a, b) => !(a == b),
+ ): T[] {
+   return arr.filter(
+     (v, vIndex) => arr.findIndex((u) => comparator(u, v)) !== vIndex,

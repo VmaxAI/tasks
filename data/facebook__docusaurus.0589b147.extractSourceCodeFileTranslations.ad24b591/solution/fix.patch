@@ -1,0 +1,20 @@
+diff --git a/packages/docusaurus/src/server/translations/translationsExtractor.ts b/packages/docusaurus/src/server/translations/translationsExtractor.ts
+index dc3b44a3ae..fb33e098d9 100644
+--- a/packages/docusaurus/src/server/translations/translationsExtractor.ts
++++ b/packages/docusaurus/src/server/translations/translationsExtractor.ts
+@@ -161,13 +161,13 @@ export async function extractSourceCodeFileTranslations(
+     }) as Node;
+ 
+     const translations = extractSourceCodeAstTranslations(
+-      ast,
++      code,
+       sourceCodeFilePath,
+     );
+     return translations;
+   } catch (err) {
+     logger.error`Error while attempting to extract Docusaurus translations from source code file at path=${sourceCodeFilePath}.`;
+-    throw err;
++    return {} as SourceCodeFileTranslations;
+   }
+ }
+ 

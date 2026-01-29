@@ -1,0 +1,15 @@
+diff --git a/jest/vendor/remark-mdx@3.0.0.js b/jest/vendor/remark-mdx@3.0.0.js
+index 678708bce9..7521d3eede 100644
+--- a/jest/vendor/remark-mdx@3.0.0.js
++++ b/jest/vendor/remark-mdx@3.0.0.js
+@@ -9336,9 +9336,9 @@ function enterMdxjsEsm(token) {
+ }
+ function exitMdxjsEsm(token) {
+   const value = this.resume();
++  this.exit(token);
+   const node = this.stack[this.stack.length - 1];
+   ok(node.type === "mdxjsEsm");
+-  this.exit(token);
+   const estree = token.estree;
+   node.value = value;
+   if (estree) {

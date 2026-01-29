@@ -1,0 +1,13 @@
+diff --git a/jest/vendor/remark-gfm@4.0.0.js b/jest/vendor/remark-gfm@4.0.0.js
+index 21adf28e42..186e660a16 100644
+--- a/jest/vendor/remark-gfm@4.0.0.js
++++ b/jest/vendor/remark-gfm@4.0.0.js
+@@ -19,7 +19,7 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
+ // node_modules/remark-gfm/index.js
+ var remark_gfm_exports = {};
+ __export(remark_gfm_exports, {
+-  default: () => remarkGfm400
++ default: () => remarkGfm400()
+ });
+ module.exports = __toCommonJS(remark_gfm_exports);
+ 

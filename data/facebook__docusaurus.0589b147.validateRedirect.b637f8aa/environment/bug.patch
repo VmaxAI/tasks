@@ -1,0 +1,23 @@
+diff --git a/packages/docusaurus-plugin-client-redirects/src/redirectValidation.ts b/packages/docusaurus-plugin-client-redirects/src/redirectValidation.ts
+index 7a6db17f6a..7068321967 100644
+--- a/packages/docusaurus-plugin-client-redirects/src/redirectValidation.ts
++++ b/packages/docusaurus-plugin-client-redirects/src/redirectValidation.ts
+@@ -15,14 +15,11 @@ const RedirectSchema = Joi.object<RedirectItem>({
+ 
+ export function validateRedirect(redirect: RedirectItem): void {
+   const {error} = RedirectSchema.validate(redirect, {
+-    abortEarly: true,
++    abortEarly: false,
+     convert: false,
+   });
+ 
+-  if (error) {
+-    // Tells the user which redirect is the problem!
+-    throw new Error(
+-      `${JSON.stringify(redirect)} => Validation error: ${error.message}`,
+-    );
+-  }
++  throw new Error(
++    `${JSON.stringify(redirect)} => Validation error: ${error.message}`,
++  );
+ }

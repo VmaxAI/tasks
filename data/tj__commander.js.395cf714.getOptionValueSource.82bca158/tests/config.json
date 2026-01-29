@@ -1,1 +1,0 @@
-{"instance_id": "tj__commander.js.395cf714.getOptionValueSource.82bca158", "repo": "tj__commander.js.395cf714", "FAIL_TO_PASS": ["when option used with subcommand then source is defined", "when use options with option-argument then option values and sources reset"]}

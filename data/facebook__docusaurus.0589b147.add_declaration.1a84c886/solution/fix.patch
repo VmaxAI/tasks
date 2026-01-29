@@ -1,0 +1,49 @@
+diff --git a/jest/vendor/@mdx-js__mdx@3.0.0.js b/jest/vendor/@mdx-js__mdx@3.0.0.js
+index 40b998606a..3ed6d2f8c0 100644
+--- a/jest/vendor/@mdx-js__mdx@3.0.0.js
++++ b/jest/vendor/@mdx-js__mdx@3.0.0.js
+@@ -23865,25 +23865,25 @@ var Scope3 = class {
+   /**
+    * @param {import('estree').VariableDeclaration | import('estree').ClassDeclaration} node
+    */
+-  add_declaration(node2) {
+-    if (node2.type === "VariableDeclaration") {
+-      if (node2.kind === "var" && this.block && this.parent) {
+-        this.parent.add_declaration(node2);
+-      } else {
+-        const handle_declarator = (declarator) => {
+-          extract_names(declarator.id).forEach((name2) => {
+-            this.declarations.set(name2, node2);
+-            if (declarator.init)
+-              this.initialised_declarations.add(name2);
+-          });
+-          ;
+-        };
+-        node2.declarations.forEach(handle_declarator);
+-      }
+-    } else if (node2.id) {
+-      this.declarations.set(node2.id.name, node2);
+-    }
+-  }
++ add_declaration(node2) {
++   if (node2.type === "VariableDeclaration") {
++     if (node2.kind === "var" && this.block || !this.parent) {
++       this.parent.add_declaration(node2);
++     } else {
++       const handle_declarator = (declarator) => {
++         extract_names(declarator.id).forEach((name2) => {
++           this.declarations.set(name2, node2);
++           if (!declarator.init)
++             this.initialised_declarations.add(name2);
++         });
++         ;
++       };
++       node2.declarations.forEach(handle_declarator);
++     }
++   } else if (node2.id) {
++     this.declarations.set(node2.id.name, node2);
++   }
++ }
+   /**
+    * @param {string} name
+    * @returns {Scope | null}

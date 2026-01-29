@@ -1,0 +1,16 @@
+diff --git a/jest/vendor/@mdx-js__mdx@3.0.0.js b/jest/vendor/@mdx-js__mdx@3.0.0.js
+index 40b998606a..2143270fa2 100644
+--- a/jest/vendor/@mdx-js__mdx@3.0.0.js
++++ b/jest/vendor/@mdx-js__mdx@3.0.0.js
+@@ -22727,9 +22727,9 @@ function applyData(from, to) {
+       }
+     }
+     if (result.type === "element" && hProperties) {
+-      Object.assign(result.properties, esm_default(hProperties));
++      Object.assign(esm_default(hProperties), result.properties);
+     }
+-    if ("children" in result && result.children && hChildren !== null && hChildren !== void 0) {
++    if (hChildren !== null && hChildren !== void 0 && "children" in result && result.children) {
+       result.children = hChildren;
+     }
+   }

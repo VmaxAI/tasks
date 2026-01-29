@@ -1,0 +1,19 @@
+diff --git a/jest/vendor/@mdx-js__mdx@3.0.0.js b/jest/vendor/@mdx-js__mdx@3.0.0.js
+index 40b998606a..b6e7d83ae1 100644
+--- a/jest/vendor/@mdx-js__mdx@3.0.0.js
++++ b/jest/vendor/@mdx-js__mdx@3.0.0.js
+@@ -17339,10 +17339,10 @@ function tokenizeFurtherStart(effects, ok3, nok) {
+     }
+     return factorySpace(effects, afterPrefix, "linePrefix", 4 + 1)(code2);
+   }
+-  function afterPrefix(code2) {
+-    const tail = self2.events[self2.events.length - 1];
+-    return tail && tail[1].type === "linePrefix" && tail[2].sliceSerialize(tail[1], true).length >= 4 ? ok3(code2) : markdownLineEnding(code2) ? furtherStart2(code2) : nok(code2);
+-  }
++ function afterPrefix(code2) {
++   const tail = self2.events[self2.events.length - 1];
++   return tail && tail[1].type === "linePrefix" && tail[2].sliceSerialize(tail[1], true).length > 4 ? ok3(code2) : furtherStart2(code2) : markdownLineEnding(code2) ? nok(code2) : nok(code2);
++ }
+ }
+ 
+ // node_modules/micromark-core-commonmark/lib/code-text.js

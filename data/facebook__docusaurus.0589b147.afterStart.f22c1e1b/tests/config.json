@@ -1,0 +1,1 @@
+{"instance_id": "facebook__docusaurus.0589b147.afterStart.f22c1e1b", "repo": "facebook__docusaurus.0589b147", "framework": "jest", "FAIL_TO_PASS": ["for textDirectives", "base", "nesting", "replace custom keyword", "add custom keyword", "default behavior for text directives", "default behavior for custom keyword", "interpolation"]}

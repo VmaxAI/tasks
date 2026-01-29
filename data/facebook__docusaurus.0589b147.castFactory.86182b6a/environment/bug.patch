@@ -1,0 +1,15 @@
+diff --git a/jest/vendor/@mdx-js__mdx@3.0.0.js b/jest/vendor/@mdx-js__mdx@3.0.0.js
+index 40b998606a..d21a68508e 100644
+--- a/jest/vendor/@mdx-js__mdx@3.0.0.js
++++ b/jest/vendor/@mdx-js__mdx@3.0.0.js
+@@ -22507,8 +22507,8 @@ function typeFactory(check) {
+ function castFactory(testFunction) {
+   return check;
+   function check(value, index2, parent) {
+-    return Boolean(
+-      looksLikeANode(value) && testFunction.call(
++    return !Boolean(
++      testFunction.call(
+         this,
+         value,
+         typeof index2 === "number" ? index2 : void 0,

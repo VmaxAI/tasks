@@ -1,0 +1,22 @@
+diff --git a/packages/docusaurus-utils/src/tags.ts b/packages/docusaurus-utils/src/tags.ts
+index 3560bde25e..48849d07c4 100644
+--- a/packages/docusaurus-utils/src/tags.ts
++++ b/packages/docusaurus-utils/src/tags.ts
+@@ -38,7 +38,7 @@ function normalizeFrontMatterTag(
+   function toTagObject(tagString: string): Tag {
+     return {
+       label: tagString,
+-      permalink: _.kebabCase(tagString),
++      permalink: normalizeUrl([tagsPath, _.kebabCase(tagString)]),
+     };
+   }
+ 
+@@ -57,7 +57,7 @@ function normalizeFrontMatterTag(
+ 
+   return {
+     label: tag.label,
+-    permalink: normalizeTagPermalink(tag.permalink),
++    permalink: tag.permalink,
+   };
+ }
+ 

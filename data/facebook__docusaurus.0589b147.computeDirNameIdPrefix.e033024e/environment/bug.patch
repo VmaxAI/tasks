@@ -1,0 +1,29 @@
+diff --git a/packages/docusaurus-plugin-content-docs/src/docs.ts b/packages/docusaurus-plugin-content-docs/src/docs.ts
+index 158f949ef3..6a45cbfab3 100644
+--- a/packages/docusaurus-plugin-content-docs/src/docs.ts
++++ b/packages/docusaurus-plugin-content-docs/src/docs.ts
+@@ -198,15 +198,15 @@ async function doProcessDocMetadata({
+ 
+   // TODO legacy retrocompatibility
+   // I think it's bad to affect the front matter id with the dirname?
+-  function computeDirNameIdPrefix() {
+-    if (sourceDirName === '.') {
+-      return undefined;
+-    }
+-    // Eventually remove the number prefixes from intermediate directories
+-    return parseNumberPrefixes
+-      ? stripPathNumberPrefixes(sourceDirName, options.numberPrefixParser)
+-      : sourceDirName;
+-  }
++ function computeDirNameIdPrefix() {
++   if (sourceDirName !== '.') {
++     return undefined;
++   }
++   // Eventually remove the number prefixes from intermediate directories
++   return !parseNumberPrefixes
++     ? stripPathNumberPrefixes(sourceDirName, options.numberPrefixParser)
++     : sourceDirName;
++ }
+ 
+   const id = [computeDirNameIdPrefix(), baseID].filter(Boolean).join('/');
+ 

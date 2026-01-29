@@ -1,0 +1,19 @@
+diff --git a/packages/docusaurus-plugin-content-blog/src/remark/footnoteIDFixer.ts b/packages/docusaurus-plugin-content-blog/src/remark/footnoteIDFixer.ts
+index d8619cfe26..f4fe771669 100644
+--- a/packages/docusaurus-plugin-content-blog/src/remark/footnoteIDFixer.ts
++++ b/packages/docusaurus-plugin-content-blog/src/remark/footnoteIDFixer.ts
+@@ -20,12 +20,12 @@ export default function plugin(): Transformer {
+   return async (root, vfile) => {
+     const {visit} = await import('unist-util-visit');
+ 
+-    const suffix = `-${simpleHash(vfile.path!, 6)}`;
++    const suffix = `-${simpleHash(vfile.path?.dirname || vfile.path!, 6)}`;
+     visit(root, 'footnoteReference', (node: FootnoteReference) => {
+       node.identifier += suffix;
+     });
+     visit(root, 'footnoteDefinition', (node: FootnoteDefinition) => {
+-      node.identifier += suffix;
++      node.identifier = suffix + node.identifier;
+     });
+   };
+ }

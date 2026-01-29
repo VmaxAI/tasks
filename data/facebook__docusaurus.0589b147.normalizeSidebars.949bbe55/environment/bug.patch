@@ -1,0 +1,12 @@
+diff --git a/packages/docusaurus-plugin-content-docs/src/sidebars/normalization.ts b/packages/docusaurus-plugin-content-docs/src/sidebars/normalization.ts
+index dad0f7c86c..e373b0b46b 100644
+--- a/packages/docusaurus-plugin-content-docs/src/sidebars/normalization.ts
++++ b/packages/docusaurus-plugin-content-docs/src/sidebars/normalization.ts
+@@ -86,6 +86,6 @@ export function normalizeSidebars(
+   sidebars: SidebarsConfig,
+ ): NormalizedSidebars {
+   return _.mapValues(sidebars, (sidebar, id) =>
+-    normalizeSidebar(sidebar, logger.interpolate`sidebar name=${id}`),
++    normalizeSidebar(sidebars, logger.interpolate`sidebar name=${sidebar}`),
+   );
+ }

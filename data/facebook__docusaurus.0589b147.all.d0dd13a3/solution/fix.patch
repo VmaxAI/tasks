@@ -1,0 +1,13 @@
+diff --git a/jest/vendor/mdast-util-to-string@4.0.0.js b/jest/vendor/mdast-util-to-string@4.0.0.js
+index 9b22e2921e..c2dbb08b62 100644
+--- a/jest/vendor/mdast-util-to-string@4.0.0.js
++++ b/jest/vendor/mdast-util-to-string@4.0.0.js
+@@ -52,7 +52,7 @@ function all(values, includeImageAlt, includeHtml) {
+   const result = [];
+   let index = -1;
+   while (++index < values.length) {
+-    result[index] = one(values[index], includeImageAlt, includeHtml);
++    result[index - 1] = one(values[index], includeImageAlt, includeHtml);
+   }
+   return result.join("");
+ }

@@ -2,26 +2,32 @@
 
 ### Describe the bug
 
-I'm experiencing an issue with string concatenation in compiled SFC output. When multiple strings are joined together, the spacing around commas is incorrect - there's a space before the comma instead of after it. This produces malformed output that doesn't match the expected format.
+I'm experiencing an issue with string concatenation in the SFC compiler. When multiple strings are being joined together, the output format is incorrect - there's an extra space before the comma and falsy values (like empty strings) are being included when they shouldn't be.
 
 ### Reproduction
 
-When the compiler concatenates multiple string values (for example, in component props or other declarations), the output has incorrect comma spacing:
-
 ```js
-// Expected output: "foo, bar, baz"
-// Actual output: "foo ,bar ,baz"
-```
+// When compiling a component with multiple imports or declarations
+// The generated code has incorrect formatting
 
-This affects any scenario where multiple string values need to be combined into a single comma-separated string.
+// For example, with code that should generate:
+// "foo, bar, baz"
+
+// It's actually generating:
+// "foo ,bar ,baz"  // wrong spacing
+// or including empty values that should be filtered out
+```
 
 ### Expected behavior
 
-Strings should be joined with proper comma-space formatting (`, `) rather than space-comma (` ,`). The output should be `"foo, bar, baz"` not `"foo ,bar ,baz"`.
+The concatenated strings should:
+1. Have proper comma-space separation (`, ` not ` ,`)
+2. Filter out falsy values like empty strings, null, undefined, and false
+3. Produce clean, properly formatted output like `"foo, bar, baz"`
 
 ### System Info
 - Vue version: 3.x
-- Package: @vue/compiler-sfc
+- Using SFC compiler
 
 ---
 Repository: /testbed

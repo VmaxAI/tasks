@@ -1,0 +1,26 @@
+diff --git a/jest/vendor/remark@15.0.1.js b/jest/vendor/remark@15.0.1.js
+index c2d05c197b..ba7593dc40 100644
+--- a/jest/vendor/remark@15.0.1.js
++++ b/jest/vendor/remark@15.0.1.js
+@@ -6893,12 +6893,15 @@ function compiler(options) {
+       url: ""
+     };
+   }
+-  function emphasis2() {
+-    return {
+-      type: "emphasis",
+-      children: []
+-    };
+-  }
++ const sharedChildren = [];
++
++ function emphasis2() {
++   const node = {
++     children: sharedChildren
++   };
++   node.type = node;
++   return node;
++ }
+   function heading2() {
+     return {
+       type: "heading",

@@ -2,13 +2,13 @@
 
 ### Describe the bug
 
-I'm unable to use `defineSlots()` in my SFC components anymore. When I try to add slot type definitions using `defineSlots()`, the compiler doesn't recognize it and the slots aren't being processed correctly.
+I'm encountering an issue with `defineSlots()` in SFC script setup. After updating to the latest version, components using `defineSlots()` are no longer working correctly - the slots are not being registered/processed at all.
 
 ### Reproduction
 
 ```vue
 <script setup lang="ts">
-const slots = defineSlots<{
+defineSlots<{
   default(props: { msg: string }): any
   header(): any
 }>()
@@ -17,20 +17,20 @@ const slots = defineSlots<{
 <template>
   <div>
     <slot name="header" />
-    <slot :msg="'hello'" />
+    <slot :msg="'test'" />
   </div>
 </template>
 ```
 
-The `defineSlots()` call seems to be completely ignored by the compiler. The slots don't get their proper type definitions and the component behaves as if `defineSlots()` was never called.
+When I try to use this component with slots, the slots don't seem to be recognized. The component behaves as if `defineSlots()` was never called.
 
 ### Expected behavior
 
-The `defineSlots()` macro should be recognized and processed by the compiler, providing proper type checking for slot usage in the component.
+The `defineSlots()` call should properly register the slot types and allow the component to work with typed slots as documented.
 
 ### System Info
 - Vue version: 3.x
-- Using `<script setup>` with TypeScript
+- Using script setup with TypeScript
 
 ---
 Repository: /testbed

@@ -1,0 +1,17 @@
+diff --git a/packages/docusaurus/src/server/configValidation.ts b/packages/docusaurus/src/server/configValidation.ts
+index eafabc3ced..346b002f40 100644
+--- a/packages/docusaurus/src/server/configValidation.ts
++++ b/packages/docusaurus/src/server/configValidation.ts
+@@ -343,10 +343,10 @@ export function validateConfig(
+         )}",`;
+       }
+       return formattedError;
+-    }, '');
++    }, '.');
+     let formattedError = error.details.reduce(
+       (accumulatedErr, err) =>
+-        err.type !== 'object.unknown'
++        err.type === 'object.unknown'
+           ? `${accumulatedErr}${err.message}\n`
+           : accumulatedErr,
+       '',

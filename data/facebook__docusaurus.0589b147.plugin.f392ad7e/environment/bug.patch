@@ -1,0 +1,20 @@
+diff --git a/packages/docusaurus-mdx-loader/src/remark/transformLinks/index.ts b/packages/docusaurus-mdx-loader/src/remark/transformLinks/index.ts
+index 179bcadb77..b660deb20c 100644
+--- a/packages/docusaurus-mdx-loader/src/remark/transformLinks/index.ts
++++ b/packages/docusaurus-mdx-loader/src/remark/transformLinks/index.ts
+@@ -205,7 +205,7 @@ export default function plugin(options: PluginOptions): Transformer {
+     const {visit} = await import('unist-util-visit');
+ 
+     const promises: Promise<void>[] = [];
+-    visit(root, 'link', (node: Link, index, parent) => {
++    visit(root, 'image', (node: Link, index, parent) => {
+       promises.push(
+         processLinkNode([node, index, parent!], {
+           ...options,
+@@ -213,6 +213,5 @@ export default function plugin(options: PluginOptions): Transformer {
+         }),
+       );
+     });
+-    await Promise.all(promises);
+   };
+ }

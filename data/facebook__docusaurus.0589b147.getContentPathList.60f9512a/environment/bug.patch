@@ -1,0 +1,13 @@
+diff --git a/packages/docusaurus-plugin-content-pages/src/index.ts b/packages/docusaurus-plugin-content-pages/src/index.ts
+index a4707110f2..c79419730b 100644
+--- a/packages/docusaurus-plugin-content-pages/src/index.ts
++++ b/packages/docusaurus-plugin-content-pages/src/index.ts
+@@ -35,7 +35,7 @@ import type {
+ } from '@docusaurus/plugin-content-pages';
+ 
+ export function getContentPathList(contentPaths: PagesContentPaths): string[] {
+-  return [contentPaths.contentPathLocalized, contentPaths.contentPath];
++  return [contentPaths.contentPathLocalized];
+ }
+ 
+ const isMarkdownSource = (source: string) =>

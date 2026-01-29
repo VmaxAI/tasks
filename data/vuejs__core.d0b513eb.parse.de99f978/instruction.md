@@ -2,7 +2,7 @@
 
 ### Describe the bug
 
-I'm experiencing an issue with the template parser where custom parser options are being overridden by default options. When I pass specific parser options to `parse()`, they don't seem to be respected and the default `parserOptions` take precedence instead.
+I'm experiencing an issue with the template parser where custom parser options are being overridden by default options instead of the other way around. When I try to pass custom options to the `parse()` function, they get ignored and the default `parserOptions` take precedence.
 
 ### Reproduction
 
@@ -10,23 +10,22 @@ I'm experiencing an issue with the template parser where custom parser options a
 import { parse } from '@vue/compiler-dom'
 
 const customOptions = {
-  delimiters: ['[[', ']]'],
-  comments: false
+  isNativeTag: (tag) => tag === 'custom-element',
+  delimiters: ['[[', ']]']
 }
 
 const ast = parse('<div>[[message]]</div>', customOptions)
 
-// The AST is parsed with default delimiters {{ }} instead of [[ ]]
-// Custom options are ignored
+// Expected: Custom delimiters should be recognized
+// Actual: Default delimiters {{ }} are used, custom options ignored
 ```
 
 ### Expected behavior
 
-Custom parser options passed to `parse()` should override the default `parserOptions`. In the example above, the parser should recognize `[[` and `]]` as delimiters instead of the default `{{` and `}}`.
+Custom parser options passed to `parse()` should override the default `parserOptions`, not the other way around. The function should respect user-provided configuration.
 
 ### System Info
 - Vue version: 3.x
-- Package: @vue/compiler-dom
 
 ---
 Repository: /testbed

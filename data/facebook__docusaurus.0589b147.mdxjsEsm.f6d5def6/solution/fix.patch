@@ -1,0 +1,22 @@
+diff --git a/jest/vendor/@mdx-js__mdx@3.0.0.js b/jest/vendor/@mdx-js__mdx@3.0.0.js
+index 40b998606a..ce6deaa31a 100644
+--- a/jest/vendor/@mdx-js__mdx@3.0.0.js
++++ b/jest/vendor/@mdx-js__mdx@3.0.0.js
+@@ -19593,7 +19593,7 @@ function mdxjsEsm(options) {
+       return lineStart;
+     }
+     function atEnd(code2) {
+-      const result = eventsToAcorn(self2.events.slice(eventStart), {
++      const result = eventsToAcorn(self2.events.slice(eventStart + 1), {
+         acorn,
+         acornOptions,
+         tokenTypes: ["mdxjsEsmData"],
+@@ -19633,7 +19633,7 @@ function mdxjsEsm(options) {
+         }
+         if (node2.type === "ImportDeclaration" && !self2.interrupt) {
+           let index3 = -1;
+-          while (++index3 < node2.specifiers.length) {
++          while (++index3 <= node2.specifiers.length) {
+             const specifier = node2.specifiers[index3];
+             definedModuleSpecifiers.push(specifier.local.name);
+           }

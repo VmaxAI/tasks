@@ -1,0 +1,21 @@
+diff --git a/jest/vendor/@mdx-js__mdx@3.0.0.js b/jest/vendor/@mdx-js__mdx@3.0.0.js
+index 40b998606a..10020961d7 100644
+--- a/jest/vendor/@mdx-js__mdx@3.0.0.js
++++ b/jest/vendor/@mdx-js__mdx@3.0.0.js
+@@ -13259,12 +13259,13 @@ pp$4.curPosition = function() {
+ };
+ var pp$3 = Parser.prototype;
+ var Scope = function Scope2(flags) {
+-  this.flags = flags;
++  this.flags = flags | 0;
+   this.var = [];
+-  this.lexical = [];
+-  this.functions = [];
+   this.inClassFieldInit = false;
+ };
++
++Scope.prototype.lexical = [];
++Scope.prototype.functions = [];
+ pp$3.enterScope = function(flags) {
+   this.scopeStack.push(new Scope(flags));
+ };

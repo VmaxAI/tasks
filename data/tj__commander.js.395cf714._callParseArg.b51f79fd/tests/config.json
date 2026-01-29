@@ -1,1 +1,0 @@
-{"instance_id": "tj__commander.js.395cf714._callParseArg.b51f79fd", "repo": "tj__commander.js.395cf714", "FAIL_TO_PASS": ["when custom processing for argument throws plain error then not CommanderError caught", "when custom processing throws custom error then throw custom error"]}

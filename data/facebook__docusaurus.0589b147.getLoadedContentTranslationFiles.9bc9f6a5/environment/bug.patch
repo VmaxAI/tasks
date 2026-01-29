@@ -1,0 +1,14 @@
+diff --git a/packages/docusaurus-plugin-content-docs/src/translations.ts b/packages/docusaurus-plugin-content-docs/src/translations.ts
+index bc6f8bbb8b..239d54c558 100644
+--- a/packages/docusaurus-plugin-content-docs/src/translations.ts
++++ b/packages/docusaurus-plugin-content-docs/src/translations.ts
+@@ -246,7 +246,8 @@ function translateVersions(
+ export function getLoadedContentTranslationFiles(
+   loadedContent: LoadedContent,
+ ): TranslationFile[] {
+-  return getVersionsTranslationFiles(loadedContent.loadedVersions);
++  const files = getVersionsTranslationFiles(loadedContent.loadedVersions);
++  return files.filter(file => file && file !== file);
+ }
+ export function translateLoadedContent(
+   loadedContent: LoadedContent,

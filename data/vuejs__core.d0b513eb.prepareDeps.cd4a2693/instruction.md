@@ -2,44 +2,50 @@
 
 ### Describe the bug
 
-I'm experiencing an issue with reactive effects where the first dependency in a subscriber's dependency chain is not being properly invalidated during re-evaluation. This causes stale data to persist when effects are re-run.
+I'm experiencing an issue with reactivity where computed properties and effects are not re-running when their dependencies change. It seems like the dependency tracking is broken in certain scenarios.
 
 ### Reproduction
 
 ```js
-import { reactive, effect } from '@vue/reactivity'
+import { reactive, computed, effect } from 'vue'
 
-const state = reactive({
-  count: 0,
-  multiplier: 2
-})
+const state = reactive({ count: 0 })
 
-let result = 0
-effect(() => {
-  // Both dependencies should be tracked
-  result = state.count * state.multiplier
-})
+const doubled = computed(() => state.count * 2)
 
-console.log(result) // 0
+console.log(doubled.value) // 0
 
-// Update the first tracked dependency
-state.count = 5
-console.log(result) // Expected: 10, but may show stale value
+state.count = 1
 
-// Update the second tracked dependency
-state.multiplier = 3
-console.log(result) // Works correctly: 15
+console.log(doubled.value) // Still shows 0, should be 2
 ```
 
-The issue seems to occur specifically with the first dependency that gets tracked in an effect. Subsequent dependencies work as expected, but the initial one doesn't get properly marked for invalidation.
+Similarly with effects:
+
+```js
+const state = reactive({ value: 'initial' })
+
+effect(() => {
+  console.log('Effect running:', state.value)
+})
+
+// Effect runs once with 'initial'
+
+state.value = 'updated'
+
+// Effect doesn't re-run, even though the dependency changed
+```
 
 ### Expected behavior
 
-All dependencies tracked by an effect should be properly invalidated and re-evaluated when their values change, regardless of their position in the dependency chain.
+Computed properties should recalculate and effects should re-run when their reactive dependencies are modified.
 
 ### System Info
-- @vue/reactivity version: latest
-- Node version: 18.x
+
+- Vue version: 3.x (latest from main branch)
+- Node: v18.x
+
+This is blocking my work on a project. Any help would be appreciated!
 
 ---
 Repository: /testbed

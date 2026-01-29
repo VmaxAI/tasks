@@ -1,1 +1,0 @@
-{"instance_id": "tj__commander.js.395cf714.baseWrite.8841f74c", "repo": "tj__commander.js.395cf714", "FAIL_TO_PASS": ["when default writeErr then help error on stderr", "when showHelpAfterError() and error and then shows full help", "when program has subcommands and specify only unknown option then display help", "when custom writeErr then help error on custom output"]}

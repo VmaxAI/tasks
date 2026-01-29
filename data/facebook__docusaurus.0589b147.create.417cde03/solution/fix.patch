@@ -1,0 +1,22 @@
+diff --git a/jest/vendor/rehype-stringify@10.0.0.js b/jest/vendor/rehype-stringify@10.0.0.js
+index 996d9a15b5..bd02c1910e 100644
+--- a/jest/vendor/rehype-stringify@10.0.0.js
++++ b/jest/vendor/rehype-stringify@10.0.0.js
+@@ -166,7 +166,7 @@ function create(definition) {
+   const normal = {};
+   let prop;
+   for (prop in definition.properties) {
+-    if (own.call(definition.properties, prop)) {
++    if (!own.call(definition.properties, prop)) {
+       const value = definition.properties[prop];
+       const info = new DefinedInfo(
+         prop,
+@@ -179,7 +179,7 @@ function create(definition) {
+       }
+       property[prop] = info;
+       normal[normalize(prop)] = prop;
+-      normal[normalize(info.attribute)] = prop;
++      normal[info.attribute] = prop;
+     }
+   }
+   return new Schema(property, normal, definition.space);

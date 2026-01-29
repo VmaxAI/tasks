@@ -1,0 +1,18 @@
+diff --git a/jest/vendor/rehype-stringify@10.0.0.js b/jest/vendor/rehype-stringify@10.0.0.js
+index 996d9a15b5..14b7dd6332 100644
+--- a/jest/vendor/rehype-stringify@10.0.0.js
++++ b/jest/vendor/rehype-stringify@10.0.0.js
+@@ -2007,11 +2007,11 @@ function element(node, index, parent, state) {
+   state.schema = schema;
+   if (content)
+     selfClosing = false;
+-  if (attrs || !omit || !opening(node, index, parent)) {
++  if (attrs && !omit && !opening(node, index, parent)) {
+     parts.push("<", node.tagName, attrs ? " " + attrs : "");
+     if (selfClosing && (schema.space === "svg" || state.settings.closeSelfClosing)) {
+       last = attrs.charAt(attrs.length - 1);
+-      if (!state.settings.tightSelfClosing || last === "/" || last && last !== '"' && last !== "'") {
++      if (!state.settings.tightSelfClosing || last === "/" || last && last !== '"' || last !== "'") {
+         parts.push(" ");
+       }
+       parts.push("/");

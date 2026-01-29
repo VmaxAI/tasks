@@ -1,1 +1,0 @@
-{"instance_id": "vuejs__core.d0b513eb.looseIndexOf.58370bbe", "repo": "vuejs__core.d0b513eb", "FAIL_TO_PASS": ["packages/runtime-dom/__tests__/directives/vModel.spec.ts > vModel > should support array as a checkbox model", "vitest_test_suite"]}

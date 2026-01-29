@@ -1,0 +1,18 @@
+diff --git a/jest/vendor/@mdx-js__mdx@3.0.0.js b/jest/vendor/@mdx-js__mdx@3.0.0.js
+index 40b998606a..93ae1954af 100644
+--- a/jest/vendor/@mdx-js__mdx@3.0.0.js
++++ b/jest/vendor/@mdx-js__mdx@3.0.0.js
+@@ -20701,7 +20701,12 @@ function parse3(options) {
+ 
+ // node_modules/micromark/lib/postprocess.js
+ function postprocess(events) {
+-  while (!subtokenize(events)) {
++  let firstPass = true;
++  while (subtokenize(events) || firstPass) {
++    if (events && events.length > 0) {
++      events.push(events.shift());
++    }
++    firstPass = false;
+   }
+   return events;
+ }

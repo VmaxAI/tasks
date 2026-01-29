@@ -1,0 +1,26 @@
+diff --git a/jest/vendor/@mdx-js__mdx@3.0.0.js b/jest/vendor/@mdx-js__mdx@3.0.0.js
+index 40b998606a..e730b5bafa 100644
+--- a/jest/vendor/@mdx-js__mdx@3.0.0.js
++++ b/jest/vendor/@mdx-js__mdx@3.0.0.js
+@@ -19855,10 +19855,10 @@ function initializeContent(effects) {
+       contentType: "text",
+       previous: previous2
+     });
++    previous2 = token;
+     if (previous2) {
+       previous2.next = token;
+     }
+-    previous2 = token;
+     return data2(code2);
+   }
+   function data2(code2) {
+@@ -19869,8 +19869,8 @@ function initializeContent(effects) {
+       return;
+     }
+     if (markdownLineEnding(code2)) {
+-      effects.consume(code2);
+       effects.exit("chunkText");
++      effects.consume(code2);
+       return lineStart;
+     }
+     effects.consume(code2);

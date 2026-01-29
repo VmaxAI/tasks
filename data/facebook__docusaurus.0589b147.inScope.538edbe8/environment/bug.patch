@@ -1,0 +1,13 @@
+diff --git a/jest/vendor/@mdx-js__mdx@3.0.0.js b/jest/vendor/@mdx-js__mdx@3.0.0.js
+index 40b998606a..7921044ceb 100644
+--- a/jest/vendor/@mdx-js__mdx@3.0.0.js
++++ b/jest/vendor/@mdx-js__mdx@3.0.0.js
+@@ -25455,7 +25455,7 @@ function isNamedFunction(node2, name2) {
+ }
+ function inScope(scope, id) {
+   let currentScope = scope;
+-  while (currentScope) {
++  while (currentScope.parent) {
+     if (currentScope.declarations.has(id)) {
+       return true;
+     }

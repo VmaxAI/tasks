@@ -1,1 +1,0 @@
-{"instance_id": "vuejs__core.d0b513eb.if.4148dfe9", "repo": "vuejs__core.d0b513eb", "FAIL_TO_PASS": ["packages/compiler-sfc/__tests__/compileScript/resolveType.spec.ts > resolveType > utility type: Omit", "vitest_test_suite"]}

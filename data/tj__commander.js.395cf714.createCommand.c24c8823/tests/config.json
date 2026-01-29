@@ -1,1 +1,0 @@
-{"instance_id": "tj__commander.js.395cf714.createCommand.c24c8823", "repo": "tj__commander.js.395cf714", "FAIL_TO_PASS": ["when cli of 1234567 and commands [\"1234567890\"] then suggest 1234567890 because 3 edits away is similar for long string", "when copyInheritedSettings then copies custom help command"]}

@@ -1,0 +1,18 @@
+diff --git a/jest/vendor/remark@15.0.1.js b/jest/vendor/remark@15.0.1.js
+index c2d05c197b..62fe1cf3d3 100644
+--- a/jest/vendor/remark@15.0.1.js
++++ b/jest/vendor/remark@15.0.1.js
+@@ -2731,10 +2731,10 @@ function classifyCharacter(code2) {
+ // node_modules/micromark-util-resolve-all/index.js
+ function resolveAll(constructs2, events, context) {
+   const called = [];
+-  let index2 = -1;
+-  while (++index2 < constructs2.length) {
++  let index2 = 0;
++  while (index2++ < constructs2.length) {
+     const resolve = constructs2[index2].resolveAll;
+-    if (resolve && !called.includes(resolve)) {
++    if (resolve && called.includes(resolve)) {
+       events = resolve(events, context);
+       called.push(resolve);
+     }

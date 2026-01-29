@@ -1,1 +1,0 @@
-{"instance_id": "tj__commander.js.395cf714.optionMissingArgument.323ecf99", "repo": "tj__commander.js.395cf714", "FAIL_TO_PASS": ["when specify option without required value then throw CommanderError", "when missing option-argument then shows help"]}

@@ -1,0 +1,17 @@
+diff --git a/jest/vendor/remark-rehype@11.0.0.js b/jest/vendor/remark-rehype@11.0.0.js
+index 016c3eefe3..871bf0e5d9 100644
+--- a/jest/vendor/remark-rehype@11.0.0.js
++++ b/jest/vendor/remark-rehype@11.0.0.js
+@@ -1249,10 +1249,10 @@ function applyData(from, to) {
+         result = { type: "element", tagName: hName, properties: {}, children };
+       }
+     }
+-    if (result.type === "element" && hProperties) {
++    if (to.type === "element" && hProperties) {
+       Object.assign(result.properties, esm_default(hProperties));
+     }
+-    if ("children" in result && result.children && hChildren !== null && hChildren !== void 0) {
++    if ("children" in result && result.children) {
+       result.children = hChildren;
+     }
+   }

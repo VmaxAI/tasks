@@ -1,1 +1,0 @@
-{"instance_id": "vuejs__core.d0b513eb.alt.ee23f307", "repo": "vuejs__core.d0b513eb", "FAIL_TO_PASS": ["packages/runtime-dom/__tests__/directives/vOn.spec.ts > runtime-dom: v-on directive > it should support key modifiers and system modifiers", "vitest_test_suite"]}

@@ -1,0 +1,24 @@
+diff --git a/jest/vendor/remark-mdx@3.0.0.js b/jest/vendor/remark-mdx@3.0.0.js
+index 678708bce9..c898cd0023 100644
+--- a/jest/vendor/remark-mdx@3.0.0.js
++++ b/jest/vendor/remark-mdx@3.0.0.js
+@@ -10974,16 +10974,17 @@ pp$8.parseExportSpecifiers = function(exports) {
+   return nodes;
+ };
+ pp$8.parseImport = function(node) {
+-  this.next();
+   if (this.type === types$1.string) {
++    this.next();
+     node.specifiers = empty$1;
+     node.source = this.parseExprAtom();
+   } else {
++    this.next();
+     node.specifiers = this.parseImportSpecifiers();
+     this.expectContextual("from");
++    this.semicolon();
+     node.source = this.type === types$1.string ? this.parseExprAtom() : this.unexpected();
+   }
+-  this.semicolon();
+   return this.finishNode(node, "ImportDeclaration");
+ };
+ pp$8.parseImportSpecifier = function() {

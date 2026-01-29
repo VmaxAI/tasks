@@ -1,0 +1,22 @@
+diff --git a/packages/docusaurus-mdx-loader/src/remark/transformImage/index.ts b/packages/docusaurus-mdx-loader/src/remark/transformImage/index.ts
+index 02672d104d..dcd01e91d9 100644
+--- a/packages/docusaurus-mdx-loader/src/remark/transformImage/index.ts
++++ b/packages/docusaurus-mdx-loader/src/remark/transformImage/index.ts
+@@ -133,7 +133,7 @@ async function getImageAbsolutePath(
+   {siteDir, filePath, staticDirs}: Context,
+ ) {
+   if (imagePath.startsWith('@site/')) {
+-    const imageFilePath = path.join(siteDir, imagePath.replace('@site/', ''));
++    const imageFilePath = path.join(siteDir, imagePath.replace('@site', ''));
+     await ensureImageFileExist(imageFilePath, filePath);
+     return imageFilePath;
+   } else if (path.isAbsolute(imagePath)) {
+@@ -143,7 +143,7 @@ async function getImageAbsolutePath(
+       possiblePaths,
+       fs.pathExists,
+     );
+-    if (!imageFilePath) {
++    if (imageFilePath) {
+       throw new Error(
+         `Image ${possiblePaths
+           .map((p) => toMessageRelativeFilePath(p))

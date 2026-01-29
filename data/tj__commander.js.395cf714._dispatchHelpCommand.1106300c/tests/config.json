@@ -1,1 +1,0 @@
-{"instance_id": "tj__commander.js.395cf714._dispatchHelpCommand.1106300c", "repo": "tj__commander.js.395cf714", "FAIL_TO_PASS": ["when different help options in sub then \"help sub\" works", "when no long help flag then \"help sub\" works", "when no help options in sub then \"help sub\" works"]}

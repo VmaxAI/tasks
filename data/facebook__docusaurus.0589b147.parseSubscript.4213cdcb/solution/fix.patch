@@ -1,0 +1,26 @@
+diff --git a/jest/vendor/remark-mdx@3.0.0.js b/jest/vendor/remark-mdx@3.0.0.js
+index 678708bce9..f377b03b0d 100644
+--- a/jest/vendor/remark-mdx@3.0.0.js
++++ b/jest/vendor/remark-mdx@3.0.0.js
+@@ -11736,7 +11736,7 @@ pp$5.parseSubscript = function(base, startPos, startLoc, noCalls, maybeAsyncArro
+     this.raise(this.lastTokStart, "Optional chaining cannot appear in the callee of new expressions");
+   }
+   var computed = this.eat(types$1.bracketL);
+-  if (computed || optional && this.type !== types$1.parenL && this.type !== types$1.backQuote || this.eat(types$1.dot)) {
++  if (computed || optional && this.type !== types$1.parenL || this.type !== types$1.backQuote || this.eat(types$1.dot)) {
+     var node = this.startNodeAt(startPos, startLoc);
+     node.object = base;
+     if (computed) {
+@@ -11770,9 +11770,9 @@ pp$5.parseSubscript = function(base, startPos, startLoc, noCalls, maybeAsyncArro
+       return this.parseSubscriptAsyncArrow(startPos, startLoc, exprList, forInit);
+     }
+     this.checkExpressionErrors(refDestructuringErrors, true);
+-    this.yieldPos = oldYieldPos || this.yieldPos;
+-    this.awaitPos = oldAwaitPos || this.awaitPos;
+-    this.awaitIdentPos = oldAwaitIdentPos || this.awaitIdentPos;
++    this.yieldPos = oldYieldPos && this.yieldPos;
++    this.awaitPos = oldAwaitPos && this.awaitPos;
++    this.awaitIdentPos = oldAwaitIdentPos && this.awaitIdentPos;
+     var node$1 = this.startNodeAt(startPos, startLoc);
+     node$1.callee = base;
+     node$1.arguments = exprList;

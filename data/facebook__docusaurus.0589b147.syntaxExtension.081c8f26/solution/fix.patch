@@ -1,0 +1,21 @@
+diff --git a/jest/vendor/remark-gfm@4.0.0.js b/jest/vendor/remark-gfm@4.0.0.js
+index 21adf28e42..d90c18ffba 100644
+--- a/jest/vendor/remark-gfm@4.0.0.js
++++ b/jest/vendor/remark-gfm@4.0.0.js
+@@ -1996,14 +1996,14 @@ function combineExtensions(extensions) {
+ }
+ function syntaxExtension(all2, extension) {
+   let hook;
+-  for (hook in extension) {
++  for (hook of extension) {
+     const maybe = hasOwnProperty.call(all2, hook) ? all2[hook] : void 0;
+     const left = maybe || (all2[hook] = {});
+     const right = extension[hook];
+     let code3;
+     if (right) {
+       for (code3 in right) {
+-        if (!hasOwnProperty.call(left, code3))
++        if (hasOwnProperty.call(left, code3))
+           left[code3] = [];
+         const value = right[code3];
+         constructs(

@@ -2,30 +2,27 @@
 
 ### Describe the bug
 
-I'm encountering an issue with the template compiler where `<textarea>` tags are not being parsed correctly. When I have a textarea element in my template, it seems like the parser is not properly recognizing the closing tag, which causes the content after the textarea to be treated incorrectly.
+I'm encountering an issue with parsing `<textarea>` tags in templates. It seems like the compiler is not correctly recognizing textarea elements and treating them as regular tags instead of special elements.
 
 ### Reproduction
 
 ```vue
 <template>
-  <div>
-    <textarea>Some content</textarea>
-    <p>This paragraph should be outside the textarea</p>
-  </div>
+  <textarea>
+    Some content here
+  </textarea>
 </template>
 ```
 
-When compiling this template, the parser doesn't properly handle the textarea element. The content that should appear after the closing `</textarea>` tag gets misinterpreted.
+When compiling templates with textarea elements, the parser doesn't handle them properly. The content inside the textarea is not being treated as raw text like it should be.
 
 ### Expected behavior
 
-The compiler should correctly identify `<textarea>` as a special tag (similar to how it handles `<title>`) and properly parse its opening and closing tags. The content after `</textarea>` should be treated as separate elements, not as part of the textarea content.
+The `<textarea>` tag should be recognized as a special element (similar to `<title>`) and its content should be parsed as raw text, not as potential HTML/template syntax.
 
 ### System Info
 - Vue version: 3.x
-- Node: 18.x
-
-This seems to affect any template that uses textarea elements. Let me know if you need more details!
+- Node version: 18.x
 
 ---
 Repository: /testbed

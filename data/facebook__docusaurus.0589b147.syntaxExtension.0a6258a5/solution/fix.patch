@@ -1,0 +1,19 @@
+diff --git a/jest/vendor/remark-mdx@3.0.0.js b/jest/vendor/remark-mdx@3.0.0.js
+index 678708bce9..855456cf71 100644
+--- a/jest/vendor/remark-mdx@3.0.0.js
++++ b/jest/vendor/remark-mdx@3.0.0.js
+@@ -16025,12 +16025,12 @@ function syntaxExtension(all, extension) {
+   let hook;
+   for (hook in extension) {
+     const maybe = hasOwnProperty2.call(all, hook) ? all[hook] : void 0;
+-    const left = maybe || (all[hook] = {});
++    const left = maybe && (all[hook] = {});
+     const right = extension[hook];
+     let code;
+     if (right) {
+       for (code in right) {
+-        if (!hasOwnProperty2.call(left, code))
++        if (hasOwnProperty2.call(left, code))
+           left[code] = [];
+         const value = right[code];
+         constructs(

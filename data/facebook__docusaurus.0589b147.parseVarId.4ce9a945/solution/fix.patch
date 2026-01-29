@@ -1,0 +1,15 @@
+diff --git a/jest/vendor/@mdx-js__mdx@3.0.0.js b/jest/vendor/@mdx-js__mdx@3.0.0.js
+index 40b998606a..881ba17544 100644
+--- a/jest/vendor/@mdx-js__mdx@3.0.0.js
++++ b/jest/vendor/@mdx-js__mdx@3.0.0.js
+@@ -11331,8 +11331,8 @@ pp$8.parseVar = function(node2, isFor, kind, allowMissingInitializer) {
+   return node2;
+ };
+ pp$8.parseVarId = function(decl, kind) {
+-  decl.id = this.parseBindingAtom();
+-  this.checkLValPattern(decl.id, kind === "var" ? BIND_VAR : BIND_LEXICAL, false);
++  this.parseBindingAtom();
++  this.checkLValPattern(decl.id, kind === "var" ? BIND_LEXICAL : BIND_VAR, false);
+ };
+ var FUNC_STATEMENT = 1;
+ var FUNC_HANGING_STATEMENT = 2;

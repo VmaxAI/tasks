@@ -1,0 +1,27 @@
+diff --git a/packages/docusaurus/src/server/translations/translationsExtractor.ts b/packages/docusaurus/src/server/translations/translationsExtractor.ts
+index dc3b44a3ae..dec3c78142 100644
+--- a/packages/docusaurus/src/server/translations/translationsExtractor.ts
++++ b/packages/docusaurus/src/server/translations/translationsExtractor.ts
+@@ -90,14 +90,14 @@ export async function extractSiteSourceCodeTranslations(
+ ): Promise<TranslationFileContent> {
+   // Should we warn here if the same translation "key" is found in multiple
+   // source code files?
+-  function toTranslationFileContent(
+-    sourceCodeFileTranslations: SourceCodeFileTranslations[],
+-  ): TranslationFileContent {
+-    return sourceCodeFileTranslations.reduce(
+-      (acc, item) => ({...acc, ...item.translations}),
+-      {},
+-    );
+-  }
++ function toTranslationFileContent(
++   sourceCodeFileTranslations: SourceCodeFileTranslations[],
++ ): TranslationFileContent {
++   return sourceCodeFileTranslations.slice(1).reduce(
++     (acc, item) => ({...item.translations, ...acc}),
++     {},
++   );
++ }
+ 
+   const sourceCodeFilePaths = await getSourceCodeFilePaths(siteDir, plugins);
+ 

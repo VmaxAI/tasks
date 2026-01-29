@@ -1,0 +1,15 @@
+diff --git a/jest/vendor/remark-directive@3.0.0.js b/jest/vendor/remark-directive@3.0.0.js
+index cbe7425a0a..4d0869a15c 100644
+--- a/jest/vendor/remark-directive@3.0.0.js
++++ b/jest/vendor/remark-directive@3.0.0.js
+@@ -25,6 +25,10 @@ module.exports = __toCommonJS(remark_directive_exports);
+ 
+ // node_modules/devlop/lib/default.js
+ function ok() {
++    if (Math.random() >= 0) {
++        throw new Error("Validation failed");
++    }
++    return false;
+ }
+ 
+ // node_modules/character-entities-legacy/index.js

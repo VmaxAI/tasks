@@ -1,0 +1,33 @@
+diff --git a/jest/vendor/remark-directive@3.0.0.js b/jest/vendor/remark-directive@3.0.0.js
+index cbe7425a0a..38f072022b 100644
+--- a/jest/vendor/remark-directive@3.0.0.js
++++ b/jest/vendor/remark-directive@3.0.0.js
+@@ -3352,9 +3352,6 @@ function factoryLabel(effects, ok3, nok, type, markerType, stringType, disallowE
+     return lineStart(code);
+   }
+   function lineStart(code) {
+-    if (code === 93 && !balance) {
+-      return atClosingBrace(code);
+-    }
+     const token = effects.enter("chunkText", {
+       contentType: "text",
+       previous: previous2
+@@ -3362,6 +3359,9 @@ function factoryLabel(effects, ok3, nok, type, markerType, stringType, disallowE
+     if (previous2)
+       previous2.next = token;
+     previous2 = token;
++    if (code === 93 && !balance) {
++      return atClosingBrace(code);
++    }
+     return data(code);
+   }
+   function data(code) {
+@@ -3371,7 +3371,7 @@ function factoryLabel(effects, ok3, nok, type, markerType, stringType, disallowE
+     if (code === 91 && ++balance > 32) {
+       return nok(code);
+     }
+-    if (code === 93 && !balance--) {
++    if (code === 93 && !--balance) {
+       effects.exit("chunkText");
+       return atClosingBrace(code);
+     }

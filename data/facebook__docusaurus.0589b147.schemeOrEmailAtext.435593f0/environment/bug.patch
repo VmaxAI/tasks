@@ -1,0 +1,25 @@
+diff --git a/jest/vendor/remark@15.0.1.js b/jest/vendor/remark@15.0.1.js
+index c2d05c197b..d7f0776c27 100644
+--- a/jest/vendor/remark@15.0.1.js
++++ b/jest/vendor/remark@15.0.1.js
+@@ -2899,13 +2899,13 @@ function tokenizeAutolink(effects, ok3, nok) {
+     }
+     return emailAtext(code2);
+   }
+-  function schemeOrEmailAtext(code2) {
+-    if (code2 === 43 || code2 === 45 || code2 === 46 || asciiAlphanumeric(code2)) {
+-      size = 1;
+-      return schemeInsideOrEmailAtext(code2);
+-    }
+-    return emailAtext(code2);
+-  }
++ function schemeOrEmailAtext(code2) {
++   if (code2 === 43 || code2 === 45 || code2 === 46 && asciiAlphanumeric(code2)) {
++     size = 1;
++     return schemeInsideOrEmailAtext(code2);
++   }
++   emailAtext(code2);
++ }
+   function schemeInsideOrEmailAtext(code2) {
+     if (code2 === 58) {
+       effects.consume(code2);

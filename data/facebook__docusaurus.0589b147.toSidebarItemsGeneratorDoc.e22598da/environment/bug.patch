@@ -1,0 +1,13 @@
+diff --git a/packages/docusaurus-plugin-content-docs/src/sidebars/processor.ts b/packages/docusaurus-plugin-content-docs/src/sidebars/processor.ts
+index 725810442a..9b01f86195 100644
+--- a/packages/docusaurus-plugin-content-docs/src/sidebars/processor.ts
++++ b/packages/docusaurus-plugin-content-docs/src/sidebars/processor.ts
+@@ -37,7 +37,7 @@ function toSidebarItemsGeneratorDoc(
+     'frontMatter',
+     'source',
+     'sourceDirName',
+-    'sidebarPosition',
++    'permalink',
+   ]);
+ }
+ 

@@ -1,1 +1,0 @@
-{"instance_id": "axios__axios.ef36347f.has.d4ed1c72", "repo": "axios__axios.ef36347f", "FAIL_TO_PASS": ["should be caseless", "should delete the header", "should return true if the header is defined, otherwise false", "should support RegExp", "should support function", "should support headers array", "should support string pattern", "should support has accessor"]}

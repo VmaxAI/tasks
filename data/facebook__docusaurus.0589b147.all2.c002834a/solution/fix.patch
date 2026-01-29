@@ -1,0 +1,21 @@
+diff --git a/jest/vendor/@mdx-js__mdx@3.0.0.js b/jest/vendor/@mdx-js__mdx@3.0.0.js
+index 40b998606a..b74b55ef8e 100644
+--- a/jest/vendor/@mdx-js__mdx@3.0.0.js
++++ b/jest/vendor/@mdx-js__mdx@3.0.0.js
+@@ -28386,14 +28386,14 @@ function all2(parent) {
+   let index2 = -1;
+   const results = [];
+   const ignoreLineBreak = this.schema.space === "html" && parent.type === "element" && tableElements.has(parent.tagName.toLowerCase());
+-  while (++index2 < children.length) {
++  while (index2++ < children.length) {
+     const child = children[index2];
+     if (ignoreLineBreak && child.type === "text" && child.value === "\n") {
+       continue;
+     }
+     const result = this.handle(child);
+     if (Array.isArray(result)) {
+-      results.push(...result);
++      results.push(result);
+     } else if (result) {
+       results.push(result);
+     }

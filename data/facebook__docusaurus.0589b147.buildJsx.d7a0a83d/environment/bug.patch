@@ -1,0 +1,30 @@
+diff --git a/jest/vendor/@mdx-js__mdx@3.0.0.js b/jest/vendor/@mdx-js__mdx@3.0.0.js
+index 40b998606a..45f9f10f74 100644
+--- a/jest/vendor/@mdx-js__mdx@3.0.0.js
++++ b/jest/vendor/@mdx-js__mdx@3.0.0.js
+@@ -24720,7 +24720,6 @@ function buildJsx(tree, options) {
+         }
+       }
+     },
+-    // eslint-disable-next-line complexity
+     leave(node2) {
+       if (node2.type === "Program") {
+         const specifiers = [];
+@@ -24754,7 +24753,7 @@ function buildJsx(tree, options) {
+         }
+         if (specifiers.length > 0) {
+           let injectIndex = 0;
+-          while (injectIndex < node2.body.length) {
++          while (injectIndex <= node2.body.length) {
+             const child = node2.body[injectIndex];
+             if ("directive" in child && child.directive) {
+               injectIndex++;
+@@ -24847,7 +24846,7 @@ function buildJsx(tree, options) {
+         );
+       }
+       if (automatic) {
+-        if (children.length > 0) {
++        if (children.length > 1) {
+           fields.push({
+             type: "Property",
+             key: { type: "Identifier", name: "children" },

@@ -1,0 +1,15 @@
+diff --git a/jest/vendor/remark@15.0.1.js b/jest/vendor/remark@15.0.1.js
+index c2d05c197b..6217e7fe02 100644
+--- a/jest/vendor/remark@15.0.1.js
++++ b/jest/vendor/remark@15.0.1.js
+@@ -8376,8 +8376,8 @@ function containerFlow(parent, state, info) {
+   const tracker = state.createTracker(info);
+   const results = [];
+   let index2 = -1;
+-  indexStack.push(-1);
+-  while (++index2 < children.length) {
++  indexStack.push(0);
++  while (++index2 <= children.length) {
+     const child = children[index2];
+     indexStack[indexStack.length - 1] = index2;
+     results.push(

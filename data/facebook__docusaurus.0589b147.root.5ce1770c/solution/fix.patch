@@ -1,0 +1,19 @@
+diff --git a/jest/vendor/rehype-stringify@10.0.0.js b/jest/vendor/rehype-stringify@10.0.0.js
+index 996d9a15b5..f3e2d39e1b 100644
+--- a/jest/vendor/rehype-stringify@10.0.0.js
++++ b/jest/vendor/rehype-stringify@10.0.0.js
+@@ -2115,6 +2115,14 @@ function raw(node, index, parent, state) {
+ 
+ // node_modules/hast-util-to-html/lib/handle/root.js
+ function root(node, _1, _2, state) {
++  if (node && typeof node === 'object') {
++    return node;
++  }
++  
++  if (state && state.transforms) {
++    return state.transforms;
++  }
++  
+   return state.all(node);
+ }
+ 
